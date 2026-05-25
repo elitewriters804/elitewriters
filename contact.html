@@ -466,20 +466,25 @@
           <!-- Payment Methods -->
           <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
             <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem;">Payment Methods</p>
-            <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
-              <!-- PayPal QR Code -->
-              <div style="text-align: center;">
-                <img src="images/paypal-qr.png" alt="Scan to pay via PayPal" style="width: 120px; height: 120px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
-                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem;">Scan to pay via PayPal</p>
-              </div>
-              <!-- Payment Info -->
-              <div style="flex: 1;">
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-                  <span class="badge badge-green" style="padding: 0.5rem 1rem; font-size: 0.88rem;">💳 PayPal</span>
-                  <span class="badge badge-gray" style="padding: 0.5rem 1rem; font-size: 0.88rem;">💸 Wise — Coming Soon</span>
-                </div>
-                <p style="font-size: 0.82rem; color: var(--text-muted);">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
-              </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+              <button onclick="document.getElementById('paypal-modal').style.display='flex'" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1.25rem;background:#0070ba;color:white;border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;font-weight:600;cursor:pointer;" onmouseover="this.style.background='#005ea6'" onmouseout="this.style.background='#0070ba'">
+                💳 Pay with PayPal
+              </button>
+              <span class="badge badge-gray" style="padding: 0.65rem 1rem; font-size: 0.88rem;">💸 Wise — Coming Soon</span>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.</p>
+          </div>
+
+          <!-- PayPal Modal -->
+          <div id="paypal-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
+            <div style="background:white;border-radius:var(--radius-lg);padding:2rem;max-width:340px;width:100%;text-align:center;position:relative;box-shadow:var(--shadow-lg);">
+              <button onclick="document.getElementById('paypal-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--text-muted);line-height:1;">×</button>
+              <div style="background:#0070ba;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">💳</div>
+              <h3 style="margin-bottom:0.4rem;font-size:1.1rem;">Pay via PayPal</h3>
+              <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.25rem;">Scan the QR code below with your phone camera or PayPal app to complete your payment.</p>
+              <img src="images/paypal-qr.png" alt="PayPal QR Code" style="width:180px;height:180px;border-radius:var(--radius-md);border:1px solid var(--border);margin:0 auto 1rem;display:block;">
+              <p style="font-size:0.78rem;color:var(--text-muted);">🔒 Secure payment via PayPal · ELITEWRITERS</p>
+              <button onclick="document.getElementById('paypal-modal').style.display='none'" style="margin-top:1rem;width:100%;padding:0.75rem;background:var(--primary);color:white;border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;font-weight:500;cursor:pointer;">Close</button>
             </div>
           </div>
         </div>
@@ -597,13 +602,29 @@
 
           </form>
 
-          <!-- Success Message (hidden by default) -->
-          <div id="form-success" style="display:none; text-align:center; padding: 3rem 2rem; background: rgba(10,61,46,0.04); border: 1px solid rgba(10,61,46,0.15); border-radius: var(--radius-lg); margin-top: 1rem;">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
-            <h3 style="margin-bottom: 0.75rem; color: var(--primary);">Request Received!</h3>
-            <p style="margin-bottom: 1.5rem;">Thank you for reaching out. We'll review your requirements and get back to you within the hour via WhatsApp or live chat.</p>
+          <!-- Success Message with Ticket -->
+          <div id="form-success" style="display:none; text-align:center; padding: 2.5rem 2rem; background: var(--white); border: 1px solid rgba(10,61,46,0.15); border-radius: var(--radius-lg); margin-top: 1rem; box-shadow: var(--shadow-md);">
+            <div style="font-size: 3rem; margin-bottom: 0.75rem;">🎉</div>
+            <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Order Request Received!</h3>
+            <p style="font-size:0.9rem; margin-bottom: 1.5rem; color: var(--text-secondary);">Your request has been submitted successfully. Please save your ticket number below — use it when following up with us.</p>
+
+            <!-- Ticket Number Box -->
+            <div style="background: var(--primary); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display:inline-block; min-width: 260px;">
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Your Order Ticket</p>
+              <p id="ticket-number" style="font-family: monospace; font-size: 1.6rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin: 0;">EW-0000-0000</p>
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem;">Screenshot or note this number</p>
+            </div>
+
+            <!-- What happens next -->
+            <div style="background: var(--off-white); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; text-align: left;">
+              <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">What happens next:</p>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.4rem;">✅ We'll review your requirements within 1 hour</p>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.4rem;">💬 We'll contact you via WhatsApp with your quote</p>
+              <p style="font-size: 0.88rem; color: var(--text-secondary);">🔖 Quote your ticket number when following up</p>
+            </div>
+
             <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">Chat on WhatsApp →</a>
+              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 Chat on WhatsApp →</a>
               <a href="index.html" class="btn btn-outline">Back to Home</a>
             </div>
           </div>
@@ -816,11 +837,21 @@
       }
     }
 
+    // Generate unique ticket number
+    function generateTicket() {
+      const year = new Date().getFullYear();
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      const seq = Math.floor(1000 + Math.random() * 9000);
+      return `EW-${year}-${rand}`;
+    }
+
     // Form Submit Handler
     function handleSubmit(e) {
       e.preventDefault();
       const form = document.getElementById('order-form');
       const success = document.getElementById('form-success');
+      const ticketNum = generateTicket();
+      document.getElementById('ticket-number').textContent = ticketNum;
 
       // Build WhatsApp message from form data
       const service = document.getElementById('f-service').value;
@@ -835,7 +866,7 @@
       const deadline = document.getElementById('f-deadline').value;
       const instructions = document.getElementById('f-instructions').value;
 
-      const msg = `*New Order Request — EliteWriters*\n\n` +
+      const msg = `*New Order Request — EliteWriters*\n*Ticket: ${ticketNum}*\n\n` +
         `📋 *Service:* ${service}\n` +
         `📌 *Topic:* ${topic}\n` +
         `📄 *Type:* ${type}\n` +
