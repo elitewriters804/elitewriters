@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EliteWriters Portfolio — Real writing samples across academic, blog, and business categories. See our quality before you order.">
+  <title>Portfolio | EliteWriters</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .sample-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .sample-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-5px);
+      border-color: rgba(10,61,46,0.2);
+    }
+    .sample-image {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+    .sample-body {
+      padding: 2rem;
+    }
+    .sample-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .skill-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-item:last-child { border-bottom: none; }
+    .skill-check { color: var(--primary-light); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .coming-soon-card {
+      background: var(--off-white);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem 2rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .coming-soon-card:hover {
+      border-color: rgba(10,61,46,0.3);
+      background: var(--light-gray);
+    }
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .subject-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .subject-item:hover {
+      border-color: rgba(10,61,46,0.2);
+      color: var(--primary);
+      background: rgba(10,61,46,0.03);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html" class="active">Portfolio</a></li>
+        <li><a href="testimonials.html">Reviews</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a><span>›</span><span>Portfolio</span>
+      </div>
+      <div class="eyebrow">Our Work</div>
+      <h1>Our Work Speaks for Itself</h1>
+      <p>Real samples across academic disciplines — showing the quality and precision EliteWriters delivers on every single order.</p>
+    </div>
+  </section>
+
+  <!-- Quality Promise Banner -->
+  <section class="section-sm" style="background: rgba(201,168,76,0.06); border-bottom: 1px solid var(--border-accent);">
+    <div class="container">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 3rem; flex-wrap: wrap; text-align: center;">
+        <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary);">
+          <span style="font-size: 1.2rem;">🎓</span>
+          <span><strong style="color: var(--primary);">PhD-Level</strong> Academic Expertise</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary);">
+          <span style="font-size: 1.2rem;">📐</span>
+          <span><strong style="color: var(--primary);">Proper Formatting</strong> APA · MLA · Chicago</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary);">
+          <span style="font-size: 1.2rem;">✅</span>
+          <span><strong style="color: var(--primary);">100% Original</strong> Every Sample. Every Order.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary);">
+          <span style="font-size: 1.2rem;">🔒</span>
+          <span><strong style="color: var(--primary);">Confidential</strong> Client Work Always Protected</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Samples -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Academic Writing Samples</div>
+        <h2>Real Papers. Real Quality.</h2>
+        <p>Every sample below demonstrates the depth of research, quality of writing, and formatting precision you can expect from EliteWriters on your order.</p>
+      </div>
+
+      <div class="grid-3">
+
+        <!-- Sample 1 -->
+        <div class="sample-card">
+          <img
+            src="images/sample1.png"
+            alt="Literary Analysis Essay — Maya Angelou Still I Rise"
+            class="sample-image"
+          >
+          <div class="sample-body">
+            <div class="sample-meta">
+              <span class="badge badge-green">English & Literature</span>
+              <span class="badge badge-gray">MLA Format</span>
+              <span class="badge badge-gray">Undergraduate+</span>
+            </div>
+            <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem;">The Rhetoric of Resilience: Maya Angelou's "Still I Rise" As an Aristotelian Means of Persuasion</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 1.25rem;">A sophisticated literary analysis examining how Maya Angelou's iconic poem employs Aristotle's three rhetorical appeals — ethos, pathos, and logos — to construct a powerful argument of resistance and dignity. Integrates peer-reviewed sources with proper MLA block quotations.</p>
+            <div style="border-top: 1px solid var(--border); padding-top: 1.25rem;">
+              <p style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;">What This Demonstrates</p>
+              <div class="skill-item"><span class="skill-check">✓</span> Advanced literary & rhetorical analysis</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Correct MLA citation & block quotation format</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Integration of outside academic sources</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Sophisticated argument development</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample 2 -->
+        <div class="sample-card">
+          <img
+            src="images/sample2.png"
+            alt="Business Essay — Importance of CSR in Businesses"
+            class="sample-image"
+          >
+          <div class="sample-body">
+            <div class="sample-meta">
+              <span class="badge badge-gold">Business & Management</span>
+              <span class="badge badge-gray">APA 7th Edition</span>
+              <span class="badge badge-gray">Undergraduate</span>
+            </div>
+            <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem;">The Importance of Corporate Social Responsibility in Businesses</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 1.25rem;">A well-structured academic essay analyzing the multifaceted benefits of CSR for modern businesses — covering brand reputation, talent retention, financial performance, risk mitigation, and environmental sustainability. Backed by peer-reviewed journal sources in APA format.</p>
+            <div style="border-top: 1px solid var(--border); padding-top: 1.25rem;">
+              <p style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;">What This Demonstrates</p>
+              <div class="skill-item"><span class="skill-check">✓</span> Business & management writing expertise</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Structured academic argumentation</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Proper APA 7th edition citations</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Research-backed analysis using peer-reviewed sources</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample 3 -->
+        <div class="sample-card">
+          <img
+            src="images/sample3.png"
+            alt="Healthcare Research Paper — Mental Health Status of the United States"
+            class="sample-image"
+          >
+          <div class="sample-body">
+            <div class="sample-meta">
+              <span class="badge badge-green">Healthcare & Public Health</span>
+              <span class="badge badge-gray">APA 7th Edition</span>
+              <span class="badge badge-gray">Graduate Level</span>
+            </div>
+            <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem;">The Mental Health Status of the United States</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 1.25rem;">A graduate-level research paper evaluating the current state of mental health in the US — examining prevalence trends, racial and socioeconomic disparities, systemic barriers to care, and evidence-based policy interventions. Reflects the PhD-level healthcare expertise EliteWriters brings to every assignment.</p>
+            <div style="border-top: 1px solid var(--border); padding-top: 1.25rem;">
+              <p style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;">What This Demonstrates</p>
+              <div class="skill-item"><span class="skill-check">✓</span> PhD-level healthcare & nursing writing</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Evidence-based research & data analysis</div>
+              <div class="skill-item"><span class="skill-check">✓</span> Public health policy understanding</div>
+              <div class="skill-item"><span class="skill-check">✓</span> CDC & peer-reviewed APA citations</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Coming Soon -->
+  <section class="section-sm section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">More Coming Soon</div>
+        <h2>Additional Samples</h2>
+        <p>We are adding more samples across all our service categories.</p>
+      </div>
+      <div class="grid-2" style="max-width: 800px; margin: 0 auto;">
+        <div class="coming-soon-card">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">✍️</div>
+          <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem;">Blog & Article Sample</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">A full blog post showcasing our SEO-friendly, engaging content writing style.</p>
+          <span class="badge badge-gray" style="margin-top: 1rem;">Coming Soon</span>
+        </div>
+        <div class="coming-soon-card">
+          <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+          <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem;">Business Content Sample</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">A sample of professional business copy, website content, or marketing material.</p>
+          <span class="badge badge-gray" style="margin-top: 1rem;">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects We Cover -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Coverage</div>
+        <h2>Subjects & Disciplines We Write In</h2>
+        <p>Don't see your subject? Contact us — chances are we cover it.</p>
+      </div>
+      <div class="subjects-grid">
+        <div class="subject-item"><span>📚</span> English & Literature</div>
+        <div class="subject-item"><span>🏥</span> Nursing & Healthcare</div>
+        <div class="subject-item"><span>💼</span> Business & Management</div>
+        <div class="subject-item"><span>🧠</span> Psychology & Social Work</div>
+        <div class="subject-item"><span>⚖️</span> Law & Ethics</div>
+        <div class="subject-item"><span>🌍</span> Political Science & Government</div>
+        <div class="subject-item"><span>📊</span> Research & Data Analysis</div>
+        <div class="subject-item"><span>🧬</span> Sciences & Biology</div>
+        <div class="subject-item"><span>📣</span> Marketing & Communications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality Promise -->
+  <section class="section-sm section-alt">
+    <div class="container">
+      <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <div class="eyebrow">Our Standard</div>
+        <h2 style="margin: 1rem 0 1.25rem;">Every Sample. Every Order. Same Standard.</h2>
+        <p style="font-size: 1.05rem; margin-bottom: 2rem;">What you see in our portfolio is not our best work saved for show — it is our everyday standard. Every order placed with EliteWriters receives the same level of research, precision, and care you see demonstrated here.</p>
+        <p style="font-weight: 500; color: var(--primary); font-size: 1.05rem; margin-bottom: 2rem;">Your work is in expert hands.</p>
+        <div class="btn-group" style="justify-content: center;">
+          <a href="contact.html" class="btn btn-primary btn-lg">Place Your Order Now →</a>
+          <a href="services.html" class="btn btn-outline btn-lg">View Pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container" style="position: relative; z-index: 2;">
+      <div class="eyebrow" style="background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.3); color: var(--accent);">Ready to Get Started?</div>
+      <h2 style="margin: 1rem 0;">Impressed by What You've Seen?</h2>
+      <p>This is the standard we bring to every order. Let's create something exceptional for you.</p>
+      <div class="btn-group" style="justify-content: center;">
+        <a href="contact.html" class="btn btn-accent btn-lg">Get Your Free Quote →</a>
+        <a href="testimonials.html" class="btn btn-outline-white btn-lg">Read Client Reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+          <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed on every order.</p>
+          <div class="footer-contact" style="margin-top: 1.25rem;">
+            <a href="mailto:elitewriters804@gmail.com">✉ elitewriters804@gmail.com</a>
+            <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Academic Writing</a></li>
+            <li><a href="services.html">Blog & Articles</a></li>
+            <li><a href="services.html">Business Content</a></li>
+            <li><a href="services.html">Editing & Proofreading</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="testimonials.html">Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Subjects</h4>
+          <ul>
+            <li><a href="services.html">Nursing & Healthcare</a></li>
+            <li><a href="services.html">Business & Management</a></li>
+            <li><a href="services.html">English & Literature</a></li>
+            <li><a href="services.html">Psychology</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 EliteWriters. All Rights Reserved.</p>
+        <p>Professional Writing Services · Fast · Reliable · Confidential</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/16624002088" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
