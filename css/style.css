@@ -396,27 +396,39 @@ footer {
 .footer-contact a { font-size: 0.9rem; color: rgba(255,255,255,0.6); transition: var(--transition); }
 .footer-contact a:hover { color: var(--accent); }
 
-/* ── WhatsApp Floating Button ── */
-.whatsapp-float {
+/* ── Floating Action Buttons ── */
+.float-btn {
   position: fixed;
-  bottom: 6rem;
   right: 1.5rem;
   z-index: 999;
-  width: 56px; height: 56px;
-  background: #25D366;
+  width: 52px; height: 52px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
   transition: var(--transition);
   cursor: pointer;
+  text-decoration: none;
 }
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+.float-btn:hover { transform: scale(1.1); }
+
+/* Email button — top */
+.email-float {
+  bottom: 13rem;
+  background: var(--primary);
+  box-shadow: 0 4px 20px rgba(10,61,46,0.35);
 }
-.whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+.email-float:hover { box-shadow: 0 6px 28px rgba(10,61,46,0.45); }
+.email-float svg { width: 24px; height: 24px; fill: white; }
+
+/* WhatsApp button — middle */
+.whatsapp-float {
+  bottom: 9rem;
+  background: #25D366;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+}
+.whatsapp-float:hover { box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+.whatsapp-float svg { width: 26px; height: 26px; fill: white; }
 
 /* ── Animations ── */
 @keyframes fadeUp {
