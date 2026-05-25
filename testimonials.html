@@ -118,9 +118,246 @@
       color: var(--text-secondary);
       font-weight: 500;
     }
+
+    /* ── Review Form Section ── */
+    .review-form-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .review-form-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+      color: var(--text-primary);
+    }
+    .review-form-section .sub {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+    }
+    .rf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 560px) { .rf-grid { grid-template-columns: 1fr; } }
+    .rf-field { margin-bottom: 1.1rem; }
+    .rf-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .rf-field input,
+    .rf-field select,
+    .rf-field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: var(--bg);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .rf-field input:focus,
+    .rf-field select:focus,
+    .rf-field textarea:focus {
+      border-color: var(--primary);
+    }
+    .rf-field textarea { resize: vertical; min-height: 110px; }
+    .star-rating { display: flex; gap: 6px; margin-bottom: 1.1rem; }
+    .star-rating .sr-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+    .star-wrap { display: flex; flex-direction: column; }
+    .stars-input { display: flex; gap: 6px; }
+    .s-star {
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--border);
+      transition: color 0.15s;
+      line-height: 1;
+      user-select: none;
+    }
+    .s-star.lit { color: var(--accent); }
+    .rf-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      cursor: pointer;
+    }
+    .rf-consent input { width: auto; margin-top: 2px; flex-shrink: 0; }
+    .rf-submit {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-family: var(--font-body);
+    }
+    .rf-submit:hover { opacity: 0.88; }
+    .rf-success {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .rf-success .tick { font-size: 3rem; }
+    .rf-success h4 { font-size: 1.2rem; margin: 0.75rem 0 0.3rem; color: var(--text-primary); }
+    .rf-success p { font-size: 0.9rem; color: var(--text-secondary); }
+
+    /* ── Popup Modal ── */
+    #review-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    #review-modal.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2rem 1.75rem;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1.1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+    .modal-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 0.75rem;
+    }
+    .modal-box h3 { font-size: 1.35rem; margin-bottom: 0.3rem; color: var(--text-primary); }
+    .modal-box .sub { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
   </style>
 </head>
 <body>
+
+  <!-- ── POPUP MODAL ── -->
+  <div id="review-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+      <div class="modal-badge">🎉 Order Complete</div>
+      <h3 id="modal-title">How did we do?</h3>
+      <p class="sub">Your order is done! We'd love to hear what you thought — it only takes a minute.</p>
+
+      <div id="modal-form-content">
+        <div class="rf-grid">
+          <div class="rf-field">
+            <label for="m-name">First name only</label>
+            <input type="text" id="m-name" placeholder="e.g. Jane" />
+          </div>
+          <div class="rf-field">
+            <label for="m-topic">Topic of paper</label>
+            <select id="m-topic">
+              <option value="">Select type…</option>
+              <option>Business Plan</option>
+              <option>Essay</option>
+              <option>Research Paper</option>
+              <option>Nursing / Healthcare</option>
+              <option>Law / Legal Studies</option>
+              <option>Marketing</option>
+              <option>Psychology</option>
+              <option>Engineering</option>
+              <option>Literature Review</option>
+              <option>Dissertation / Thesis</option>
+              <option>Case Study</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="rf-field">
+          <label for="m-service">Service used</label>
+          <select id="m-service">
+            <option value="">Select a service…</option>
+            <option>Academic Writing</option>
+            <option>Essay Writing</option>
+            <option>Research Papers</option>
+            <option>Proofreading & Editing</option>
+            <option>Content Writing</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="star-wrap" style="margin-bottom:1.1rem;">
+          <span class="sr-label">Your rating</span>
+          <div class="stars-input" id="m-stars">
+            <span class="s-star" data-v="1">★</span>
+            <span class="s-star" data-v="2">★</span>
+            <span class="s-star" data-v="3">★</span>
+            <span class="s-star" data-v="4">★</span>
+            <span class="s-star" data-v="5">★</span>
+          </div>
+        </div>
+        <div class="rf-field">
+          <label for="m-review">Your review</label>
+          <textarea id="m-review" placeholder="Tell us about your experience…"></textarea>
+        </div>
+        <label class="rf-consent">
+          <input type="checkbox" id="m-consent" />
+          I agree to have my review (first name & paper type only) displayed on the website
+        </label>
+        <button class="rf-submit" onclick="submitModal()">Submit my review →</button>
+      </div>
+
+      <div class="rf-success" id="modal-success">
+        <div class="tick">✅</div>
+        <h4>Thank you so much!</h4>
+        <p>Your review has been received. Only your first name and paper type will be shown — your identity stays private.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
@@ -187,8 +424,6 @@
       </div>
 
       <div class="grid-3">
-
-        <!-- Review 1 -->
         <div class="review-featured highlight">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -198,8 +433,6 @@
             <span class="badge badge-green">Academic Writing</span>
           </div>
         </div>
-
-        <!-- Review 2 -->
         <div class="review-featured">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -209,8 +442,6 @@
             <span class="badge badge-gold">Thesis Writing</span>
           </div>
         </div>
-
-        <!-- Review 3 -->
         <div class="review-featured">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -220,8 +451,6 @@
             <span class="badge badge-green">Report Writing</span>
           </div>
         </div>
-
-        <!-- Review 4 -->
         <div class="review-featured">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -231,8 +460,6 @@
             <span class="badge badge-green">Essay Writing</span>
           </div>
         </div>
-
-        <!-- Review 5 -->
         <div class="review-featured highlight">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -242,8 +469,6 @@
             <span class="badge badge-gold">Academic Tutoring</span>
           </div>
         </div>
-
-        <!-- Review 6 -->
         <div class="review-featured">
           <span class="quote-icon">"</span>
           <div class="stars" style="margin-bottom: 0.75rem;">★★★★★</div>
@@ -253,7 +478,6 @@
             <span class="badge badge-green">Healthcare Writing</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -266,7 +490,6 @@
         <h2>More From Our Clients</h2>
       </div>
       <div class="grid-3">
-
         <div class="review-secondary">
           <div class="stars" style="margin-bottom: 0.75rem; font-size: 0.9rem;">★★★★★</div>
           <p style="font-size: 0.92rem; font-style: italic; margin-bottom: 1rem;">"Thank you for helping me out in a pinch. You did an amazing job and I couldn't be happier with the results."</p>
@@ -275,7 +498,6 @@
             <span class="badge badge-gold">Business Proposal</span>
           </div>
         </div>
-
         <div class="review-secondary">
           <div class="stars" style="margin-bottom: 0.75rem; font-size: 0.9rem;">★★★★★</div>
           <p style="font-size: 0.92rem; font-style: italic; margin-bottom: 1rem;">"Great work as always — and always willing to make the necessary changes. Reliable, professional, and consistent every time."</p>
@@ -284,7 +506,6 @@
             <span class="badge badge-green">Essay Writing</span>
           </div>
         </div>
-
         <div class="review-secondary">
           <div class="stars" style="margin-bottom: 0.75rem; font-size: 0.9rem;">★★★★★</div>
           <p style="font-size: 0.92rem; font-style: italic; margin-bottom: 1rem;">"Excellent work on the report. Delivered on time and the quality was exactly what I was looking for. Very impressed."</p>
@@ -293,7 +514,6 @@
             <span class="badge badge-green">Report Writing</span>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -307,32 +527,89 @@
         <p>These are real screenshots of reviews left directly by clients on completed orders — unedited and unfiltered.</p>
       </div>
       <div class="grid-3">
-        <div class="review-screenshot">
-          <img src="images/review1.png" alt="5-star client review — Business Proposal" loading="lazy">
+        <div class="review-screenshot"><img src="images/review1.png" alt="5-star client review — Business Proposal" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review2.png" alt="5-star client review — Clinical Reflection" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review3.png" alt="5-star client review — Essay writing" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review4.png" alt="5-star client review — Report writing" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review5.png" alt="5-star client review — Essay writing repeat" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review6.png" alt="5-star client review — Thesis writing" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review7.png" alt="5-star client review — Pharmaceutical" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review8.png" alt="5-star client review — Strategic management" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review9.png" alt="5-star client review — Academic writing" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LEAVE A REVIEW SECTION ── -->
+  <section class="section section-alt" id="leave-review">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Share Your Experience</div>
+        <h2>Leave a Review</h2>
+        <p>Your identity stays confidential — only your first name and paper type will be shown.</p>
+      </div>
+      <div class="review-form-section">
+        <div id="page-form-content">
+          <div class="rf-grid">
+            <div class="rf-field">
+              <label for="p-name">First name only</label>
+              <input type="text" id="p-name" placeholder="e.g. Jane" />
+            </div>
+            <div class="rf-field">
+              <label for="p-topic">Topic of paper</label>
+              <select id="p-topic">
+                <option value="">Select type…</option>
+                <option>Business Plan</option>
+                <option>Essay</option>
+                <option>Research Paper</option>
+                <option>Nursing / Healthcare</option>
+                <option>Law / Legal Studies</option>
+                <option>Marketing</option>
+                <option>Psychology</option>
+                <option>Engineering</option>
+                <option>Literature Review</option>
+                <option>Dissertation / Thesis</option>
+                <option>Case Study</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="rf-field">
+            <label for="p-service">Service used</label>
+            <select id="p-service">
+              <option value="">Select a service…</option>
+              <option>Academic Writing</option>
+              <option>Essay Writing</option>
+              <option>Research Papers</option>
+              <option>Proofreading & Editing</option>
+              <option>Content Writing</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="star-wrap" style="margin-bottom:1.1rem;">
+            <span class="sr-label">Your rating</span>
+            <div class="stars-input" id="p-stars">
+              <span class="s-star" data-v="1">★</span>
+              <span class="s-star" data-v="2">★</span>
+              <span class="s-star" data-v="3">★</span>
+              <span class="s-star" data-v="4">★</span>
+              <span class="s-star" data-v="5">★</span>
+            </div>
+          </div>
+          <div class="rf-field">
+            <label for="p-review">Your review</label>
+            <textarea id="p-review" placeholder="Tell us about your experience — quality, turnaround, communication…"></textarea>
+          </div>
+          <label class="rf-consent">
+            <input type="checkbox" id="p-consent" />
+            I agree to have my review (first name & paper type only) displayed on the website
+          </label>
+          <button class="rf-submit" onclick="submitPage()">Submit my review →</button>
         </div>
-        <div class="review-screenshot">
-          <img src="images/review2.png" alt="5-star client review — Clinical Reflection" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review3.png" alt="5-star client review — Essay writing" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review4.png" alt="5-star client review — Report writing" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review5.png" alt="5-star client review — Essay writing repeat" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review6.png" alt="5-star client review — Thesis writing" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review7.png" alt="5-star client review — Pharmaceutical" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review8.png" alt="5-star client review — Strategic management" loading="lazy">
-        </div>
-        <div class="review-screenshot">
-          <img src="images/review9.png" alt="5-star client review — Academic writing" loading="lazy">
+        <div class="rf-success" id="page-success">
+          <div class="tick">✅</div>
+          <h4>Thank you for your review!</h4>
+          <p>We appreciate your feedback. Only your first name and paper type will appear — your identity stays 100% private.</p>
         </div>
       </div>
     </div>
@@ -348,45 +625,27 @@
       <div class="grid-3">
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">📝</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">100% Original Work</h4>
-            <p style="font-size: 0.9rem;">Every paper written from scratch based on your instructions.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">100% Original Work</h4><p style="font-size: 0.9rem;">Every paper written from scratch based on your instructions.</p></div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">⏰</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">On-Time Delivery</h4>
-            <p style="font-size: 0.9rem;">Delivered before your deadline — every single time.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">On-Time Delivery</h4><p style="font-size: 0.9rem;">Delivered before your deadline — every single time.</p></div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">♻️</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">Free Revisions</h4>
-            <p style="font-size: 0.9rem;">2 free revisions included on every order.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">Free Revisions</h4><p style="font-size: 0.9rem;">2 free revisions included on every order.</p></div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">🎓</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">Multi-Level Expertise</h4>
-            <p style="font-size: 0.9rem;">From high school to PhD — we handle every level.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">Multi-Level Expertise</h4><p style="font-size: 0.9rem;">From high school to PhD — we handle every level.</p></div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">🔒</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">Full Confidentiality</h4>
-            <p style="font-size: 0.9rem;">Your identity and work remain 100% private.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">Full Confidentiality</h4><p style="font-size: 0.9rem;">Your identity and work remain 100% private.</p></div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: flex-start; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
           <div style="font-size: 1.4rem; flex-shrink: 0;">💬</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">Direct Communication</h4>
-            <p style="font-size: 0.9rem;">Always willing to make necessary changes.</p>
-          </div>
+          <div><h4 style="margin-bottom: 0.3rem;">Direct Communication</h4><p style="font-size: 0.9rem;">Always willing to make necessary changes.</p></div>
         </div>
       </div>
     </div>
@@ -464,18 +723,92 @@
   </a>
 
   <script src="js/main.js"></script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
+  <script>
+    /* ── Star ratings ── */
+    function initStars(containerId, ratingHolder) {
+      const stars = document.querySelectorAll('#' + containerId + ' .s-star');
+      let rating = 0;
+      stars.forEach(s => {
+        s.addEventListener('mouseenter', () => lightStars(stars, +s.dataset.v));
+        s.addEventListener('mouseleave', () => lightStars(stars, rating));
+        s.addEventListener('click', () => { rating = +s.dataset.v; lightStars(stars, rating); ratingHolder.value = rating; });
+      });
+      ratingHolder.value = 0;
+    }
+    function lightStars(stars, n) {
+      stars.forEach(s => s.classList.toggle('lit', +s.dataset.v <= n));
+    }
+
+    const mRating = { value: 0 };
+    const pRating = { value: 0 };
+    initStars('m-stars', mRating);
+    initStars('p-stars', pRating);
+
+    /* ── Modal logic ── */
+    function openModal() {
+      document.getElementById('review-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('review-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('review-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    /* ── Auto-open popup if ?review=true in URL ── */
+    window.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('review') === 'true') {
+        setTimeout(openModal, 600);
+      }
+    });
+
+    /* ── Submit modal form ── */
+    function submitModal() {
+      const name    = document.getElementById('m-name').value.trim();
+      const topic   = document.getElementById('m-topic').value;
+      const service = document.getElementById('m-service').value;
+      const review  = document.getElementById('m-review').value.trim();
+      const consent = document.getElementById('m-consent').checked;
+      if (!name || !topic || !service || !review || !mRating.value || !consent) {
+        alert('Please fill in all fields, select a rating, and check the consent box.');
+        return;
+      }
+      document.getElementById('modal-form-content').style.display = 'none';
+      document.getElementById('modal-success').style.display = 'block';
+    }
+
+    /* ── Submit page form ── */
+    function submitPage() {
+      const name    = document.getElementById('p-name').value.trim();
+      const topic   = document.getElementById('p-topic').value;
+      const service = document.getElementById('p-service').value;
+      const review  = document.getElementById('p-review').value.trim();
+      const consent = document.getElementById('p-consent').checked;
+      if (!name || !topic || !service || !review || !pRating.value || !consent) {
+        alert('Please fill in all fields, select a rating, and check the consent box.');
+        return;
+      }
+      document.getElementById('page-form-content').style.display = 'none';
+      document.getElementById('page-success').style.display = 'block';
+    }
+  </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </body>
 </html>
