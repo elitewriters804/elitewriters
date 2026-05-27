@@ -19,7 +19,6 @@
   <title>Get a Quote | EliteWriters</title>
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
@@ -363,7 +362,6 @@
 </head>
 <body>
 
-  <!-- ══ Navigation ══ -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
@@ -381,7 +379,6 @@
     </div>
   </nav>
 
-  <!-- ══ Page Hero ══ -->
   <section class="page-hero">
     <div class="container">
       <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Get a Quote</span></div>
@@ -391,12 +388,10 @@
     </div>
   </section>
 
-  <!-- ══ Main Content ══ -->
   <section class="section">
     <div class="container">
       <div class="contact-layout">
 
-        <!-- ── LEFT: Price Calculator ── -->
         <div>
           <div class="calc-wrap">
             <div class="calc-header">
@@ -407,15 +402,14 @@
             <div class="calc-body">
 
               <div class="calc-grid">
-                <div class="calc-field">
-                  <label for="calc-service">Service Type</label>
+                <div class="calc-service-wrapper" style="display:none;">
                   <select id="calc-service">
                     <option value="academic">Academic Writing</option>
                     <option value="blog">Blog & Article Writing</option>
                     <option value="business">Business Content</option>
                   </select>
                 </div>
-                <div class="calc-field">
+                <div class="calc-field" style="grid-column: span 2;">
                   <label for="calc-level">Education Level</label>
                   <select id="calc-level">
                     <option value="12">High School — $12/pg</option>
@@ -444,7 +438,6 @@
                 </div>
               </div>
 
-              <!-- Add-ons -->
               <div class="addons-section">
                 <div class="addons-title">Add-Ons</div>
                 <div class="addon-row">
@@ -470,7 +463,6 @@
                 </div>
               </div>
 
-              <!-- Price Breakdown -->
               <div class="price-result">
                 <div class="price-line">
                   <span id="calc-base-label">Base price (3 pages × $14)</span>
@@ -508,7 +500,6 @@
             </div>
           </div>
 
-          <!-- Payment Methods -->
           <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);">
             <p style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1rem;">Payment Methods</p>
             <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;">
@@ -527,7 +518,6 @@
           </div>
         </div>
 
-        <!-- ── RIGHT: Order Form ── -->
         <div>
           <div style="margin-bottom:2rem;">
             <div class="eyebrow">Order Form</div>
@@ -535,7 +525,6 @@
             <p style="font-size:0.95rem;">Fill in your details below. You'll be asked to log in or create a free account so we can send your order confirmation directly to your inbox.</p>
           </div>
 
-          <!-- Auth Status Bar (shown when logged in) -->
           <div id="auth-user-bar" style="display:none;" class="auth-user-bar">
             <div class="auth-user-avatar" id="auth-avatar">?</div>
             <span class="auth-user-email" id="auth-email-display">—</span>
@@ -629,7 +618,6 @@
               </div>
             </div>
 
-            <!-- Instructions + File Upload -->
             <div class="instructions-file-row">
               <div class="form-field" style="margin-bottom:0;">
                 <label for="f-instructions">Additional Instructions</label>
@@ -653,7 +641,6 @@
             <p class="form-note">You'll be asked to log in or sign up — then your order receipt lands in your inbox automatically.</p>
           </form>
 
-          <!-- Success Card -->
           <div class="success-card" id="form-success">
             <div style="font-size:3rem;margin-bottom:0.75rem;">🎉</div>
             <h3 style="margin-bottom:0.5rem;color:var(--primary);">Order Placed Successfully!</h3>
@@ -681,7 +668,6 @@
     </div>
   </section>
 
-  <!-- ══ How It Works ══ -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
@@ -697,7 +683,6 @@
     </div>
   </section>
 
-  <!-- ══ FAQ ══ -->
   <section class="section">
     <div class="container">
       <div class="section-header"><div class="eyebrow">FAQ</div><h2>Frequently Asked Questions</h2></div>
@@ -713,7 +698,6 @@
     </div>
   </section>
 
-  <!-- ══ CTA ══ -->
   <section class="cta-section">
     <div class="container" style="position:relative;z-index:2;">
       <div class="eyebrow" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.3);color:var(--accent);">Still Have Questions?</div>
@@ -726,7 +710,6 @@
     </div>
   </section>
 
-  <!-- ══ Footer ══ -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -749,7 +732,6 @@
     </div>
   </footer>
 
-  <!-- Float Buttons -->
   <a href="mailto:elitewriters804@gmail.com" class="float-btn email-float" aria-label="Email us">
     <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
   </a>
@@ -760,16 +742,12 @@
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
   </button>
 
-  <!-- ══════════════════════════════════════
-       FIREBASE AUTH MODAL
-  ══════════════════════════════════════ -->
   <div class="auth-overlay" id="auth-overlay">
     <div class="auth-modal">
       <div class="auth-logo">✍️</div>
       <h3>Create Your Free Account</h3>
       <p>Log in or sign up so we can send your order confirmation and receipt directly to your inbox.</p>
 
-      <!-- Google Sign-In -->
       <button class="auth-btn-google" onclick="signInWithGoogle()">
         <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.48A4.8 4.8 0 014.5 9v-2.1H1.83a8 8 0 000 5.6L4.5 10.48z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 6.9L4.5 8.98a4.77 4.77 0 014.48-4.8z"/></svg>
         Continue with Google
@@ -777,7 +755,6 @@
 
       <div class="auth-divider">or use email</div>
 
-      <!-- Email/Password Tabs -->
       <div class="auth-tabs">
         <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
         <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
@@ -829,7 +806,6 @@
         document.getElementById('auth-user-bar').style.display = 'flex';
         document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
         document.getElementById('auth-email-display').textContent = user.email || user.displayName || 'Logged in';
-        // If there's a pending order, process it now
         if (pendingOrderData) {
           const data = pendingOrderData;
           pendingOrderData = null;
@@ -842,29 +818,25 @@
     });
 
     /* ══════════════════════════════════════
-       PRICE CALCULATOR — Exact Math Rules
-       Formula: ((Pages × LevelRate) × UrgencyMultiplier)
-                + (Graphics × 5) + (Sources × 3) + (Abstract ? 6 : 0)
+       PRICE CALCULATOR
     ══════════════════════════════════════ */
     function calcPrice() {
       const cpp      = parseFloat(document.getElementById('calc-level').value) || 14;
       const pages    = Math.max(1, parseInt(document.getElementById('calc-qty').value) || 1);
       const urgencyRaw = document.getElementById('calc-deadline').value;
-      const urgency  = parseInt(urgencyRaw) || 0; // 0b / 0c parse as 0 — correct
+      const urgency  = parseInt(urgencyRaw) || 0;
       const graphics = Math.max(0, parseInt(document.getElementById('qty-graphics').value) || 0);
       const sources  = Math.max(0, parseInt(document.getElementById('qty-sources').value) || 0);
       const abstract = document.getElementById('calc-abstract').checked;
 
-      // Core formula
       const base        = pages * cpp;
       const rushAmt     = base * (urgency / 100);
-      const subtotal    = base + rushAmt;          // after urgency multiplier
+      const subtotal    = base + rushAmt;
       const graphicsAmt = graphics * 5;
       const sourcesAmt  = sources * 3;
       const abstractAmt = abstract ? 6 : 0;
       const total       = subtotal + graphicsAmt + sourcesAmt + abstractAmt;
 
-      // Update display
       document.getElementById('calc-base-label').textContent = `Base price (${pages} pg × $${cpp})`;
       document.getElementById('calc-base-price').textContent = `$${base.toFixed(2)}`;
 
@@ -902,8 +874,10 @@
 
     ['calc-level','calc-qty','calc-deadline','calc-abstract','qty-graphics','qty-sources'].forEach(id => {
       const el = document.getElementById(id);
-      el.addEventListener('change', calcPrice);
-      if (el.type === 'number') el.addEventListener('input', calcPrice);
+      if (el) {
+        el.addEventListener('change', calcPrice);
+        if (el.type === 'number') el.addEventListener('input', calcPrice);
+      }
     });
     calcPrice();
 
@@ -946,7 +920,7 @@
     }
 
     /* ══════════════════════════════════════
-       TICKET NUMBER GENERATOR (localStorage)
+       TICKET NUMBER GENERATOR
     ══════════════════════════════════════ */
     function generateTicketId() {
       let n = parseInt(localStorage.getItem('ew_ticket_counter') || '0') + 1;
@@ -955,12 +929,11 @@
     }
 
     /* ══════════════════════════════════════
-       FORM SUBMIT — intercepts for Auth
+       FORM SUBMIT Intercept
     ══════════════════════════════════════ */
     function handleSubmit(e) {
       e.preventDefault();
 
-      // Collect form data
       const service      = document.getElementById('f-service').value;
       const topic        = document.getElementById('f-topic').value;
       const type         = document.getElementById('f-type').value;
@@ -993,20 +966,18 @@
         submittedAt: new Date().toLocaleString()
       };
 
-      // Check if user is already logged in
       if (currentUser) {
         orderData.clientEmail = currentUser.email || '';
         orderData.clientName  = currentUser.displayName || currentUser.email || 'Client';
         submitOrderToBackend(orderData);
       } else {
-        // Store pending order and show auth modal
         pendingOrderData = orderData;
         openAuthModal();
       }
     }
 
     /* ══════════════════════════════════════
-       SUBMIT ORDER TO GOOGLE APPS SCRIPT
+       BACKEND NETWORK POST
     ══════════════════════════════════════ */
     async function submitOrderToBackend(data) {
       const btn = document.getElementById('submit-btn');
@@ -1024,19 +995,18 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         });
-      } catch(err) { console.warn('Sheet error:', err); }
+      } catch(err) { console.warn('Sheet submission fallback note:', err); }
 
       btn.disabled = false;
       btn.innerHTML = '🎫 Create My Ticket →';
 
-      // Show success
       document.getElementById('success-ticket-id').textContent = ticketId;
       document.getElementById('order-form').style.display = 'none';
       document.getElementById('form-success').style.display = 'block';
     }
 
     /* ══════════════════════════════════════
-       AUTH MODAL
+       AUTH RULES
     ══════════════════════════════════════ */
     let authMode = 'login';
 
@@ -1072,7 +1042,6 @@
       const provider = new firebase.auth.GoogleAuthProvider();
       try {
         await auth.signInWithPopup(provider);
-        // onAuthStateChanged will fire and process pendingOrderData
       } catch(err) {
         showAuthError(err.message);
       }
@@ -1097,7 +1066,6 @@
         } else {
           await auth.createUserWithEmailAndPassword(email, pass);
         }
-        // onAuthStateChanged fires → processes pendingOrderData
       } catch(err) {
         const msgs = {
           'auth/user-not-found': 'No account found. Switch to Sign Up to create one.',
@@ -1116,14 +1084,13 @@
       auth.signOut();
     }
 
-    // Close modal on overlay click
     document.getElementById('auth-overlay').addEventListener('click', function(e) {
       if (e.target === this) { pendingOrderData = null; closeAuthModal(); }
     });
     document.addEventListener('keydown', e => { if(e.key==='Escape') { pendingOrderData=null; closeAuthModal(); } });
 
     /* ══════════════════════════════════════
-       FAQ
+       FAQ Accordions
     ══════════════════════════════════════ */
     function toggleFaq(el) {
       const answer = el.nextElementSibling;
@@ -1137,7 +1104,6 @@
     }
   </script>
 
-  <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   (function(){
@@ -1149,6 +1115,5 @@
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
-  <!--End of Tawk.to Script-->
-</body>
+  </body>
 </html>
