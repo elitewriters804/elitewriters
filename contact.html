@@ -8,54 +8,27 @@
   <meta name="author" content="EliteWriters">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elitewriters804.github.io/elitewriters/contact.html">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Get a Free Quote | EliteWriters — Instant Price Calculator">
   <meta property="og:description" content="Get an instant quote for your essay, research paper, blog post or business content. Use our live price calculator. No personal details needed. Response within 1 hour.">
   <meta property="og:url" content="https://elitewriters804.github.io/elitewriters/contact.html">
   <meta property="og:site_name" content="EliteWriters">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Get a Free Quote | EliteWriters — Instant Price Calculator">
   <meta name="twitter:description" content="Get an instant quote for your essay, research paper, blog post or business content. Use our live price calculator. No personal details needed. Response within 1 hour.">
   <title>Get a Quote | EliteWriters</title>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* ── Contact Channels ── */
-    .contact-channel {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.25rem;
-      padding: 1.75rem;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      transition: var(--transition);
-      text-decoration: none;
-      color: inherit;
+    /* ── Main two-col layout ── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
     }
-    .contact-channel:hover {
-      border-color: rgba(10,61,46,0.2);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-3px);
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
     }
-    .channel-icon {
-      width: 52px; height: 52px;
-      border-radius: var(--radius-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-    .channel-icon.green { background: rgba(37,211,102,0.1); }
-    .channel-icon.blue { background: rgba(10,61,46,0.08); }
-    .channel-icon.gold { background: rgba(201,168,76,0.1); }
-    .channel-title { font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; font-size: 1rem; }
-    .channel-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
-    .channel-note { font-size: 0.8rem; color: var(--text-muted); }
 
     /* ── Calculator ── */
     .calc-wrap {
@@ -64,263 +37,177 @@
       border-radius: var(--radius-xl);
       overflow: hidden;
     }
-    .calc-header {
-      background: var(--primary);
-      padding: 2rem 2.5rem;
-    }
+    .calc-header { background: var(--primary); padding: 2rem 2.5rem; }
+    @media (max-width: 768px) { .calc-header { padding: 1.25rem; } }
     .calc-header h2 { color: var(--white); font-size: 1.5rem; margin-bottom: 0.4rem; }
-    .calc-header p { color: rgba(255,255,255,0.7); font-size: 0.92rem; }
+    .calc-header p  { color: rgba(255,255,255,0.7); font-size: 0.92rem; }
     .live-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.8);
-      margin-top: 0.75rem;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-top: 0.75rem;
     }
     .live-dot {
-      width: 7px; height: 7px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: livepulse 1.5s infinite;
+      width: 7px; height: 7px; background: #4ade80;
+      border-radius: 50%; animation: livepulse 1.5s infinite;
     }
     @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
     .calc-body { padding: 2.5rem; }
-    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+    @media (max-width: 768px) { .calc-body { padding: 1.25rem; } }
+    .calc-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.25rem; margin-bottom: 1.25rem;
+    }
+    @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; gap: 0.75rem; } }
     .calc-field { display: flex; flex-direction: column; gap: 6px; }
     .calc-field label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .calc-field select,
-    .calc-field input {
-      padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      background: var(--white);
-      transition: var(--transition);
-      width: 100%;
+    .calc-field select, .calc-field input {
+      padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-size: 0.95rem; color: var(--text-primary); background: var(--white);
+      transition: var(--transition); width: 100%; box-sizing: border-box;
     }
-    .calc-field select:focus,
-    .calc-field input:focus {
-      outline: none;
-      border-color: var(--primary-light);
+    .calc-field select:focus, .calc-field input:focus {
+      outline: none; border-color: var(--primary-light);
       box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
     }
+
+    /* ── Add-ons ── */
     .addons-section { margin: 1.5rem 0; }
     .addons-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.75rem;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
     }
-    .addons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-    .addon-label {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 0.88rem;
-      color: var(--text-secondary);
+    .addon-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; padding: 0.85rem 1rem;
+      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 0.6rem; transition: var(--transition);
+      font-size: 0.9rem; color: var(--text-secondary);
     }
-    .addon-label:hover { border-color: var(--primary-light); background: rgba(10,61,46,0.03); }
-    .addon-label input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
-    .addon-label.checked { border-color: var(--primary); background: rgba(10,61,46,0.05); color: var(--primary); }
+    .addon-row:hover { border-color: var(--primary-light); background: rgba(10,61,46,0.02); }
+    .addon-row.free-row { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.04); }
+    .addon-left { display: flex; align-items: center; gap: 0.6rem; flex: 1; }
+    .addon-left input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+    .addon-qty {
+      width: 64px; padding: 0.4rem 0.5rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 0.9rem; text-align: center;
+      font-family: var(--font-body); color: var(--text-primary);
+    }
+    .addon-qty:focus { outline: none; border-color: var(--primary-light); }
+    .addon-price {
+      font-size: 0.82rem; font-weight: 600; color: var(--primary);
+      white-space: nowrap; min-width: 54px; text-align: right;
+    }
+    .free-badge {
+      font-size: 0.75rem; font-weight: 700; color: #16a34a;
+      background: rgba(34,197,94,0.12); padding: 2px 8px;
+      border-radius: 100px; white-space: nowrap;
+    }
 
-    /* ── Price Result Box ── */
+    /* ── Price Result ── */
     .price-result {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      background: var(--off-white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;
     }
     .price-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      font-size: 0.92rem;
-      color: var(--text-secondary);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0; font-size: 0.92rem; color: var(--text-secondary);
       border-bottom: 1px solid var(--border);
     }
     .price-line:last-child { border-bottom: none; }
     .price-line.total {
-      padding-top: 0.75rem;
-      margin-top: 0.25rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      border-bottom: none;
-      border-top: 2px solid var(--border);
+      padding-top: 0.75rem; margin-top: 0.25rem; font-size: 1rem;
+      font-weight: 600; color: var(--text-primary);
+      border-bottom: none; border-top: 2px solid var(--border);
     }
     .price-line.total .amount {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      color: var(--primary);
-      font-weight: 700;
+      font-family: var(--font-display); font-size: 1.8rem;
+      color: var(--primary); font-weight: 700;
     }
     .rush-tag {
-      font-size: 0.75rem;
-      background: #fef3c7;
-      color: #92400e;
-      padding: 2px 8px;
-      border-radius: 100px;
-      margin-left: 8px;
-      font-weight: 500;
+      font-size: 0.75rem; background: #fef3c7; color: #92400e;
+      padding: 2px 8px; border-radius: 100px; margin-left: 8px; font-weight: 500;
     }
     .payment-split {
-      background: rgba(10,61,46,0.05);
-      border: 1px solid rgba(10,61,46,0.1);
-      border-radius: var(--radius-sm);
-      padding: 0.85rem 1rem;
-      font-size: 0.88rem;
-      color: var(--primary);
-      margin-top: 1rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
+      background: rgba(10,61,46,0.05); border: 1px solid rgba(10,61,46,0.1);
+      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+      font-size: 0.88rem; color: var(--primary); margin-top: 1rem;
+      display: flex; align-items: flex-start; gap: 0.6rem;
     }
 
     /* ── Order Form ── */
     .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
     .form-field label {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.06em;
     }
-    .form-field select,
-    .form-field input,
-    .form-field textarea {
-      padding: 0.85rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      background: var(--white);
-      transition: var(--transition);
-      width: 100%;
+    .form-field select, .form-field input, .form-field textarea {
+      padding: 0.85rem 1rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-size: 0.95rem; color: var(--text-primary); background: var(--white);
+      transition: var(--transition); width: 100%; box-sizing: border-box;
     }
-    .form-field select:focus,
-    .form-field input:focus,
-    .form-field textarea:focus {
-      outline: none;
-      border-color: var(--primary-light);
+    .form-field select:focus, .form-field input:focus, .form-field textarea:focus {
+      outline: none; border-color: var(--primary-light);
       box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
     }
     .form-field textarea { resize: vertical; min-height: 120px; }
     .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 768px) { .form-grid-2 { grid-template-columns: 1fr; gap: 0; } }
     .submit-btn {
-      width: 100%;
-      padding: 1rem;
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
+      width: 100%; padding: 1rem; background: var(--primary); color: var(--white);
+      border: none; border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition);
       margin-top: 0.5rem;
     }
-    .submit-btn:hover {
-      background: var(--primary-light);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-    .form-note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 0.75rem;
-    }
+    .submit-btn:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .form-note { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
 
     /* ── Process Steps ── */
     .process-step {
-      display: flex;
-      gap: 1.25rem;
-      align-items: flex-start;
-      padding: 1.5rem;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: var(--transition);
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1.5rem; background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-md); transition: var(--transition);
     }
     .process-step:hover { box-shadow: var(--shadow-sm); border-color: rgba(10,61,46,0.15); }
     .step-number {
-      width: 40px; height: 40px;
-      background: var(--primary);
-      color: var(--white);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      flex-shrink: 0;
+      width: 40px; height: 40px; background: var(--primary); color: var(--white);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700; flex-shrink: 0;
     }
 
     /* ── FAQ ── */
-    .faq-item {
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-bottom: 0.75rem;
-    }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 0.75rem; }
     .faq-question {
-      padding: 1.25rem 1.5rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--white);
-      transition: var(--transition);
-      user-select: none;
+      padding: 1.25rem 1.5rem; font-weight: 600; font-size: 0.95rem;
+      color: var(--text-primary); cursor: pointer; display: flex;
+      justify-content: space-between; align-items: center;
+      background: var(--white); transition: var(--transition); user-select: none;
     }
     .faq-question:hover { background: var(--off-white); color: var(--primary); }
     .faq-question.open { background: var(--primary); color: var(--white); }
     .faq-arrow { transition: var(--transition); font-size: 0.8rem; }
     .faq-question.open .faq-arrow { transform: rotate(180deg); }
     .faq-answer {
-      padding: 0 1.5rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-      background: var(--white);
+      padding: 0 1.5rem; max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease; background: var(--white);
     }
-    .faq-answer.open {
-      max-height: 300px;
-      padding: 1.25rem 1.5rem;
-    }
+    .faq-answer.open { max-height: 300px; padding: 1.25rem 1.5rem; }
     .faq-answer p { font-size: 0.93rem; color: var(--text-secondary); }
 
-    @media (max-width: 768px) {
-      .calc-grid { grid-template-columns: 1fr; }
-      .addons-grid { grid-template-columns: 1fr; }
-      .form-grid-2 { grid-template-columns: 1fr; }
-      .calc-body { padding: 1.5rem; }
-      .calc-header { padding: 1.5rem; }
+    /* ── Live chat float (mobile only) ── */
+    .livechat-float {
+      position: fixed; bottom: 160px; right: 1.25rem;
+      width: 52px; height: 52px; background: var(--primary);
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; cursor: pointer; z-index: 999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.2s; border: none;
     }
+    .livechat-float:hover { transform: scale(1.08); }
+    .livechat-float svg { width: 24px; height: 24px; fill: white; }
+    @media (min-width: 769px) { .livechat-float { display: none; } }
   </style>
 </head>
 <body>
@@ -346,31 +233,25 @@
   <!-- Page Hero -->
   <section class="page-hero">
     <div class="container">
-      <div class="breadcrumb">
-        <a href="index.html">Home</a><span>›</span><span>Get a Quote</span>
-      </div>
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Get a Quote</span></div>
       <div class="eyebrow">Let's Get Started</div>
       <h1>Get Your Free Instant Quote</h1>
       <p>No personal details needed. Tell us about your assignment, see your price instantly, and we'll confirm within the hour.</p>
     </div>
   </section>
 
-
-
-  <!-- Main Content: Calculator + Form -->
+  <!-- Main Content -->
   <section class="section">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+      <div class="contact-layout">
 
-        <!-- Left: Price Calculator -->
+        <!-- LEFT: Price Calculator -->
         <div>
-          <div class="calc-wrap" id="price-calculator">
+          <div class="calc-wrap">
             <div class="calc-header">
               <h2>Instant Price Calculator</h2>
               <p>Fill in your details — price updates automatically as you type.</p>
-              <div class="live-indicator">
-                <span class="live-dot"></span> Price updates live
-              </div>
+              <div class="live-indicator"><span class="live-dot"></span> Price updates live</div>
             </div>
             <div class="calc-body">
 
@@ -383,81 +264,110 @@
                     <option value="business">Business Content</option>
                   </select>
                 </div>
-                <div class="calc-field" id="calc-level-group">
+                <div class="calc-field">
                   <label for="calc-level">Education Level</label>
                   <select id="calc-level">
-                    <option value="highschool">High School</option>
-                    <option value="undergraduate">Undergraduate</option>
-                    <option value="masters" selected>Master's</option>
-                    <option value="phd">PhD / Doctoral</option>
+                    <option value="12">High School — $12/pg</option>
+                    <option value="13">Undergraduate — $13/pg</option>
+                    <option value="14" selected>Master's — $14/pg</option>
+                    <option value="15">PhD / Doctoral — $15/pg</option>
                   </select>
                 </div>
               </div>
 
               <div class="calc-grid">
                 <div class="calc-field">
-                  <label for="calc-qty" id="calc-qty-label">Number of Pages</label>
+                  <label for="calc-qty">Number of Pages</label>
                   <input type="number" id="calc-qty" min="1" value="3" placeholder="e.g. 5">
                 </div>
                 <div class="calc-field">
-                  <label for="calc-deadline">Deadline</label>
+                  <label for="calc-deadline">Deadline (Urgency)</label>
                   <select id="calc-deadline">
-                    <option value="14">14+ Days</option>
-                    <option value="7" selected>7–13 Days</option>
-                    <option value="3">3–6 Days</option>
-                    <option value="2">24–48 Hours (Rush)</option>
+                    <option value="50">3–6 Hours — +50% 🔥</option>
+                    <option value="40">7–12 Hours — +40%</option>
+                    <option value="30">13–24 Hours — +30%</option>
+                    <option value="0">2–5 Days — No surcharge</option>
+                    <option value="0b">6–13 Days — No surcharge</option>
+                    <option value="0c" selected>14+ Days — No surcharge</option>
                   </select>
                 </div>
               </div>
 
+              <!-- Add-ons -->
               <div class="addons-section">
-                <div class="addons-title">Add-Ons (Optional)</div>
-                <div class="addons-grid">
-                  <label class="addon-label" id="label-plagiarism">
-                    <input type="checkbox" id="calc-plagiarism">
-                    🔍 Plagiarism Report (+$5)
-                  </label>
-                  <label class="addon-label" id="label-proofreading">
-                    <input type="checkbox" id="calc-proofreading">
-                    ✏️ Proofreading (+$8/pg)
-                  </label>
-                  <label class="addon-label" id="label-formatting">
-                    <input type="checkbox" id="calc-formatting">
-                    📐 Formatting (+$10)
-                  </label>
+                <div class="addons-title">Add-Ons</div>
+
+                <!-- Graphics & Tables (qty) -->
+                <div class="addon-row">
+                  <div class="addon-left">
+                    <span>🎨 Graphics & Tables</span>
+                  </div>
+                  <input type="number" class="addon-qty" id="qty-graphics" min="0" value="0" placeholder="0">
+                  <span class="addon-price" id="price-graphics">$0.00</span>
                 </div>
+
+                <!-- Printable Source (qty) -->
+                <div class="addon-row">
+                  <div class="addon-left">
+                    <span>📄 Printable Sources</span>
+                  </div>
+                  <input type="number" class="addon-qty" id="qty-sources" min="0" value="0" placeholder="0">
+                  <span class="addon-price" id="price-sources">$0.00</span>
+                </div>
+
+                <!-- Abstract (checkbox) -->
+                <div class="addon-row">
+                  <div class="addon-left">
+                    <input type="checkbox" id="calc-abstract">
+                    <span>📝 Abstract</span>
+                  </div>
+                  <span class="addon-price">$6.00</span>
+                </div>
+
+                <!-- Plagiarism & AI — FREE -->
+                <div class="addon-row free-row">
+                  <div class="addon-left">
+                    <span>🔍 Plagiarism & AI Report</span>
+                  </div>
+                  <span class="free-badge">FREE</span>
+                </div>
+
               </div>
 
               <!-- Price Result -->
               <div class="price-result">
-                <div class="price-line" id="calc-base-row">
-                  <span id="calc-base-label">Base price</span>
-                  <span id="calc-base-price">—</span>
+                <div class="price-line">
+                  <span id="calc-base-label">Base price (3 pages × $14)</span>
+                  <span id="calc-base-price">$42.00</span>
                 </div>
                 <div class="price-line" id="calc-rush-row" style="display:none;">
-                  <span>Rush surcharge <span class="rush-tag">+50%</span></span>
+                  <span>Urgency surcharge <span class="rush-tag" id="rush-pct-tag"></span></span>
                   <span id="calc-rush-price">—</span>
                 </div>
-                <div class="price-line" id="calc-plag-row" style="display:none;">
-                  <span>Plagiarism report</span>
-                  <span>$5.00</span>
+                <div class="price-line" id="calc-graphics-row" style="display:none;">
+                  <span id="calc-graphics-label">Graphics & Tables</span>
+                  <span id="calc-graphics-price">—</span>
                 </div>
-                <div class="price-line" id="calc-proof-row" style="display:none;">
-                  <span id="calc-proof-label">Proofreading</span>
-                  <span id="calc-proof-price">—</span>
+                <div class="price-line" id="calc-src-row" style="display:none;">
+                  <span id="calc-src-label">Printable Sources</span>
+                  <span id="calc-src-price">—</span>
                 </div>
-                <div class="price-line" id="calc-format-row" style="display:none;">
-                  <span>Formatting & citations</span>
-                  <span>$10.00</span>
+                <div class="price-line" id="calc-abstract-row" style="display:none;">
+                  <span>Abstract</span>
+                  <span>$6.00</span>
+                </div>
+                <div class="price-line" style="color: #16a34a; font-size: 0.85rem;">
+                  <span>🔍 Plagiarism & AI Report</span>
+                  <span style="font-weight:600;">FREE</span>
                 </div>
                 <div class="price-line total">
                   <span>Total Estimate</span>
-                  <span class="amount" id="calc-total">$0.00</span>
+                  <span class="amount" id="calc-total">$42.00</span>
                 </div>
               </div>
 
               <div class="payment-split" id="calc-payment-note">
-                💡 Fill in your details above to see your price and payment breakdown.
+                💡 Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.
               </div>
 
             </div>
@@ -466,30 +376,23 @@
           <!-- Payment Methods -->
           <div style="margin-top: 1.5rem; padding: 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md);">
             <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem;">Payment Methods</p>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
-              <button onclick="document.getElementById('paypal-modal').style.display='flex'" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.65rem 1.25rem;background:#0070ba;color:white;border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;font-weight:600;cursor:pointer;" onmouseover="this.style.background='#005ea6'" onmouseout="this.style.background='#0070ba'">
-                💳 Pay with PayPal
-              </button>
-              <span class="badge badge-gray" style="padding: 0.65rem 1rem; font-size: 0.88rem;">💸 Wise — Coming Soon</span>
-            </div>
-            <p style="font-size: 0.82rem; color: var(--text-muted);">Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.</p>
-          </div>
-
-          <!-- PayPal Modal -->
-          <div id="paypal-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:1rem;">
-            <div style="background:white;border-radius:var(--radius-lg);padding:2rem;max-width:340px;width:100%;text-align:center;position:relative;box-shadow:var(--shadow-lg);">
-              <button onclick="document.getElementById('paypal-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--text-muted);line-height:1;">×</button>
-              <div style="background:#0070ba;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">💳</div>
-              <h3 style="margin-bottom:0.4rem;font-size:1.1rem;">Pay via PayPal</h3>
-              <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:1.25rem;">Scan the QR code below with your phone camera or PayPal app to complete your payment.</p>
-              <img src="images/paypal-qr.png" alt="PayPal QR Code" style="width:180px;height:180px;border-radius:var(--radius-md);border:1px solid var(--border);margin:0 auto 1rem;display:block;">
-              <p style="font-size:0.78rem;color:var(--text-muted);">🔒 Secure payment via PayPal · ELITEWRITERS</p>
-              <button onclick="document.getElementById('paypal-modal').style.display='none'" style="margin-top:1rem;width:100%;padding:0.75rem;background:var(--primary);color:white;border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.9rem;font-weight:500;cursor:pointer;">Close</button>
+            <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+              <div style="text-align: center;">
+                <img src="images/paypal-qr.png" alt="Scan to pay via PayPal" style="width: 120px; height: 120px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem;">Scan to pay via PayPal</p>
+              </div>
+              <div style="flex: 1;">
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem;">
+                  <span class="badge badge-green" style="padding: 0.5rem 1rem; font-size: 0.88rem;">💳 PayPal</span>
+                  <span class="badge badge-gray" style="padding: 0.5rem 1rem; font-size: 0.88rem;">💸 Wise — Coming Soon</span>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Right: Order Form -->
+        <!-- RIGHT: Order Form -->
         <div>
           <div style="margin-bottom: 2rem;">
             <div class="eyebrow">Order Form</div>
@@ -498,7 +401,6 @@
           </div>
 
           <form id="order-form" onsubmit="handleSubmit(event)">
-
             <div class="form-field">
               <label for="f-service">Service Needed</label>
               <select id="f-service" required>
@@ -510,12 +412,10 @@
                 <option>Other</option>
               </select>
             </div>
-
             <div class="form-field">
               <label for="f-topic">Subject / Topic</label>
               <input type="text" id="f-topic" placeholder="e.g. Impact of CSR on Brand Reputation" required>
             </div>
-
             <div class="form-grid-2">
               <div class="form-field">
                 <label for="f-type">Type of Paper</label>
@@ -545,7 +445,6 @@
                 </select>
               </div>
             </div>
-
             <div class="form-grid-2">
               <div class="form-field">
                 <label for="f-pages">Number of Pages</label>
@@ -556,7 +455,6 @@
                 <input type="number" id="f-words" min="1" placeholder="e.g. 1500">
               </div>
             </div>
-
             <div class="form-grid-2">
               <div class="form-field">
                 <label for="f-sources">Sources Required</label>
@@ -575,7 +473,6 @@
                 </select>
               </div>
             </div>
-
             <div class="form-grid-2">
               <div class="form-field">
                 <label for="f-language">Language</label>
@@ -589,46 +486,23 @@
                 <input type="datetime-local" id="f-deadline" required>
               </div>
             </div>
-
             <div class="form-field">
               <label for="f-instructions">Additional Instructions</label>
               <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources, or anything else we should know..."></textarea>
             </div>
-
-            <button type="submit" class="submit-btn">
-              🚀 Get My Free Quote →
-            </button>
+            <button type="submit" class="submit-btn">🚀 Get My Free Quote →</button>
             <p class="form-note">No commitment required. We'll contact you via WhatsApp or live chat with your quote within the hour.</p>
-
           </form>
 
-          <!-- Success Message with Ticket -->
-          <div id="form-success" style="display:none; text-align:center; padding: 2.5rem 2rem; background: var(--white); border: 1px solid rgba(10,61,46,0.15); border-radius: var(--radius-lg); margin-top: 1rem; box-shadow: var(--shadow-md);">
-            <div style="font-size: 3rem; margin-bottom: 0.75rem;">🎉</div>
-            <h3 style="margin-bottom: 0.5rem; color: var(--primary);">Order Request Received!</h3>
-            <p style="font-size:0.9rem; margin-bottom: 1.5rem; color: var(--text-secondary);">Your request has been submitted successfully. Please save your ticket number below — use it when following up with us.</p>
-
-            <!-- Ticket Number Box -->
-            <div style="background: var(--primary); border-radius: var(--radius-md); padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; display:inline-block; min-width: 260px;">
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;">Your Order Ticket</p>
-              <p id="ticket-number" style="font-family: monospace; font-size: 1.6rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin: 0;">EW-0000-0000</p>
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem;">Screenshot or note this number</p>
-            </div>
-
-            <!-- What happens next -->
-            <div style="background: var(--off-white); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; text-align: left;">
-              <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">What happens next:</p>
-              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.4rem;">✅ We'll review your requirements within 1 hour</p>
-              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.4rem;">💬 We'll contact you via WhatsApp with your quote</p>
-              <p style="font-size: 0.88rem; color: var(--text-secondary);">🔖 Quote your ticket number when following up</p>
-            </div>
-
+          <div id="form-success" style="display:none; text-align:center; padding: 3rem 2rem; background: rgba(10,61,46,0.04); border: 1px solid rgba(10,61,46,0.15); border-radius: var(--radius-lg); margin-top: 1rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+            <h3 style="margin-bottom: 0.75rem; color: var(--primary);">Request Received!</h3>
+            <p style="margin-bottom: 1.5rem;">Thank you for reaching out. We'll review your requirements and get back to you within the hour via WhatsApp or live chat.</p>
             <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 Chat on WhatsApp →</a>
+              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">Chat on WhatsApp →</a>
               <a href="index.html" class="btn btn-outline">Back to Home</a>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -642,34 +516,10 @@
         <h2>What Happens After You Submit?</h2>
       </div>
       <div style="max-width: 750px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;">
-        <div class="process-step">
-          <div class="step-number">1</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">We Review Your Request</h4>
-            <p style="font-size: 0.92rem;">Within 1–2 hours we carefully review your requirements and prepare your personalized quote.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-number">2</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">You Receive a Quote</h4>
-            <p style="font-size: 0.92rem;">We send a clear, itemized quote via WhatsApp or live chat — no hidden fees, no surprises. You decide whether to proceed.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-number">3</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">Payment & Confirmation</h4>
-            <p style="font-size: 0.92rem;">Once you're happy, we confirm your order and process payment via PayPal or Wise. Orders above $30 only require 50% upfront.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-number">4</div>
-          <div>
-            <h4 style="margin-bottom: 0.3rem;">We Write. You Review.</h4>
-            <p style="font-size: 0.92rem;">Writing begins immediately. You receive your completed work before the deadline with 2 free revisions included on every order.</p>
-          </div>
-        </div>
+        <div class="process-step"><div class="step-number">1</div><div><h4 style="margin-bottom: 0.3rem;">We Review Your Request</h4><p style="font-size: 0.92rem;">Within 1–2 hours we carefully review your requirements and prepare your personalized quote.</p></div></div>
+        <div class="process-step"><div class="step-number">2</div><div><h4 style="margin-bottom: 0.3rem;">You Receive a Quote</h4><p style="font-size: 0.92rem;">We send a clear, itemized quote via WhatsApp or live chat — no hidden fees, no surprises.</p></div></div>
+        <div class="process-step"><div class="step-number">3</div><div><h4 style="margin-bottom: 0.3rem;">Payment & Confirmation</h4><p style="font-size: 0.92rem;">Once you're happy, we confirm your order and process payment via PayPal or Wise. Orders above $30 only require 50% upfront.</p></div></div>
+        <div class="process-step"><div class="step-number">4</div><div><h4 style="margin-bottom: 0.3rem;">We Write. You Review.</h4><p style="font-size: 0.92rem;">Writing begins immediately. You receive your completed work before the deadline with 2 free revisions included on every order.</p></div></div>
       </div>
     </div>
   </section>
@@ -677,75 +527,15 @@
   <!-- FAQ -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <div class="eyebrow">FAQ</div>
-        <h2>Frequently Asked Questions</h2>
-      </div>
+      <div class="section-header"><div class="eyebrow">FAQ</div><h2>Frequently Asked Questions</h2></div>
       <div style="max-width: 800px; margin: 0 auto;">
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            How quickly can you complete my order? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>We accept orders with deadlines as short as 24 hours. Rush orders are available at a +50% surcharge. The sooner you reach out, the better your chances of securing your preferred deadline.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            Is my order kept confidential? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>Absolutely. Your identity, your instructions, and your completed work are 100% private. We never share, publish, or reuse any client work — ever. Confidentiality is one of our core commitments.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            What if I'm not satisfied with the work? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>We offer 2 free revisions on every order. If you're still not satisfied after revisions, we will work with you until you are. Your satisfaction is our top priority.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            How do I pay? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>We accept PayPal and Wise. For orders under $30, full payment is required upfront. For orders above $30, we use a 50/50 split — 50% to confirm your order and 50% upon delivery once you're satisfied.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            Do you handle all academic subjects? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>Yes — we cover a wide range of subjects including English, Nursing & Healthcare, Business & Management, Psychology, Social Work, Political Science, and many more. Contact us if you're unsure about your subject.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            Will my paper be plagiarism-free? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>Yes. Every paper is written from scratch based on your specific instructions. We never recycle or reuse content. A plagiarism report is available as an add-on for just $5.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            Can I communicate directly during my order? <span class="faq-arrow">▼</span>
-          </div>
-          <div class="faq-answer">
-            <p>Yes. We believe in direct, transparent communication. You can reach us via WhatsApp, live chat, or email at any point during your order. We keep you updated throughout the process.</p>
-          </div>
-        </div>
-
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How quickly can you complete my order? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We accept orders with deadlines as short as 3 hours. Urgency surcharges apply: +30% for 13–24 hrs, +40% for 7–12 hrs, +50% for 3–6 hrs.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Is my order kept confidential? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Absolutely. Your identity, your instructions, and your completed work are 100% private. We never share, publish, or reuse any client work — ever.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What if I'm not satisfied with the work? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We offer 2 free revisions on every order. If you're still not satisfied after revisions, we will work with you until you are.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How do I pay? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We accept PayPal and Wise. Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you handle all academic subjects? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes — Nursing & Healthcare, Business & Management, Psychology, Social Work, Political Science, English, and many more.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Will my paper be plagiarism-free? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes. Every paper is written from scratch. Plagiarism & AI reports are included free on every order.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Can I communicate directly during my order? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes. Reach us via WhatsApp, live chat, or email at any point. We keep you updated throughout the process.</p></div></div>
       </div>
     </div>
   </section>
@@ -775,33 +565,9 @@
             <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
           </div>
         </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="services.html">Academic Writing</a></li>
-            <li><a href="services.html">Blog & Articles</a></li>
-            <li><a href="services.html">Business Content</a></li>
-            <li><a href="services.html">Editing & Proofreading</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="testimonials.html">Reviews</a></li>
-            <li><a href="contact.html">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Subjects</h4>
-          <ul>
-            <li><a href="services.html">Nursing & Healthcare</a></li>
-            <li><a href="services.html">Business & Management</a></li>
-            <li><a href="services.html">English & Literature</a></li>
-            <li><a href="services.html">Psychology</a></li>
-          </ul>
-        </div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Academic Writing</a></li><li><a href="services.html">Blog & Articles</a></li><li><a href="services.html">Business Content</a></li><li><a href="services.html">Editing & Proofreading</a></li></ul></div>
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="testimonials.html">Reviews</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Subjects</h4><ul><li><a href="services.html">Nursing & Healthcare</a></li><li><a href="services.html">Business & Management</a></li><li><a href="services.html">English & Literature</a></li><li><a href="services.html">Psychology</a></li></ul></div>
       </div>
       <div class="footer-bottom">
         <p>© 2025 EliteWriters. All Rights Reserved.</p>
@@ -816,44 +582,95 @@
   </a>
   <!-- WhatsApp Float -->
   <a href="https://wa.me/16624002088" class="float-btn whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
+  <!-- Live Chat Float (mobile only) -->
+  <button class="livechat-float" onclick="openLiveChat()" aria-label="Live chat">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
+  </button>
 
   <script src="js/main.js"></script>
   <script>
-    // FAQ Toggle
+    /* ── Price Calculator ── */
+    const CPP = { '12': 12, '13': 13, '14': 14, '15': 15 };
+
+    function calcPrice() {
+      const cpp      = parseFloat(document.getElementById('calc-level').value) || 14;
+      const pages    = Math.max(1, parseInt(document.getElementById('calc-qty').value) || 1);
+      const urgency  = parseInt(document.getElementById('calc-deadline').value) || 0; // 0b/0c parse as 0
+      const graphics = Math.max(0, parseInt(document.getElementById('qty-graphics').value) || 0);
+      const sources  = Math.max(0, parseInt(document.getElementById('qty-sources').value) || 0);
+      const abstract = document.getElementById('calc-abstract').checked;
+
+      const base       = cpp * pages;
+      const rushAmt    = base * (urgency / 100);
+      const graphicsAmt = graphics * 5;
+      const sourcesAmt  = sources * 3;
+      const abstractAmt = abstract ? 6 : 0;
+      const total      = base + rushAmt + graphicsAmt + sourcesAmt + abstractAmt;
+
+      // Update labels
+      document.getElementById('calc-base-label').textContent = `Base price (${pages} pg × $${cpp})`;
+      document.getElementById('calc-base-price').textContent = `$${base.toFixed(2)}`;
+
+      // Rush row
+      const rushRow = document.getElementById('calc-rush-row');
+      if (urgency > 0) {
+        rushRow.style.display = 'flex';
+        document.getElementById('rush-pct-tag').textContent = `+${urgency}%`;
+        document.getElementById('calc-rush-price').textContent = `$${rushAmt.toFixed(2)}`;
+      } else { rushRow.style.display = 'none'; }
+
+      // Graphics row
+      const gRow = document.getElementById('calc-graphics-row');
+      if (graphics > 0) {
+        gRow.style.display = 'flex';
+        document.getElementById('calc-graphics-label').textContent = `Graphics & Tables (×${graphics})`;
+        document.getElementById('calc-graphics-price').textContent = `$${graphicsAmt.toFixed(2)}`;
+      } else { gRow.style.display = 'none'; }
+      document.getElementById('price-graphics').textContent = graphics > 0 ? `$${graphicsAmt.toFixed(2)}` : '$0.00';
+
+      // Sources row
+      const sRow = document.getElementById('calc-src-row');
+      if (sources > 0) {
+        sRow.style.display = 'flex';
+        document.getElementById('calc-src-label').textContent = `Printable Sources (×${sources})`;
+        document.getElementById('calc-src-price').textContent = `$${sourcesAmt.toFixed(2)}`;
+      } else { sRow.style.display = 'none'; }
+      document.getElementById('price-sources').textContent = sources > 0 ? `$${sourcesAmt.toFixed(2)}` : '$0.00';
+
+      // Abstract row
+      document.getElementById('calc-abstract-row').style.display = abstract ? 'flex' : 'none';
+
+      // Total
+      document.getElementById('calc-total').textContent = `$${total.toFixed(2)}`;
+
+      // Payment note
+      const half = total / 2;
+      document.getElementById('calc-payment-note').innerHTML = total >= 30
+        ? `💡 Pay <strong>$${half.toFixed(2)}</strong> upfront to confirm, then <strong>$${half.toFixed(2)}</strong> on delivery.`
+        : `💡 Full payment of <strong>$${total.toFixed(2)}</strong> required upfront (orders under $30).`;
+    }
+
+    // Bind all inputs
+    ['calc-level','calc-qty','calc-deadline','calc-abstract','qty-graphics','qty-sources'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('change', calcPrice);
+      if (el.type === 'number') el.addEventListener('input', calcPrice);
+    });
+    calcPrice(); // Run on load
+
+    /* ── FAQ Toggle ── */
     function toggleFaq(el) {
       const answer = el.nextElementSibling;
       const isOpen = el.classList.contains('open');
-      document.querySelectorAll('.faq-question').forEach(q => {
-        q.classList.remove('open');
-        q.nextElementSibling.classList.remove('open');
-      });
-      if (!isOpen) {
-        el.classList.add('open');
-        answer.classList.add('open');
-      }
+      document.querySelectorAll('.faq-question').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { el.classList.add('open'); answer.classList.add('open'); }
     }
 
-    // Generate unique ticket number
-    function generateTicket() {
-      const year = new Date().getFullYear();
-      const rand = Math.floor(1000 + Math.random() * 9000);
-      const seq = Math.floor(1000 + Math.random() * 9000);
-      return `EW-${year}-${rand}`;
-    }
-
-    // Form Submit Handler
+    /* ── Form Submit ── */
     function handleSubmit(e) {
       e.preventDefault();
-      const form = document.getElementById('order-form');
-      const success = document.getElementById('form-success');
-      const ticketNum = generateTicket();
-      document.getElementById('ticket-number').textContent = ticketNum;
-
-      // Build WhatsApp message from form data
       const service = document.getElementById('f-service').value;
       const topic = document.getElementById('f-topic').value;
       const type = document.getElementById('f-type').value;
@@ -866,47 +683,36 @@
       const deadline = document.getElementById('f-deadline').value;
       const instructions = document.getElementById('f-instructions').value;
 
-      const msg = `*New Order Request — EliteWriters*\n*Ticket: ${ticketNum}*\n\n` +
-        `📋 *Service:* ${service}\n` +
-        `📌 *Topic:* ${topic}\n` +
-        `📄 *Type:* ${type}\n` +
-        `🎓 *Level:* ${level}\n` +
-        `📃 *Pages:* ${pages || 'N/A'}\n` +
-        `📝 *Words:* ${words || 'N/A'}\n` +
-        `📚 *Sources:* ${sources || 'N/A'}\n` +
-        `📐 *Citation:* ${citation}\n` +
-        `🌐 *Language:* ${language}\n` +
-        `⏰ *Deadline:* ${deadline}\n` +
-        `💬 *Instructions:* ${instructions || 'None'}`;
+      const msg = `*New Order Request — EliteWriters*\n\n` +
+        `📋 *Service:* ${service}\n📌 *Topic:* ${topic}\n📄 *Type:* ${type}\n` +
+        `🎓 *Level:* ${level}\n📃 *Pages:* ${pages||'N/A'}\n📝 *Words:* ${words||'N/A'}\n` +
+        `📚 *Sources:* ${sources||'N/A'}\n📐 *Citation:* ${citation}\n` +
+        `🌐 *Language:* ${language}\n⏰ *Deadline:* ${deadline}\n` +
+        `💬 *Instructions:* ${instructions||'None'}`;
 
-      // Open WhatsApp with pre-filled message
-      const waUrl = `https://wa.me/16624002088?text=${encodeURIComponent(msg)}`;
-      window.open(waUrl, '_blank');
-
-      // Show success message
-      form.style.display = 'none';
-      success.style.display = 'block';
+      window.open(`https://wa.me/16624002088?text=${encodeURIComponent(msg)}`, '_blank');
+      document.getElementById('order-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
     }
 
-    // Addon checkbox styling
-    document.querySelectorAll('.addon-label input[type=checkbox]').forEach(cb => {
-      cb.addEventListener('change', () => {
-        cb.closest('.addon-label').classList.toggle('checked', cb.checked);
-      });
-    });
+    /* ── Open Tawk.to on mobile ── */
+    function openLiveChat() {
+      if (window.Tawk_API && typeof Tawk_API.maximize === 'function') Tawk_API.maximize();
+    }
   </script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </body>
 </html>
