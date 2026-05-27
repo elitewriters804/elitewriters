@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Place your order with EliteWriters — Submit your assignment details and get an instant ticket number.">
+  <title>Place Order | EliteWriters</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Order Page ── */
+    .order-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* ── Form Panel ── */
+    .form-panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .form-panel-header {
+      background: var(--primary);
+      padding: 2rem 2.5rem;
+    }
+    .form-panel-header h2 { color: var(--white); font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .form-panel-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; }
+    .form-panel-body { padding: 2rem 2.5rem; }
+
+    .f-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 1.1rem; }
+    .f-field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .f-field select,
+    .f-field input,
+    .f-field textarea {
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.93rem;
+      color: var(--text-primary);
+      background: var(--white);
+      transition: var(--transition);
+      width: 100%;
+    }
+    .f-field select:focus,
+    .f-field input:focus,
+    .f-field textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
+    }
+    .f-field textarea { resize: vertical; min-height: 100px; }
+    .f-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* File upload area */
+    .file-upload-area {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--off-white);
+      position: relative;
+    }
+    .file-upload-area:hover {
+      border-color: var(--primary-light);
+      background: rgba(10,61,46,0.03);
+    }
+    .file-upload-area.drag-over {
+      border-color: var(--primary);
+      background: rgba(10,61,46,0.06);
+    }
+    .file-upload-area input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .file-list { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.75rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .file-item .remove-file {
+      background: none;
+      border: none;
+      color: #e53e3e;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+      line-height: 1;
+    }
+
+    /* Submit button */
+    .create-ticket-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--accent);
+      color: var(--primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .create-ticket-btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .create-ticket-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── Ticket View Panel ── */
+    .ticket-panel {
+      background: #1a1f2e;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+    }
+    .ticket-panel.show { display: flex; }
+
+    .ticket-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .ticket-id {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      font-family: monospace;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .ticket-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .ticket-tabs {
+      display: flex;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      width: fit-content;
+    }
+    .ticket-tab {
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+    .ticket-tab:hover { color: rgba(255,255,255,0.8); }
+    .ticket-tab.active {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .ticket-body { padding: 1.5rem 2rem; flex: 1; }
+
+    /* General tab */
+    .ticket-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .stat-card-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .stat-card-value {
+      font-size: 1rem;
+      color: var(--white);
+      font-weight: 500;
+    }
+    .stat-card-sub {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.3rem;
+    }
+    .progress-ring {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent) 0%, rgba(255,255,255,0.1) 0%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 600;
+      float: right;
+      margin-top: -2.5rem;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .status-pending { background: rgba(234,179,8,0.15); color: #fbbf24; border: 1px solid rgba(234,179,8,0.25); }
+    .status-progress { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+    .status-review { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.25); }
+    .status-done { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+    .paid-badge { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+    .unpaid-badge { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+
+    /* Instructions tab */
+    .instr-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .instr-item { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .instr-label { font-size: 0.75rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+    .instr-value { font-size: 0.9rem; color: var(--white); font-weight: 500; }
+    .instr-description {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-top: 1rem;
+    }
+
+    /* Files tab */
+    .files-empty {
+      text-align: center;
+      padding: 2rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.9rem;
+    }
+    .attached-file {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .file-icon { font-size: 1.2rem; }
+
+    /* Chat Panel */
+    .chat-panel {
+      background: #1a1f2e;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      min-height: 400px;
+    }
+    .chat-header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .chat-avatar {
+      width: 36px; height: 36px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: white;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .chat-name { font-size: 0.9rem; color: var(--white); font-weight: 500; }
+    .chat-status { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    .chat-messages {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      overflow-y: auto;
+      max-height: 280px;
+    }
+    .chat-msg {
+      max-width: 85%;
+      padding: 0.65rem 1rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .chat-msg.ew {
+      background: var(--primary);
+      color: rgba(255,255,255,0.9);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-msg.client {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.85);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-time { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-top: 0.3rem; text-align: right; }
+    .chat-input-area {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      gap: 0.5rem;
+    }
+    .chat-input {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+    }
+    .chat-input::placeholder { color: rgba(255,255,255,0.3); }
+    .chat-input:focus { outline: none; border-color: rgba(255,255,255,0.25); }
+    .chat-send {
+      width: 36px; height: 36px;
+      background: var(--primary-light);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .chat-send:hover { background: var(--primary); }
+    .chat-send svg { width: 16px; height: 16px; fill: white; }
+
+    /* Ticket lookup */
+    .lookup-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .lookup-box h4 { margin-bottom: 0.75rem; font-size: 0.95rem; }
+    .lookup-row { display: flex; gap: 0.75rem; }
+    .lookup-input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+    }
+    .lookup-input:focus { outline: none; border-color: var(--primary-light); }
+    .lookup-btn {
+      padding: 0.65rem 1.25rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .lookup-btn:hover { background: var(--primary-light); }
+
+    /* Loading spinner */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .order-wrap { grid-template-columns: 1fr; }
+      .f-grid-2 { grid-template-columns: 1fr; }
+      .ticket-stats { grid-template-columns: 1fr 1fr; }
+      .instr-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .form-panel-body { padding: 1.25rem; }
+      .ticket-body { padding: 1rem 1.25rem; }
+      .ticket-header { padding: 1rem 1.25rem; }
+      .ticket-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="testimonials.html">Reviews</a></li>
+        <li><a href="order.html" class="nav-cta active">Place Order</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Place Order</span></div>
+      <div class="eyebrow">Order System</div>
+      <h1>Submit Your Assignment</h1>
+      <p>Fill in your details, attach any files, and your ticket will be created instantly.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Ticket Lookup -->
+      <div class="lookup-box">
+        <h4>🔖 Already have a ticket? Look it up here</h4>
+        <div class="lookup-row">
+          <input type="text" class="lookup-input" id="lookup-input" placeholder="Enter ticket number e.g. #001">
+          <button class="lookup-btn" onclick="lookupTicket()">Find Ticket</button>
+        </div>
+        <div id="lookup-error" style="display:none;font-size:0.85rem;color:#e53e3e;margin-top:0.5rem;"></div>
+      </div>
+
+      <div class="order-wrap" id="order-wrap">
+
+        <!-- LEFT: Order Form -->
+        <div id="form-side">
+          <div class="form-panel">
+            <div class="form-panel-header">
+              <h2>📋 New Order</h2>
+              <p>Complete all required fields. Your ticket is created instantly on submission.</p>
+            </div>
+            <div class="form-panel-body">
+              <form id="order-form" onsubmit="submitOrder(event)">
+
+                <div class="f-field">
+                  <label>Service Needed *</label>
+                  <select id="o-service" required>
+                    <option value="">Select service...</option>
+                    <option>Academic Writing</option>
+                    <option>Blog & Article Writing</option>
+                    <option>Business Content</option>
+                    <option>Editing & Proofreading</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="f-field">
+                  <label>Topic / Title *</label>
+                  <input type="text" id="o-topic" placeholder="e.g. Impact of AI on Healthcare" required>
+                </div>
+
+                <div class="f-grid-2">
+                  <div class="f-field">
+                    <label>Type of Paper</label>
+                    <select id="o-type">
+                      <option value="">Select type...</option>
+                      <option>Essay</option>
+                      <option>Research Paper</option>
+                      <option>Case Study</option>
+                      <option>PowerPoint</option>
+                      <option>Report</option>
+                      <option>Literature Review</option>
+                      <option>Thesis / Dissertation</option>
+                      <option>Blog Post</option>
+                      <option>Business Report</option>
+                      <option>Article (written)</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="f-field">
+                    <label>Education Level</label>
+                    <select id="o-level">
+                      <option value="">Select level...</option>
+                      <option>High School</option>
+                      <option>Undergraduate</option>
+                      <option>Master's</option>
+                      <option>Doctorate</option>
+                      <option>Not Applicable</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="f-grid-2">
+                  <div class="f-field">
+                    <label>Number of Pages</label>
+                    <input type="number" id="o-pages" min="1" placeholder="e.g. 5">
+                  </div>
+                  <div class="f-field">
+                    <label>Word Count (optional)</label>
+                    <input type="number" id="o-words" min="1" placeholder="e.g. 1500">
+                  </div>
+                </div>
+
+                <div class="f-grid-2">
+                  <div class="f-field">
+                    <label>Sources Required</label>
+                    <input type="number" id="o-sources" min="0" placeholder="e.g. 5">
+                  </div>
+                  <div class="f-field">
+                    <label>Citation Style</label>
+                    <select id="o-citation">
+                      <option value="">Select style...</option>
+                      <option>APA 7th Edition</option>
+                      <option>MLA</option>
+                      <option>Chicago</option>
+                      <option>Harvard</option>
+                      <option>Turabian</option>
+                      <option>Other</option>
+                      <option>Not Applicable</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="f-grid-2">
+                  <div class="f-field">
+                    <label>Language</label>
+                    <select id="o-language">
+                      <option>English (US)</option>
+                      <option>English (UK)</option>
+                    </select>
+                  </div>
+                  <div class="f-field">
+                    <label>Deadline *</label>
+                    <input type="datetime-local" id="o-deadline" required>
+                  </div>
+                </div>
+
+                <div class="f-field">
+                  <label>Additional Instructions</label>
+                  <textarea id="o-instructions" placeholder="Any specific requirements, formatting notes, preferred sources, rubric details, or anything else we should know..."></textarea>
+                </div>
+
+                <!-- File Upload -->
+                <div class="f-field">
+                  <label>Attach Files (optional)</label>
+                  <div class="file-upload-area" id="drop-zone">
+                    <input type="file" id="o-files" multiple accept=".pdf,.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png" onchange="handleFiles(this.files)">
+                    <div style="pointer-events:none;">
+                      <div style="font-size:1.8rem;margin-bottom:0.5rem;">📎</div>
+                      <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">Drag & drop files here or <strong style="color:var(--primary);">browse</strong></p>
+                      <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.3rem;">PDF, Word, PPT, Excel, Images accepted</p>
+                    </div>
+                  </div>
+                  <div class="file-list" id="file-list"></div>
+                </div>
+
+                <button type="submit" class="create-ticket-btn" id="submit-btn">
+                  🎫 Create My Ticket
+                </button>
+                <p style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:0.6rem;">Your ticket number is generated instantly. No personal details required.</p>
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Ticket View -->
+        <div id="ticket-side">
+
+          <!-- Placeholder when no ticket yet -->
+          <div id="ticket-placeholder" style="background:var(--off-white);border:2px dashed var(--border);border-radius:var(--radius-xl);padding:4rem 2rem;text-align:center;">
+            <div style="font-size:3rem;margin-bottom:1rem;">🎫</div>
+            <h3 style="margin-bottom:0.5rem;font-size:1.1rem;">Your Ticket Appears Here</h3>
+            <p style="font-size:0.9rem;color:var(--text-muted);">Fill in your assignment details and click "Create My Ticket" — your order ticket will appear here instantly.</p>
+          </div>
+
+          <!-- Ticket View (shown after submission) -->
+          <div id="ticket-view" style="display:none;">
+
+            <!-- Main ticket card -->
+            <div class="ticket-panel show" id="ticket-card">
+              <div class="ticket-header">
+                <div class="ticket-id">
+                  ID <span id="tv-ticket-num">#001</span>
+                  <span style="cursor:pointer;opacity:0.5;" onclick="copyTicket()" title="Copy ticket number">📋</span>
+                </div>
+                <div class="ticket-title" id="tv-topic">Order Title</div>
+                <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+                  <div class="ticket-tabs">
+                    <button class="ticket-tab active" onclick="switchTab('general',this)">General</button>
+                    <button class="ticket-tab" onclick="switchTab('instructions',this)">Instructions</button>
+                    <button class="ticket-tab" onclick="switchTab('files',this)">Files</button>
+                  </div>
+                  <span id="tv-status-badge" class="status-badge status-pending">⏳ Pending</span>
+                </div>
+              </div>
+
+              <!-- General Tab -->
+              <div class="ticket-body" id="tab-general">
+                <div class="ticket-stats">
+                  <div class="stat-card">
+                    <div class="stat-card-label">📅 Deadline</div>
+                    <div class="stat-card-value" id="tv-deadline">—</div>
+                    <div class="stat-card-sub" id="tv-deadline-sub">—</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="stat-card-label">💰 Order</div>
+                    <div class="stat-card-value">My share</div>
+                    <div style="margin-top:0.5rem;">
+                      <span id="tv-paid" class="status-badge unpaid-badge">$0 unpaid</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Order Add-ons -->
+                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-md);padding:1rem;margin-bottom:1rem;">
+                  <div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;">Order Details</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Service</div>
+                    <div style="font-size:0.85rem;color:var(--white);font-weight:500;" id="tv-service">—</div>
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Pages</div>
+                    <div style="font-size:0.85rem;color:var(--white);font-weight:500;" id="tv-pages">—</div>
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Submitted</div>
+                    <div style="font-size:0.85rem;color:var(--white);font-weight:500;" id="tv-date">—</div>
+                  </div>
+                </div>
+
+                <!-- WhatsApp CTA -->
+                <a href="https://wa.me/16624002088" target="_blank" style="display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1rem;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);border-radius:var(--radius-md);text-decoration:none;transition:var(--transition);" onmouseover="this.style.background='rgba(37,211,102,0.18)'" onmouseout="this.style.background='rgba(37,211,102,0.1)'">
+                  <span style="font-size:1.2rem;">💬</span>
+                  <div>
+                    <div style="font-size:0.88rem;color:#4ade80;font-weight:500;">Contact us on WhatsApp</div>
+                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.35);">Quote your ticket number when messaging</div>
+                  </div>
+                </a>
+              </div>
+
+              <!-- Instructions Tab -->
+              <div class="ticket-body" id="tab-instructions" style="display:none;">
+                <div class="instr-row">
+                  <div class="instr-item">
+                    <div class="instr-label">Topic</div>
+                    <div class="instr-value" id="tv-i-topic">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Type</div>
+                    <div class="instr-value" id="tv-i-type">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Education Level</div>
+                    <div class="instr-value" id="tv-i-level">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Size</div>
+                    <div class="instr-value" id="tv-i-size">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Citation Style</div>
+                    <div class="instr-value" id="tv-i-citation">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Language</div>
+                    <div class="instr-value" id="tv-i-language">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Sources Required</div>
+                    <div class="instr-value" id="tv-i-sources">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Service</div>
+                    <div class="instr-value" id="tv-i-service">—</div>
+                  </div>
+                  <div class="instr-item">
+                    <div class="instr-label">Deadline</div>
+                    <div class="instr-value" id="tv-i-deadline">—</div>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Description / Instructions</div>
+                  <div class="instr-description" id="tv-i-instructions">No additional instructions provided.</div>
+                </div>
+              </div>
+
+              <!-- Files Tab -->
+              <div class="ticket-body" id="tab-files" style="display:none;">
+                <div id="tv-files-list">
+                  <div class="files-empty">📂 There are no files attached to this order.</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Chat Panel -->
+            <div style="background:#1a1f2e;border-radius:var(--radius-lg);margin-top:1rem;overflow:hidden;">
+              <div class="chat-header">
+                <div class="chat-avatar">EW</div>
+                <div>
+                  <div class="chat-name">EliteWriters Support</div>
+                  <div class="chat-status">🟢 Usually responds within 1 hour</div>
+                </div>
+              </div>
+              <div class="chat-messages" id="chat-messages">
+                <div>
+                  <div class="chat-msg ew" id="welcome-msg">
+                    Hi! Your order has been received. We'll review your requirements and get back to you with a quote within the hour. Please quote your ticket number when messaging us on WhatsApp.
+                  </div>
+                  <div class="chat-time">EliteWriters · Just now</div>
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type a message... (opens WhatsApp)" onkeydown="if(event.key==='Enter')sendChatMsg()">
+                <button class="chat-send" onclick="sendChatMsg()">
+                  <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+          <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed on every order.</p>
+          <div class="footer-contact" style="margin-top:1.25rem;">
+            <a href="mailto:elitewriters804@gmail.com">✉ elitewriters804@gmail.com</a>
+            <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Academic Writing</a></li><li><a href="services.html">Blog & Articles</a></li><li><a href="services.html">Business Content</a></li></ul></div>
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="testimonials.html">Reviews</a></li></ul></div>
+        <div class="footer-col"><h4>Support</h4><ul><li><a href="order.html">Place Order</a></li><li><a href="contact.html">Get a Quote</a></li><li><a href="https://wa.me/16624002088">WhatsApp</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 EliteWriters. All Rights Reserved.</p>
+        <p>Professional Writing Services · Fast · Reliable · Confidential</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <a href="mailto:elitewriters804@gmail.com" class="float-btn email-float" aria-label="Email us">
+    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  </a>
+  <a href="https://wa.me/16624002088" class="float-btn whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── Google Apps Script URL (update after deploying) ──
+    const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+    // ── File handling ──
+    let selectedFiles = [];
+    function handleFiles(files) {
+      Array.from(files).forEach(f => {
+        if (!selectedFiles.find(x => x.name === f.name)) selectedFiles.push(f);
+      });
+      renderFileList();
+    }
+    function renderFileList() {
+      const list = document.getElementById('file-list');
+      list.innerHTML = selectedFiles.map((f, i) => `
+        <div class="file-item">
+          <span>${getFileIcon(f.name)} ${f.name} <span style="color:var(--text-muted);font-size:0.78rem;">(${(f.size/1024).toFixed(1)} KB)</span></span>
+          <button class="remove-file" onclick="removeFile(${i})">×</button>
+        </div>`).join('');
+    }
+    function removeFile(i) { selectedFiles.splice(i, 1); renderFileList(); }
+    function getFileIcon(name) {
+      const ext = name.split('.').pop().toLowerCase();
+      if (['pdf'].includes(ext)) return '📄';
+      if (['doc','docx'].includes(ext)) return '📝';
+      if (['ppt','pptx'].includes(ext)) return '📊';
+      if (['xls','xlsx'].includes(ext)) return '📈';
+      if (['jpg','jpeg','png'].includes(ext)) return '🖼️';
+      return '📎';
+    }
+
+    // Drag & drop
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    // ── Tab switching ──
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.ticket-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      ['general','instructions','files'].forEach(t => {
+        document.getElementById('tab-' + t).style.display = t === tab ? 'block' : 'none';
+      });
+    }
+
+    // ── Submit Order ──
+    async function submitOrder(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Creating ticket...';
+
+      const data = {
+        action: 'createTicket',
+        service: document.getElementById('o-service').value,
+        topic: document.getElementById('o-topic').value,
+        type: document.getElementById('o-type').value,
+        level: document.getElementById('o-level').value,
+        pages: document.getElementById('o-pages').value,
+        words: document.getElementById('o-words').value,
+        sources: document.getElementById('o-sources').value,
+        citation: document.getElementById('o-citation').value,
+        language: document.getElementById('o-language').value,
+        deadline: document.getElementById('o-deadline').value,
+        instructions: document.getElementById('o-instructions').value,
+        files: selectedFiles.map(f => f.name)
+      };
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          showTicket(result.ticketNumber, data);
+          sendWhatsApp(result.ticketNumber, data);
+        } else {
+          // Fallback: generate local ticket if API fails
+          const localTicket = '#' + String(Math.floor(Math.random() * 900) + 100).padStart(3, '0');
+          showTicket(localTicket, data);
+          sendWhatsApp(localTicket, data);
+        }
+      } catch (err) {
+        // Fallback for when Apps Script not yet deployed
+        const localTicket = '#' + String(Date.now()).slice(-3);
+        showTicket(localTicket, data);
+        sendWhatsApp(localTicket, data);
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '🎫 Create My Ticket';
+    }
+
+    // ── Show Ticket ──
+    function showTicket(ticketNum, data) {
+      document.getElementById('ticket-placeholder').style.display = 'none';
+      document.getElementById('ticket-view').style.display = 'block';
+
+      // Set values
+      document.getElementById('tv-ticket-num').textContent = ticketNum;
+      document.getElementById('tv-topic').textContent = data.topic;
+      document.getElementById('tv-service').textContent = data.service;
+      document.getElementById('tv-pages').textContent = data.pages ? data.pages + ' page(s)' : '—';
+      document.getElementById('tv-date').textContent = new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+
+      // Deadline
+      if (data.deadline) {
+        const dl = new Date(data.deadline);
+        document.getElementById('tv-deadline').textContent = dl.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+        document.getElementById('tv-deadline-sub').textContent = dl.toLocaleTimeString('en-US', {hour:'2-digit',minute:'2-digit'});
+      }
+
+      // Instructions tab
+      document.getElementById('tv-i-topic').textContent = data.topic || '—';
+      document.getElementById('tv-i-type').textContent = data.type || '—';
+      document.getElementById('tv-i-level').textContent = data.level || '—';
+      document.getElementById('tv-i-size').textContent = [data.pages && data.pages+' pages', data.words && data.words+' words'].filter(Boolean).join(', ') || '—';
+      document.getElementById('tv-i-citation').textContent = data.citation || '—';
+      document.getElementById('tv-i-language').textContent = data.language || '—';
+      document.getElementById('tv-i-sources').textContent = data.sources || '—';
+      document.getElementById('tv-i-service').textContent = data.service || '—';
+      document.getElementById('tv-i-deadline').textContent = data.deadline ? new Date(data.deadline).toLocaleString() : '—';
+      document.getElementById('tv-i-instructions').textContent = data.instructions || 'No additional instructions provided.';
+
+      // Files tab
+      const filesDiv = document.getElementById('tv-files-list');
+      if (selectedFiles.length > 0) {
+        filesDiv.innerHTML = selectedFiles.map(f => `
+          <div class="attached-file">
+            <span class="file-icon">${getFileIcon(f.name)}</span>
+            <span>${f.name}</span>
+            <span style="color:rgba(255,255,255,0.3);font-size:0.78rem;margin-left:auto;">${(f.size/1024).toFixed(1)} KB</span>
+          </div>`).join('');
+      }
+
+      // Update welcome message
+      document.getElementById('welcome-msg').textContent = `Your order ticket ${ticketNum} has been created! We'll review your requirements and send you a quote within the hour. Please quote ticket ${ticketNum} when messaging us on WhatsApp.`;
+
+      // Scroll to ticket
+      document.getElementById('ticket-view').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // ── Send WhatsApp notification ──
+    function sendWhatsApp(ticketNum, data) {
+      const msg = `🎫 *New Order — EliteWriters*\n*Ticket: ${ticketNum}*\n\n` +
+        `📋 *Service:* ${data.service}\n` +
+        `📌 *Topic:* ${data.topic}\n` +
+        `📄 *Type:* ${data.type}\n` +
+        `🎓 *Level:* ${data.level}\n` +
+        `📃 *Pages:* ${data.pages || 'N/A'}\n` +
+        `📚 *Sources:* ${data.sources || 'N/A'}\n` +
+        `📐 *Citation:* ${data.citation}\n` +
+        `⏰ *Deadline:* ${data.deadline}\n` +
+        `💬 *Instructions:* ${data.instructions || 'None'}\n` +
+        `📎 *Files:* ${selectedFiles.length > 0 ? selectedFiles.map(f=>f.name).join(', ') : 'None'}`;
+      window.open(`https://wa.me/16624002088?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // ── Lookup ticket ──
+    async function lookupTicket() {
+      const input = document.getElementById('lookup-input').value.trim();
+      const errEl = document.getElementById('lookup-error');
+      if (!input) { errEl.style.display = 'block'; errEl.textContent = 'Please enter a ticket number.'; return; }
+      errEl.style.display = 'none';
+      try {
+        const res = await fetch(`${APPS_SCRIPT_URL}?action=getTicket&ticketNumber=${encodeURIComponent(input)}`);
+        const result = await res.json();
+        if (result.success) {
+          showTicket(result.ticket.ticketNumber, result.ticket);
+        } else {
+          errEl.style.display = 'block';
+          errEl.textContent = 'Ticket not found. Please check your ticket number.';
+        }
+      } catch {
+        errEl.style.display = 'block';
+        errEl.textContent = 'Could not connect. Please try again or contact us via WhatsApp.';
+      }
+    }
+
+    // ── Copy ticket number ──
+    function copyTicket() {
+      const t = document.getElementById('tv-ticket-num').textContent;
+      navigator.clipboard.writeText(t).then(() => alert('Ticket number ' + t + ' copied!'));
+    }
+
+    // ── Chat (opens WhatsApp) ──
+    function sendChatMsg() {
+      const input = document.getElementById('chat-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const ticketNum = document.getElementById('tv-ticket-num').textContent;
+      const waMsg = `Ticket ${ticketNum}: ${msg}`;
+      window.open(`https://wa.me/16624002088?text=${encodeURIComponent(waMsg)}`, '_blank');
+      input.value = '';
+    }
+  </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+</body>
+</html>
