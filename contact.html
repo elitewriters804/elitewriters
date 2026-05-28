@@ -303,6 +303,10 @@
 
           <form id="order-form" onsubmit="handleSubmit(event)">
             <div class="form-field">
+              <label for="f-email">Your Email Address</label>
+              <input type="email" id="f-email" placeholder="e.g. yourname@gmail.com" required>
+            </div>
+            <div class="form-field">
               <label for="f-service">Service Needed</label>
               <select id="f-service" required>
                 <option value="">Select a service...</option>
@@ -670,6 +674,7 @@
     // ═══════════════════════════════════
     function handleSubmit(e) {
       e.preventDefault();
+      var clientEmail = document.getElementById('f-email').value.trim();
       var service = document.getElementById('f-service').value;
       var topic = document.getElementById('f-topic').value;
       var type = document.getElementById('f-type').value;
@@ -698,21 +703,11 @@
         pages:pages, wordCount:words, sources:sources, citationStyle:citation,
         language:language, deadline:deadline, instructions:instructions,
         addons:addons.join(', '), filesAttached:filesAttached,
-        estimatedPrice:totalPrice, submittedAt:new Date().toLocaleString()
+        estimatedPrice:totalPrice, submittedAt:new Date().toLocaleString(),
+        clientEmail: clientEmail
       };
 
-      if (firebaseAvailable && currentUser) {
-        orderData.clientEmail = currentUser.email || '';
-        orderData.clientName = currentUser.displayName || currentUser.email || 'Client';
-        submitOrderToBackend(orderData);
-      } else if (firebaseAvailable) {
-        pendingOrderData = orderData;
-        openAuthModal();
-      } else {
-        // Firebase unavailable — submit without auth
-        orderData.clientEmail = '';
-        submitOrderToBackend(orderData);
-      }
+      submitOrderToBackend(orderData);
     }
 
     // ═══════════════════════════════════
