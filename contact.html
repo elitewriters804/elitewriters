@@ -554,6 +554,11 @@
           document.getElementById('auth-user-bar').style.display = 'flex';
           document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
           document.getElementById('auth-email-display').textContent = user.email || 'Logged in';
+          // Auto-fill email field so client doesn't need to type it again
+          if (user.email) {
+            var emailField = document.getElementById('f-email');
+            if (emailField && !emailField.value) emailField.value = user.email;
+          }
           if (pendingOrderData) {
             var data = pendingOrderData;
             pendingOrderData = null;
