@@ -13,11 +13,11 @@
   <title>Get a Quote | EliteWriters</title>
   <link rel="stylesheet" href="css/style.css">
 
+  <!-- Firebase v8 — most stable -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <style>
-    /* ── KEEP: Original layout & calc styles ── */
     .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
     @media(max-width:768px){.contact-layout{grid-template-columns:1fr;gap:2rem}}
     .calc-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
@@ -53,31 +53,33 @@
     .price-line.total .amount{font-family:var(--font-display);font-size:1.8rem;color:var(--primary);font-weight:700}
     .rush-tag{font-size:.75rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:100px;margin-left:8px;font-weight:500}
     .payment-split{background:rgba(10,61,46,.05);border:1px solid rgba(10,61,46,.1);border-radius:var(--radius-sm);padding:.85rem 1rem;font-size:.88rem;color:var(--primary);margin-top:1rem}
-    /* Process */
-    .process-step{display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);transition:var(--transition)}
-    .process-step:hover{box-shadow:var(--shadow-sm);border-color:rgba(10,61,46,.15)}
-    .step-number{width:40px;height:40px;background:var(--primary);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;font-weight:700;flex-shrink:0}
-    /* FAQ */
-    .faq-item{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:.75rem}
-    .faq-question{padding:1.25rem 1.5rem;font-weight:600;font-size:.95rem;color:var(--text-primary);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);transition:var(--transition);user-select:none}
-    .faq-question:hover{background:var(--off-white);color:var(--primary)}
-    .faq-question.open{background:var(--primary);color:var(--white)}
-    .faq-arrow{transition:var(--transition);font-size:.8rem}
-    .faq-question.open .faq-arrow{transform:rotate(180deg)}
-    .faq-answer{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;background:var(--white)}
-    .faq-answer.open{max-height:300px;padding:1.25rem 1.5rem}
-    .faq-answer p{font-size:.93rem;color:var(--text-secondary)}
-    /* Float */
-    .livechat-float{position:fixed;bottom:160px;right:1.25rem;width:52px;height:52px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .2s;border:none}
-    .livechat-float:hover{transform:scale(1.08)}
-    .livechat-float svg{width:24px;height:24px;fill:white}
-    @media(min-width:769px){.livechat-float{display:none}}
-    /* Success */
-    .success-card{display:none;text-align:center;padding:2.5rem 2rem;background:var(--white);border:1px solid rgba(10,61,46,.15);border-radius:var(--radius-lg);box-shadow:var(--shadow-md)}
-    .ticket-box{background:var(--primary);border-radius:var(--radius-md);padding:1.25rem 1.5rem;margin:1.25rem auto;display:inline-block;min-width:260px}
-    .ticket-box-label{font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
-    .ticket-box-number{font-family:monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;letter-spacing:.05em}
-    .ticket-box-hint{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.4rem}
+    .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
+    .form-field label{font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em}
+    .form-field select,.form-field input,.form-field textarea{padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;color:var(--text-primary);background:var(--white);transition:var(--transition);width:100%;box-sizing:border-box}
+    .form-field select:focus,.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(10,61,46,.08)}
+    .form-field textarea{resize:vertical;min-height:120px}
+    .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    @media(max-width:768px){.form-grid-2{grid-template-columns:1fr;gap:0}}
+    .instructions-file-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+    @media(max-width:768px){.instructions-file-row{grid-template-columns:1fr;gap:.75rem}}
+    .file-upload-area{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:1.25rem;text-align:center;cursor:pointer;transition:var(--transition);background:var(--white);position:relative;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .file-upload-area:hover,.file-upload-area.dragover{border-color:var(--primary);background:rgba(10,61,46,.03)}
+    .file-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .file-upload-icon{font-size:1.5rem;margin-bottom:.4rem}
+    .file-upload-text{font-size:.88rem;color:var(--text-secondary)}
+    .file-upload-text span{color:var(--primary);font-weight:600}
+    .file-upload-hint{font-size:.78rem;color:var(--text-muted);margin-top:.3rem}
+    .file-list{margin-top:.75rem;display:flex;flex-direction:column;gap:.4rem}
+    .file-item{display:flex;align-items:center;justify-content:space-between;padding:.5rem .75rem;background:rgba(10,61,46,.05);border-radius:var(--radius-sm);font-size:.85rem}
+    .file-item-name{display:flex;align-items:center;gap:.5rem;flex:1;overflow:hidden}
+    .file-item-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .file-remove{background:none;border:none;cursor:pointer;color:#ef4444;font-size:1rem;padding:0 .25rem}
+    .submit-btn{width:100%;padding:1rem;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .submit-btn:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .form-note{font-size:.82rem;color:var(--text-muted);text-align:center;margin-top:.75rem}
+    .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
     /* Auth Modal */
     .auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
     .auth-overlay.active{opacity:1;pointer-events:all}
@@ -100,466 +102,35 @@
     .auth-btn-primary:disabled{opacity:.6;cursor:not-allowed}
     .auth-error{background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);padding:.65rem .9rem;font-size:.85rem;color:#dc2626;margin-bottom:.85rem;display:none;text-align:left}
     .auth-error.show{display:block}
-    .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* ══════════════════════════════════════
-       NEW: Dark Order Form Styles
-    ══════════════════════════════════════ */
-    .order-form-wrap {
-      background: #1a1a2e;
-      border-radius: 16px;
-      overflow: hidden;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    .order-form-header {
-      background: linear-gradient(135deg, #0d3b2e 0%, #1a5c44 100%);
-      padding: 2rem 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .order-form-header .eyebrow {
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #4ade80;
-      margin-bottom: .5rem;
-    }
-    .order-form-header h2 {
-      color: #fff;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.5rem;
-      margin: 0 0 .35rem;
-    }
-    .order-form-header p {
-      color: rgba(255,255,255,.6);
-      font-size: .88rem;
-      margin: 0;
-    }
-    /* User email bar */
-    .of-user-bar {
-      display: none;
-      align-items: center;
-      gap: .75rem;
-      background: rgba(74,222,128,.08);
-      border: 1px solid rgba(74,222,128,.25);
-      border-radius: 10px;
-      padding: .65rem 1rem;
-      margin-bottom: 1.25rem;
-    }
-    .of-user-avatar {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      background: #16a34a;
-      color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85rem; font-weight: 700; flex-shrink: 0;
-    }
-    .of-user-email {
-      font-size: .88rem; color: #4ade80; font-weight: 500;
-      flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-    .of-signout {
-      font-size: .75rem; color: rgba(255,255,255,.4);
-      cursor: pointer; text-decoration: underline; flex-shrink: 0;
-    }
-    /* Form body */
-    .order-form-body {
-      padding: 2rem 2.5rem;
-    }
-    @media(max-width:768px){
-      .order-form-header,.order-form-body{padding:1.25rem}
-    }
-    /* Section label */
-    .of-section-label {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #e2e8f0;
-      margin: 0 0 .75rem;
-      letter-spacing: .01em;
-    }
-    .of-section {
-      margin-bottom: 1.75rem;
-    }
-    /* Pill buttons */
-    .of-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-    }
-    .of-pill {
-      padding: .5rem 1rem;
-      border-radius: 8px;
-      border: 1.5px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: #cbd5e1;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .88rem;
-      cursor: pointer;
-      transition: all .18s;
-      user-select: none;
-    }
-    .of-pill:hover {
-      border-color: rgba(74,222,128,.4);
-      color: #fff;
-      background: rgba(74,222,128,.08);
-    }
-    .of-pill.active {
-      border-color: #16a34a;
-      background: rgba(22,163,74,.2);
-      color: #4ade80;
-      font-weight: 600;
-    }
-    /* Subject search */
-    .of-search-wrap {
-      position: relative;
-      margin-bottom: .85rem;
-    }
-    .of-search-wrap svg {
-      position: absolute;
-      left: .9rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px; height: 16px;
-      fill: rgba(255,255,255,.3);
-    }
-    .of-search {
-      width: 100%;
-      box-sizing: border-box;
-      padding: .75rem 1rem .75rem 2.5rem;
-      background: rgba(255,255,255,.07);
-      border: 1.5px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      color: #e2e8f0;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .95rem;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .of-search::placeholder { color: rgba(255,255,255,.3); }
-    .of-search:focus { border-color: rgba(74,222,128,.5); }
-    .of-suggested-label {
-      font-size: .75rem;
-      color: rgba(255,255,255,.35);
-      margin-bottom: .5rem;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    /* Dropdown */
-    .of-select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: .75rem 2.5rem .75rem 1rem;
-      background: rgba(255,255,255,.07);
-      border: 1.5px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      color: #e2e8f0;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .95rem;
-      outline: none;
-      cursor: pointer;
-      transition: border-color .2s;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      background-size: 12px 8px;
-    }
-    .of-select option { background: #1e2a3a; color: #e2e8f0; }
-    .of-select:focus { border-color: rgba(74,222,128,.5); outline: none; }
-    /* Wrap the select in a relative div so no external widget icon bleeds in */
-    .of-select-wrap {
-      position: relative;
-      display: block;
-      isolation: isolate;
-    }
-    .of-popular-label {
-      font-size: .75rem;
-      color: rgba(255,255,255,.35);
-      margin: .75rem 0 .5rem;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    /* Size row */
-    .of-size-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .of-toggle {
-      display: flex;
-      border: 1.5px solid rgba(255,255,255,.12);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .of-toggle-btn {
-      padding: .5rem 1.1rem;
-      border: none;
-      background: transparent;
-      color: rgba(255,255,255,.5);
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .9rem;
-      cursor: pointer;
-      transition: all .18s;
-    }
-    .of-toggle-btn.active {
-      background: rgba(22,163,74,.25);
-      color: #4ade80;
-      font-weight: 600;
-    }
-    .of-stepper {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-    }
-    .of-stepper-label {
-      font-size: .75rem;
-      color: rgba(255,255,255,.35);
-      margin-right: .25rem;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    .of-stepper-btn {
-      width: 30px; height: 30px;
-      border-radius: 6px;
-      border: 1.5px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.05);
-      color: #e2e8f0;
-      font-size: 1.1rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all .15s;
-    }
-    .of-stepper-btn:hover { border-color: #16a34a; color: #4ade80; }
-    .of-stepper-count {
-      min-width: 36px;
-      text-align: center;
-      color: #fff;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-    .of-word-hint {
-      font-size: .75rem;
-      color: rgba(255,255,255,.3);
-      margin-top: .3rem;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    .of-line-spacing {
-      display: flex;
-      flex-direction: column;
-      gap: .3rem;
-    }
-    .of-line-spacing .of-select {
-      width: auto;
-      min-width: 130px;
-    }
-    .of-line-spacing-label {
-      font-size: .72rem;
-      color: rgba(255,255,255,.35);
-      font-family: 'Times New Roman', Times, serif;
-    }
-    /* Deadline */
-    .of-deadline-row {
-      display: flex;
-      flex-direction: column;
-      gap: .75rem;
-    }
-    .of-deadline-inputs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .75rem;
-    }
-    @media(max-width:600px){.of-deadline-inputs{grid-template-columns:1fr}}
-    .of-input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: .75rem 1rem;
-      background: rgba(255,255,255,.07);
-      border: 1.5px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      color: #e2e8f0;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .95rem;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .of-input:focus { border-color: rgba(74,222,128,.5); }
-    .of-input::-webkit-calendar-picker-indicator { filter: invert(.7); cursor: pointer; }
-    .of-quick-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-    }
-    .of-quick-btn {
-      padding: .4rem .85rem;
-      border-radius: 6px;
-      border: 1.5px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      color: #94a3b8;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .82rem;
-      cursor: pointer;
-      transition: all .15s;
-    }
-    .of-quick-btn:hover, .of-quick-btn.active {
-      border-color: #f59e0b;
-      color: #fbbf24;
-      background: rgba(245,158,11,.1);
-    }
-    /* 2-col form grid */
-    .of-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    @media(max-width:600px){.of-grid-2{grid-template-columns:1fr}}
-    /* Instructions + Files */
-    .of-bottom-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    @media(max-width:600px){.of-bottom-row{grid-template-columns:1fr}}
-    .of-textarea {
-      width: 100%;
-      box-sizing: border-box;
-      padding: .85rem 1rem;
-      background: rgba(255,255,255,.07);
-      border: 1.5px solid rgba(255,255,255,.1);
-      border-radius: 10px;
-      color: #e2e8f0;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: .9rem;
-      outline: none;
-      resize: vertical;
-      min-height: 130px;
-      transition: border-color .2s;
-    }
-    .of-textarea::placeholder { color: rgba(255,255,255,.25); }
-    .of-textarea:focus { border-color: rgba(74,222,128,.5); }
-    .of-file-zone {
-      border: 2px dashed rgba(255,255,255,.15);
-      border-radius: 10px;
-      padding: 1.25rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all .2s;
-      background: rgba(255,255,255,.03);
-      position: relative;
-      min-height: 130px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .of-file-zone:hover, .of-file-zone.dragover {
-      border-color: rgba(74,222,128,.4);
-      background: rgba(74,222,128,.05);
-    }
-    .of-file-zone input[type=file] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-    }
-    .of-file-icon { font-size: 1.4rem; margin-bottom: .35rem; }
-    .of-file-text { font-size: .85rem; color: rgba(255,255,255,.4); font-family: 'Times New Roman', Times, serif; }
-    .of-file-text span { color: #4ade80; font-weight: 600; }
-    .of-file-hint { font-size: .75rem; color: rgba(255,255,255,.25); margin-top: .3rem; font-family: 'Times New Roman', Times, serif; }
-    /* File list */
-    .of-file-list { margin-top: .5rem; display: flex; flex-direction: column; gap: .35rem; }
-    .of-file-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .4rem .75rem;
-      background: rgba(255,255,255,.06);
-      border-radius: 6px;
-      font-size: .82rem;
-      color: #cbd5e1;
-      font-family: 'Times New Roman', Times, serif;
-    }
-    .of-file-item-name { display: flex; align-items: center; gap: .4rem; flex: 1; overflow: hidden; }
-    .of-file-item-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .of-file-remove { background: none; border: none; cursor: pointer; color: #f87171; font-size: .9rem; padding: 0 .2rem; }
-    /* Submit */
-    .of-submit-btn {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all .2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      letter-spacing: .02em;
-      box-shadow: 0 4px 20px rgba(22,163,74,.3);
-    }
-    .of-submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(22,163,74,.4);
-    }
-    .of-submit-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-    .of-form-note {
-      font-size: .8rem;
-      color: rgba(255,255,255,.3);
-      text-align: center;
-      margin-top: .75rem;
-      font-family: 'Times New Roman', Times, serif;
-    }
-
-    /* ── PayPal Modal ── */
-    .paypal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.75);
-      z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      padding: 1rem;
-      opacity: 0; pointer-events: none;
-      transition: opacity .25s;
-    }
-    .paypal-overlay.active { opacity: 1; pointer-events: all; }
-    .paypal-modal {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      max-width: 320px;
-      width: 100%;
-      box-shadow: 0 25px 60px rgba(0,0,0,.35);
-      transform: scale(.95);
-      transition: transform .25s;
-    }
-    .paypal-overlay.active .paypal-modal { transform: scale(1); }
-    .paypal-modal h3 { font-size: 1.1rem; margin: 0 0 .35rem; color: #003087; }
-    .paypal-modal p { font-size: .82rem; color: #555; margin: 0 0 1rem; }
-    .paypal-modal img { width: 190px; height: 190px; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: .75rem; }
-    .paypal-close {
-      width: 100%; padding: .7rem;
-      background: #003087; color: #fff;
-      border: none; border-radius: 8px;
-      font-size: .9rem; font-weight: 600;
-      cursor: pointer;
-    }
-    /* PayPal clickable button */
-    .paypal-trigger-btn {
-      display: inline-flex; align-items: center; gap: .45rem;
-      padding: .55rem 1.2rem;
-      background: #003087;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: .9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s, transform .15s;
-    }
-    .paypal-trigger-btn:hover { background: #0050b3; transform: translateY(-1px); }
+    .auth-user-bar{display:flex;align-items:center;gap:.75rem;background:rgba(10,61,46,.05);border:1px solid rgba(10,61,46,.15);border-radius:var(--radius-sm);padding:.65rem 1rem;margin-bottom:1.25rem}
+    .auth-user-avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0}
+    .auth-user-email{font-size:.88rem;color:var(--primary);font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .auth-signout{font-size:.78rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;flex-shrink:0}
+    /* Success */
+    .success-card{display:none;text-align:center;padding:2.5rem 2rem;background:var(--white);border:1px solid rgba(10,61,46,.15);border-radius:var(--radius-lg);box-shadow:var(--shadow-md)}
+    .ticket-box{background:var(--primary);border-radius:var(--radius-md);padding:1.25rem 1.5rem;margin:1.25rem auto;display:inline-block;min-width:260px}
+    .ticket-box-label{font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+    .ticket-box-number{font-family:monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;letter-spacing:.05em}
+    .ticket-box-hint{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.4rem}
+    /* Process */
+    .process-step{display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);transition:var(--transition)}
+    .process-step:hover{box-shadow:var(--shadow-sm);border-color:rgba(10,61,46,.15)}
+    .step-number{width:40px;height:40px;background:var(--primary);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;font-weight:700;flex-shrink:0}
+    /* FAQ */
+    .faq-item{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:.75rem}
+    .faq-question{padding:1.25rem 1.5rem;font-weight:600;font-size:.95rem;color:var(--text-primary);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);transition:var(--transition);user-select:none}
+    .faq-question:hover{background:var(--off-white);color:var(--primary)}
+    .faq-question.open{background:var(--primary);color:var(--white)}
+    .faq-arrow{transition:var(--transition);font-size:.8rem}
+    .faq-question.open .faq-arrow{transform:rotate(180deg)}
+    .faq-answer{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;background:var(--white)}
+    .faq-answer.open{max-height:300px;padding:1.25rem 1.5rem}
+    .faq-answer p{font-size:.93rem;color:var(--text-secondary)}
+    /* Float */
+    .livechat-float{position:fixed;bottom:160px;right:1.25rem;width:52px;height:52px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .2s;border:none}
+    .livechat-float:hover{transform:scale(1.08)}
+    .livechat-float svg{width:24px;height:24px;fill:white}
+    @media(min-width:769px){.livechat-float{display:none}}
   </style>
 </head>
 <body>
@@ -594,7 +165,7 @@
     <div class="container">
       <div class="contact-layout">
 
-        <!-- LEFT: Calculator + Payment -->
+        <!-- LEFT: Calculator -->
         <div>
           <div class="calc-wrap">
             <div class="calc-header">
@@ -698,17 +269,16 @@
             </div>
           </div>
 
-          <!-- Payment Methods -->
           <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
             <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem">Payment Methods</p>
             <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+              <div style="text-align:center">
+                <img src="images/paypal-qr.png" alt="PayPal QR" style="width:120px;height:120px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+                <p style="font-size:.78rem;color:var(--text-muted);margin-top:.4rem">Scan to pay via PayPal</p>
+              </div>
               <div style="flex:1">
-                <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center">
-                  <!-- PayPal clickable button -->
-                  <button class="paypal-trigger-btn" onclick="openPaypalModal()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.243-8.558 6.243H9.828c-.524 0-.968.382-1.05.9l-1.45 9.177h4.75c.523 0 .967-.382 1.049-.9l.468-2.966c.083-.517.527-.899 1.05-.899h.663c4.293 0 7.655-1.747 8.638-6.797.41-2.1.02-3.89-1.724-5.47z"/></svg>
-                    💳 PayPal — Scan QR
-                  </button>
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+                  <span class="badge badge-green" style="padding:.5rem 1rem;font-size:.88rem">💳 PayPal</span>
                   <span class="badge badge-gray" style="padding:.5rem 1rem;font-size:.88rem">💸 Wise — Coming Soon</span>
                 </div>
                 <p style="font-size:.82rem;color:var(--text-muted)">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
@@ -717,254 +287,144 @@
           </div>
         </div>
 
-        <!-- RIGHT: New Dark Order Form -->
+        <!-- RIGHT: Order Form -->
         <div>
-          <div class="order-form-wrap">
-            <div class="order-form-header">
-              <div class="eyebrow">Order Form</div>
-              <h2>Submit Your Requirements</h2>
-              <p>Fill in your details — we respond within 1 hour.</p>
+          <div style="margin-bottom:2rem">
+            <div class="eyebrow">Order Form</div>
+            <h2 style="margin:.75rem 0 .5rem">Submit Your Requirements</h2>
+            <p style="font-size:.95rem">Fill in your details. You'll log in or create a free account so we can send your confirmation email automatically.</p>
+          </div>
+
+          <div id="auth-user-bar" style="display:none" class="auth-user-bar">
+            <div class="auth-user-avatar" id="auth-avatar">?</div>
+            <span class="auth-user-email" id="auth-email-display">—</span>
+            <span class="auth-signout" onclick="signOutUser()">Sign out</span>
+          </div>
+
+          <form id="order-form" onsubmit="handleSubmit(event)">
+            <div class="form-field">
+              <label for="f-email">Your Email Address</label>
+              <input type="email" id="f-email" placeholder="e.g. yourname@gmail.com" required>
             </div>
-            <div class="order-form-body">
-
-              <!-- Logged-in user email bar -->
-              <div id="of-user-bar" class="of-user-bar">
-                <div class="of-user-avatar" id="of-avatar">?</div>
-                <span class="of-user-email" id="of-email-display">—</span>
-                <span class="of-signout" onclick="signOutUser()">Sign out</span>
+            <div class="form-field">
+              <label for="f-service">Service Needed</label>
+              <select id="f-service" required>
+                <option value="">Select a service...</option>
+                <option>Academic Writing</option>
+                <option>Blog & Article Writing</option>
+                <option>Business Content</option>
+                <option>Editing & Proofreading</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="f-topic">Subject / Topic</label>
+              <input type="text" id="f-topic" placeholder="e.g. Impact of CSR on Brand Reputation" required>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="f-type">Type of Paper</label>
+                <select id="f-type">
+                  <option value="">Select type...</option>
+                  <option>Essay</option><option>Research Paper</option><option>Case Study</option>
+                  <option>PowerPoint</option><option>Report</option><option>Literature Review</option>
+                  <option>Thesis / Dissertation</option><option>Blog Post</option>
+                  <option>Business Report</option><option>Other</option>
+                </select>
               </div>
-
-              <form id="order-form" onsubmit="handleSubmit(event)">
-
-                <!-- Service -->
-                <div class="of-section">
-                  <div class="of-section-label">Service</div>
-                  <div class="of-pills" id="pills-service">
-                    <div class="of-pill active" data-val="Writing">Writing</div>
-                    <div class="of-pill" data-val="Rewriting">Rewriting</div>
-                    <div class="of-pill" data-val="Editing">Editing</div>
-                    <div class="of-pill" data-val="Proofreading">Proofreading</div>
-                    <div class="of-pill" data-val="Problem solving">Problem solving</div>
-                    <div class="of-pill" data-val="Calculations">Calculations</div>
-                    <div class="of-pill" data-val="Review My Work">Review My Work</div>
-                  </div>
-                  <input type="hidden" id="f-service" value="Writing">
-                </div>
-
-                <!-- Subject -->
-                <div class="of-section">
-                  <div class="of-section-label">Subject</div>
-                  <div class="of-search-wrap">
-                    <svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 5.15 5.15a7.5 7.5 0 0 0 10.5 10.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-                    <input type="text" class="of-search" id="f-subject" placeholder="Choose your subject">
-                  </div>
-                  <div class="of-suggested-label">Suggested:</div>
-                  <div class="of-pills" id="pills-subject">
-                    <div class="of-pill" data-val="Nursing">Nursing</div>
-                    <div class="of-pill" data-val="Business and management">Business and management</div>
-                    <div class="of-pill" data-val="English">English</div>
-                    <div class="of-pill" data-val="Psychology">Psychology</div>
-                    <div class="of-pill" data-val="Healthcare">Healthcare</div>
-                    <div class="of-pill" data-val="Education">Education</div>
-                    <div class="of-pill" data-val="Social work">Social work</div>
-                    <div class="of-pill" data-val="Criminology">Criminology</div>
-                  </div>
-                </div>
-
-                <!-- Assignment Type -->
-                <div class="of-section">
-                  <div class="of-section-label">Assignment type</div>
-                  <select class="of-select" id="f-type">
-                    <option value="">Select assignment</option>
-                    <option>Essay (any type)</option>
-                    <option>Discussion post</option>
-                    <option>Research paper</option>
-                    <option>Coursework</option>
-                    <option>Case study</option>
-                    <option>PowerPoint</option>
-                    <option>Report</option>
-                    <option>Literature Review</option>
-                    <option>Thesis / Dissertation</option>
-                    <option>Blog Post</option>
-                    <option>Business Report</option>
-                    <option>Other</option>
-                  </select>
-                  <div class="of-popular-label">Popular:</div>
-                  <div class="of-pills" id="pills-type">
-                    <div class="of-pill" data-val="Essay (any type)">Essay (any type)</div>
-                    <div class="of-pill" data-val="Discussion post">Discussion post</div>
-                    <div class="of-pill" data-val="Research paper">Research paper</div>
-                    <div class="of-pill" data-val="Coursework">Coursework</div>
-                    <div class="of-pill" data-val="Case study">Case study</div>
-                  </div>
-                </div>
-
-                <!-- Academic Level -->
-                <div class="of-section">
-                  <div class="of-section-label">Academic level</div>
-                  <div class="of-pills" id="pills-level">
-                    <div class="of-pill" data-val="High school">High school</div>
-                    <div class="of-pill active" data-val="College">College</div>
-                    <div class="of-pill" data-val="Bachelor's">Bachelor's</div>
-                    <div class="of-pill" data-val="Master's">Master's</div>
-                    <div class="of-pill" data-val="Doctorate">Doctorate</div>
-                  </div>
-                  <input type="hidden" id="f-level" value="College">
-                </div>
-
-                <!-- Size -->
-                <div class="of-section">
-                  <div class="of-section-label">Size</div>
-                  <div class="of-size-row">
-                    <div class="of-toggle">
-                      <button type="button" class="of-toggle-btn active" id="size-pages-btn" onclick="setSizeMode('pages')">Pages</button>
-                      <button type="button" class="of-toggle-btn" id="size-words-btn" onclick="setSizeMode('words')">Words</button>
-                    </div>
-                    <div class="of-stepper">
-                      <span class="of-stepper-label" id="stepper-label">Pages</span>
-                      <button type="button" class="of-stepper-btn" onclick="adjustSize(-1)">−</button>
-                      <span class="of-stepper-count" id="size-count">1</span>
-                      <button type="button" class="of-stepper-btn" onclick="adjustSize(1)">+</button>
-                    </div>
-                    <div class="of-line-spacing">
-                      <span class="of-line-spacing-label">Line spacing</span>
-                      <select class="of-select of-line-spacing-select" id="f-spacing" style="min-width:120px;width:auto">
-                        <option>Double</option>
-                        <option>Single</option>
-                        <option>1.5</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="of-word-hint" id="word-hint">≈ 275 words</div>
-                  <input type="hidden" id="f-pages" value="1">
-                  <input type="hidden" id="f-words" value="">
-                </div>
-
-                <!-- Deadline -->
-                <div class="of-section">
-                  <div class="of-section-label">Deadline</div>
-                  <div class="of-deadline-row">
-                    <div class="of-deadline-inputs">
-                      <div>
-                        <div class="of-suggested-label" style="margin-bottom:.4rem">Pick exact date & time</div>
-                        <input type="datetime-local" class="of-input" id="f-deadline" required>
-                      </div>
-                      <div>
-                        <div class="of-suggested-label" style="margin-bottom:.4rem">Or choose quickly</div>
-                        <select class="of-select" id="f-deadline-quick" onchange="applyQuickDeadline(this.value)">
-                          <option value="">— Quick select —</option>
-                          <option value="3h">3 hours</option>
-                          <option value="6h">6 hours</option>
-                          <option value="9h">9 hours</option>
-                          <option value="12h">12 hours</option>
-                          <option value="1d">1 day</option>
-                          <option value="2d">2 days</option>
-                          <option value="5d">5 days</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="of-suggested-label" style="margin-bottom:.4rem">Popular:</div>
-                      <div class="of-quick-btns">
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('3h')">3 hrs</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('6h')">6 hrs</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('9h')">9 hrs</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('12h')">12 hrs</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('1d')">1 day</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('2d')">2 days</button>
-                        <button type="button" class="of-quick-btn" onclick="applyQuickDeadline('5d')">5 days</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Extra fields row -->
-                <div class="of-section">
-                  <div class="of-grid-2" style="margin-bottom:1rem">
-                    <div>
-                      <div class="of-section-label" style="font-size:.82rem;margin-bottom:.4rem">Sources Required</div>
-                      <input type="number" class="of-input" id="f-sources" min="0" placeholder="e.g. 5">
-                    </div>
-                    <div>
-                      <div class="of-section-label" style="font-size:.82rem;margin-bottom:.4rem">Citation Style</div>
-                      <select class="of-select" id="f-citation">
-                        <option value="">Select style...</option>
-                        <option>APA 7th Edition</option>
-                        <option>MLA</option>
-                        <option>Chicago</option>
-                        <option>Harvard</option>
-                        <option>Turabian</option>
-                        <option>Not Applicable</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="of-section-label" style="font-size:.82rem;margin-bottom:.4rem">Language</div>
-                    <select class="of-select" id="f-language" style="max-width:220px">
-                      <option>English (US)</option>
-                      <option>English (UK)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Instructions + Files -->
-                <div class="of-section">
-                  <div class="of-section-label">Instructions</div>
-                  <div class="of-bottom-row">
-                    <div>
-                      <input type="text" class="of-input" id="f-topic" placeholder="Name your assignment" style="margin-bottom:.6rem" required>
-                      <textarea class="of-textarea" id="f-instructions" placeholder="Describe your assignment. Share references, links, and any other instructions..."></textarea>
-                    </div>
-                    <div>
-                      <div class="of-section-label" style="font-size:.82rem;margin-bottom:.4rem">Attach Files <span style="font-weight:400;font-size:.75rem;color:rgba(255,255,255,.3)">(optional)</span></div>
-                      <div class="of-file-zone" id="file-drop-zone">
-                        <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.zip">
-                        <div class="of-file-icon">📎</div>
-                        <div class="of-file-text"><span>Browse</span> or drag & drop</div>
-                        <div class="of-file-hint">PDF, Word, PPT, Excel, Images</div>
-                      </div>
-                      <div class="of-file-list" id="file-list"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <button type="submit" class="of-submit-btn" id="submit-btn">
-                  🎫 Create My Ticket →
-                </button>
-                <p class="of-form-note">You'll be asked to log in — then your receipt lands in your inbox automatically.</p>
-              </form>
-
-              <!-- Success Card -->
-              <div class="success-card" id="form-success" style="background:#1e2d3d;border-color:rgba(74,222,128,.2)">
-                <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
-                <h3 style="margin-bottom:.5rem;color:#4ade80;font-family:'Times New Roman',Times,serif">Order Placed Successfully!</h3>
-                <p style="font-size:.9rem;margin-bottom:1rem;color:rgba(255,255,255,.6);font-family:'Times New Roman',Times,serif">Your ticket is created and a confirmation email is on its way. We'll respond within 1 hour.</p>
-                <div class="ticket-box">
-                  <div class="ticket-box-label">Your Order Ticket</div>
-                  <div class="ticket-box-number" id="success-ticket-id">EW-001</div>
-                  <div class="ticket-box-hint">Screenshot or note this number</div>
-                </div>
-                <div style="background:rgba(255,255,255,.06);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left">
-                  <p style="font-size:.82rem;font-weight:600;color:rgba(255,255,255,.5);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em;font-family:'Times New Roman',Times,serif">What happens next:</p>
-                  <p style="font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;font-family:'Times New Roman',Times,serif">✅ Confirmation email sent to your inbox</p>
-                  <p style="font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;font-family:'Times New Roman',Times,serif">📋 Your order is logged in our system</p>
-                  <p style="font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:.4rem;font-family:'Times New Roman',Times,serif">💬 We'll review and reply within 1 hour</p>
-                  <p style="font-size:.88rem;color:rgba(255,255,255,.6);font-family:'Times New Roman',Times,serif">🔖 Quote your ticket number when following up</p>
-                </div>
-                <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-                  <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 WhatsApp Us →</a>
-                  <a href="index.html" class="btn btn-outline">Back to Home</a>
-                </div>
+              <div class="form-field">
+                <label for="f-level">Education Level</label>
+                <select id="f-level">
+                  <option value="">Select level...</option>
+                  <option>High School</option><option>Undergraduate</option>
+                  <option>Master's</option><option>PhD / Doctoral</option><option>Not Applicable</option>
+                </select>
               </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="f-pages">Number of Pages</label>
+                <input type="number" id="f-pages" min="1" placeholder="e.g. 5">
+              </div>
+              <div class="form-field">
+                <label for="f-words">Word Count (optional)</label>
+                <input type="number" id="f-words" min="1" placeholder="e.g. 1500">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="f-sources">Sources Required</label>
+                <input type="number" id="f-sources" min="0" placeholder="e.g. 5">
+              </div>
+              <div class="form-field">
+                <label for="f-citation">Citation Style</label>
+                <select id="f-citation">
+                  <option value="">Select style...</option>
+                  <option>APA 7th Edition</option><option>MLA</option><option>Chicago</option>
+                  <option>Harvard</option><option>Turabian</option><option>Not Applicable</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="f-language">Language</label>
+                <select id="f-language">
+                  <option>English (US)</option><option>English (UK)</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="f-deadline">Deadline</label>
+                <input type="datetime-local" id="f-deadline" required>
+              </div>
+            </div>
+            <div class="instructions-file-row">
+              <div class="form-field" style="margin-bottom:0">
+                <label for="f-instructions">Additional Instructions</label>
+                <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources..." style="min-height:140px;height:100%"></textarea>
+              </div>
+              <div class="form-field" style="margin-bottom:0">
+                <label>Attach Files <span style="font-weight:400;text-transform:none;font-size:.78rem">(optional)</span></label>
+                <div class="file-upload-area" id="file-drop-zone">
+                  <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.zip">
+                  <div class="file-upload-icon">📎</div>
+                  <div class="file-upload-text"><span>Click to upload</span> or drag & drop</div>
+                  <div class="file-upload-hint">PDF, Word, PPT, Excel, Images</div>
+                </div>
+                <div class="file-list" id="file-list"></div>
+              </div>
+            </div>
+            <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:1.25rem">
+              🎫 Create My Ticket →
+            </button>
+            <p class="form-note">You'll be asked to log in — then your receipt lands in your inbox automatically.</p>
+          </form>
 
-            </div><!-- /order-form-body -->
-          </div><!-- /order-form-wrap -->
+          <div class="success-card" id="form-success">
+            <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+            <h3 style="margin-bottom:.5rem;color:var(--primary)">Order Placed Successfully!</h3>
+            <p style="font-size:.9rem;margin-bottom:1rem;color:var(--text-secondary)">Your ticket is created and a confirmation email is on its way. We'll respond within 1 hour.</p>
+            <div class="ticket-box">
+              <div class="ticket-box-label">Your Order Ticket</div>
+              <div class="ticket-box-number" id="success-ticket-id">EW-001</div>
+              <div class="ticket-box-hint">Screenshot or note this number</div>
+            </div>
+            <div style="background:var(--off-white);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left">
+              <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em">What happens next:</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">✅ Confirmation email sent to your inbox</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">📋 Your order is logged in our system</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">💬 We'll review and reply within 1 hour</p>
+              <p style="font-size:.88rem;color:var(--text-secondary)">🔖 Quote your ticket number when following up</p>
+            </div>
+            <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 WhatsApp Us →</a>
+              <a href="index.html" class="btn btn-outline">Back to Home</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Process, FAQ, CTA, Footer — ALL UNCHANGED -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header"><div class="eyebrow">The Process</div><h2>What Happens After You Submit?</h2></div>
@@ -1034,7 +494,7 @@
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
   </button>
 
-  <!-- AUTH MODAL (unchanged) -->
+  <!-- AUTH MODAL -->
   <div class="auth-overlay" id="auth-overlay">
     <div class="auth-modal">
       <div class="auth-logo">✍️</div>
@@ -1058,26 +518,16 @@
     </div>
   </div>
 
-  <!-- PAYPAL QR MODAL -->
-  <div class="paypal-overlay" id="paypal-overlay" onclick="closePaypalModal(event)">
-    <div class="paypal-modal">
-      <h3>💳 Pay via PayPal</h3>
-      <p>Scan the QR code with your PayPal app or phone camera</p>
-      <img src="images/paypal-qr.png" alt="PayPal QR Code">
-      <p style="font-size:.78rem;color:#888;margin-bottom:1rem">Or send payment manually to our PayPal account</p>
-      <button class="paypal-close" onclick="closePaypalModal()">Close</button>
-    </div>
-  </div>
-
   <script src="js/main.js"></script>
   <script>
     // ═══════════════════════════════════
     // CONFIG
     // ═══════════════════════════════════
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ-7o1h303uKT9stjb6FxmbbOE2c017JIU9mMu6ZRE-hPad9H5qQza7aLVB92_FVlL/exec';
+    var TAWKTO_EMAIL = 'tickets@elitewriters-oefbaw.p.tawk.email';
 
     // ═══════════════════════════════════
-    // FIREBASE
+    // FIREBASE INIT
     // ═══════════════════════════════════
     var firebaseAvailable = false;
     var auth = null;
@@ -1101,12 +551,13 @@
       auth.onAuthStateChanged(function(user) {
         currentUser = user;
         if (user) {
-          // Show email bar in new form
-          var bar = document.getElementById('of-user-bar');
-          if (bar) {
-            bar.style.display = 'flex';
-            document.getElementById('of-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
-            document.getElementById('of-email-display').textContent = user.email || 'Logged in';
+          document.getElementById('auth-user-bar').style.display = 'flex';
+          document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
+          document.getElementById('auth-email-display').textContent = user.email || 'Logged in';
+          // Auto-fill email field so client doesn't need to type it again
+          if (user.email) {
+            var emailField = document.getElementById('f-email');
+            if (emailField && !emailField.value) emailField.value = user.email;
           }
           if (pendingOrderData) {
             var data = pendingOrderData;
@@ -1115,8 +566,7 @@
             submitOrderToBackend(data);
           }
         } else {
-          var bar = document.getElementById('of-user-bar');
-          if (bar) bar.style.display = 'none';
+          document.getElementById('auth-user-bar').style.display = 'none';
         }
       });
     } catch(e) {
@@ -1125,110 +575,8 @@
     }
 
     // ═══════════════════════════════════
-    // PILL BUTTONS (single-select)
-    // ═══════════════════════════════════
-    function initPills(groupId, hiddenId) {
-      var group = document.getElementById(groupId);
-      if (!group) return;
-      group.querySelectorAll('.of-pill').forEach(function(pill) {
-        pill.addEventListener('click', function() {
-          group.querySelectorAll('.of-pill').forEach(function(p){ p.classList.remove('active'); });
-          pill.classList.add('active');
-          if (hiddenId) document.getElementById(hiddenId).value = pill.dataset.val;
-        });
-      });
-    }
-    function initSubjectPills() {
-      var group = document.getElementById('pills-subject');
-      var input = document.getElementById('f-subject');
-      if (!group || !input) return;
-      group.querySelectorAll('.of-pill').forEach(function(pill) {
-        pill.addEventListener('click', function() {
-          group.querySelectorAll('.of-pill').forEach(function(p){ p.classList.remove('active'); });
-          pill.classList.add('active');
-          input.value = pill.dataset.val;
-        });
-      });
-    }
-    function initTypePills() {
-      var group = document.getElementById('pills-type');
-      var sel = document.getElementById('f-type');
-      if (!group || !sel) return;
-      group.querySelectorAll('.of-pill').forEach(function(pill) {
-        pill.addEventListener('click', function() {
-          group.querySelectorAll('.of-pill').forEach(function(p){ p.classList.remove('active'); });
-          pill.classList.add('active');
-          sel.value = pill.dataset.val;
-        });
-      });
-    }
-    initPills('pills-service', 'f-service');
-    initPills('pills-level', 'f-level');
-    initSubjectPills();
-    initTypePills();
-
-    // ═══════════════════════════════════
-    // SIZE STEPPER
-    // ═══════════════════════════════════
-    var sizeMode = 'pages';
-    var sizeVal = 1;
-
-    function setSizeMode(mode) {
-      sizeMode = mode;
-      document.getElementById('size-pages-btn').classList.toggle('active', mode === 'pages');
-      document.getElementById('size-words-btn').classList.toggle('active', mode === 'words');
-      document.getElementById('stepper-label').textContent = mode === 'pages' ? 'Pages' : 'Words';
-      if (mode === 'pages') {
-        sizeVal = 1;
-        updateSizeDisplay();
-      } else {
-        sizeVal = 275;
-        updateSizeDisplay();
-      }
-    }
-    function adjustSize(delta) {
-      if (sizeMode === 'pages') {
-        sizeVal = Math.max(1, sizeVal + delta);
-      } else {
-        sizeVal = Math.max(275, sizeVal + delta * 275);
-      }
-      updateSizeDisplay();
-    }
-    function updateSizeDisplay() {
-      document.getElementById('size-count').textContent = sizeVal;
-      if (sizeMode === 'pages') {
-        document.getElementById('word-hint').textContent = '≈ ' + (sizeVal * 275) + ' words';
-        document.getElementById('f-pages').value = sizeVal;
-        document.getElementById('f-words').value = '';
-      } else {
-        document.getElementById('word-hint').textContent = '≈ ' + Math.round(sizeVal / 275) + ' page(s)';
-        document.getElementById('f-words').value = sizeVal;
-        document.getElementById('f-pages').value = '';
-      }
-    }
-
-    // ═══════════════════════════════════
-    // QUICK DEADLINE
-    // ═══════════════════════════════════
-    function applyQuickDeadline(val) {
-      var now = new Date();
-      var map = { '3h': 3*60, '6h': 6*60, '9h': 9*60, '12h': 12*60, '1d': 24*60, '2d': 48*60, '5d': 120*60 };
-      var mins = map[val];
-      if (!mins) return;
-      now.setMinutes(now.getMinutes() + mins);
-      var pad = function(n){ return String(n).padStart(2,'0'); };
-      var dt = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
-      document.getElementById('f-deadline').value = dt;
-      // highlight active quick btn
-      document.querySelectorAll('.of-quick-btn').forEach(function(b){
-        b.classList.toggle('active', b.getAttribute('onclick') === "applyQuickDeadline('"+val+"')");
-      });
-      // sync dropdown
-      document.getElementById('f-deadline-quick').value = val;
-    }
-
-    // ═══════════════════════════════════
-    // PRICE CALCULATOR (unchanged)
+    // PRICE CALCULATOR
+    // Formula: ((Pages × Rate) × UrgencyMultiplier) + addons
     // ═══════════════════════════════════
     function calcPrice() {
       var cpp = parseFloat(document.getElementById('calc-level').value) || 14;
@@ -1279,6 +627,7 @@
         ? '💡 Pay <strong>$' + half.toFixed(2) + '</strong> upfront, then <strong>$' + half.toFixed(2) + '</strong> on delivery.'
         : '💡 Full payment of <strong>$' + total.toFixed(2) + '</strong> required upfront (orders under $30).';
     }
+
     ['calc-level','calc-qty','calc-deadline','calc-abstract','qty-graphics','qty-sources'].forEach(function(id) {
       var el = document.getElementById(id);
       el.addEventListener('change', calcPrice);
@@ -1290,12 +639,14 @@
     // FILE UPLOAD
     // ═══════════════════════════════════
     var selectedFiles = [];
+
     document.getElementById('f-files').addEventListener('change', function() {
       Array.from(this.files).forEach(function(f) {
         if (!selectedFiles.find(function(x){ return x.name===f.name && x.size===f.size; })) selectedFiles.push(f);
       });
       renderFileList(); this.value = '';
     });
+
     var dropZone = document.getElementById('file-drop-zone');
     dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.classList.add('dragover'); });
     dropZone.addEventListener('dragleave', function(){ dropZone.classList.remove('dragover'); });
@@ -1304,9 +655,10 @@
       Array.from(e.dataTransfer.files).forEach(function(f){ if(!selectedFiles.find(function(x){return x.name===f.name;})) selectedFiles.push(f); });
       renderFileList();
     });
+
     function renderFileList() {
       document.getElementById('file-list').innerHTML = selectedFiles.map(function(f,i){
-        return '<div class="of-file-item"><div class="of-file-item-name"><span>'+fileIcon(f.name)+'</span><span title="'+f.name+'">'+f.name+'</span></div><span style="font-size:.72rem;color:rgba(255,255,255,.3);margin-right:.4rem">'+formatBytes(f.size)+'</span><button class="of-file-remove" onclick="removeFile('+i+')">✕</button></div>';
+        return '<div class="file-item"><div class="file-item-name"><span>'+fileIcon(f.name)+'</span><span title="'+f.name+'">'+f.name+'</span></div><span style="font-size:.75rem;color:#888;margin-right:.5rem">'+formatBytes(f.size)+'</span><button class="file-remove" onclick="removeFile('+i+')">✕</button></div>';
       }).join('');
     }
     function removeFile(i){ selectedFiles.splice(i,1); renderFileList(); }
@@ -1314,7 +666,7 @@
     function formatBytes(b){ if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB'; }
 
     // ═══════════════════════════════════
-    // TICKET
+    // TICKET NUMBER
     // ═══════════════════════════════════
     function generateTicketId() {
       var n = parseInt(localStorage.getItem('ew_ticket_counter') || '0') + 1;
@@ -1327,44 +679,53 @@
     // ═══════════════════════════════════
     function handleSubmit(e) {
       e.preventDefault();
-      var service   = document.getElementById('f-service').value;
-      var subject   = document.getElementById('f-subject').value;
-      var type      = document.getElementById('f-type').value;
-      var level     = document.getElementById('f-level').value;
-      var pages     = document.getElementById('f-pages').value;
-      var words     = document.getElementById('f-words').value;
-      var sources   = document.getElementById('f-sources').value;
-      var citation  = document.getElementById('f-citation').value;
-      var language  = document.getElementById('f-language').value;
-      var deadline  = document.getElementById('f-deadline').value;
-      var topic     = document.getElementById('f-topic').value;
+      var clientEmail = document.getElementById('f-email').value.trim();
+      var service = document.getElementById('f-service').value;
+      var topic = document.getElementById('f-topic').value;
+      var type = document.getElementById('f-type').value;
+      var level = document.getElementById('f-level').value;
+      var pages = document.getElementById('f-pages').value;
+      var words = document.getElementById('f-words').value;
+      var sources = document.getElementById('f-sources').value;
+      var citation = document.getElementById('f-citation').value;
+      var language = document.getElementById('f-language').value;
+      var deadline = document.getElementById('f-deadline').value;
       var instructions = document.getElementById('f-instructions').value;
       var totalPrice = document.getElementById('calc-total').textContent;
       var filesAttached = selectedFiles.length > 0 ? selectedFiles.map(function(f){return f.name;}).join(', ') : 'None';
-      var clientEmail = currentUser ? currentUser.email : '';
+
+      var addons = [];
+      var g = parseInt(document.getElementById('qty-graphics').value)||0;
+      var s = parseInt(document.getElementById('qty-sources').value)||0;
+      var a = document.getElementById('calc-abstract').checked;
+      if(g>0) addons.push('Graphics & Tables x'+g);
+      if(s>0) addons.push('Printable Sources x'+s);
+      if(a) addons.push('Abstract');
+      addons.push('Plagiarism & AI Report (FREE)');
 
       var orderData = {
-        service:service, subject:subject, paperType:type, educationLevel:level,
+        service:service, topic:topic, paperType:type, educationLevel:level,
         pages:pages, wordCount:words, sources:sources, citationStyle:citation,
-        language:language, deadline:deadline, topic:topic, instructions:instructions,
-        filesAttached:filesAttached, estimatedPrice:totalPrice,
-        submittedAt:new Date().toLocaleString(), clientEmail:clientEmail
+        language:language, deadline:deadline, instructions:instructions,
+        addons:addons.join(', '), filesAttached:filesAttached,
+        estimatedPrice:totalPrice, submittedAt:new Date().toLocaleString(),
+        clientEmail: clientEmail
       };
 
-      if (firebaseAvailable && !currentUser) {
-        pendingOrderData = orderData;
-        openAuthModal();
-      } else {
-        submitOrderToBackend(orderData);
-      }
+      submitOrderToBackend(orderData);
     }
 
+    // ═══════════════════════════════════
+    // SUBMIT TO APPS SCRIPT
+    // ═══════════════════════════════════
     function submitOrderToBackend(data) {
       var btn = document.getElementById('submit-btn');
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> Creating Ticket...';
+
       var ticketId = generateTicketId();
       data.ticketId = ticketId;
+
       var xhr = new XMLHttpRequest();
       xhr.open('POST', APPS_SCRIPT_URL, true);
       xhr.setRequestHeader('Content-Type', 'text/plain');
@@ -1384,20 +745,6 @@
         document.getElementById('form-success').style.display = 'block';
       };
       xhr.send(JSON.stringify(data));
-    }
-
-    // ═══════════════════════════════════
-    // PAYPAL MODAL
-    // ═══════════════════════════════════
-    function openPaypalModal() {
-      document.getElementById('paypal-overlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closePaypalModal(e) {
-      if (!e || e.target === document.getElementById('paypal-overlay') || !e.target.closest) {
-        document.getElementById('paypal-overlay').classList.remove('active');
-        document.body.style.overflow = '';
-      }
     }
 
     // ═══════════════════════════════════
@@ -1462,14 +809,13 @@
     function signOutUser() {
       if (auth) auth.signOut();
       currentUser = null;
-      var bar = document.getElementById('of-user-bar');
-      if (bar) bar.style.display = 'none';
+      document.getElementById('auth-user-bar').style.display = 'none';
     }
     document.getElementById('auth-overlay').addEventListener('click', function(e) {
       if (e.target === this) { pendingOrderData = null; closeAuthModal(); }
     });
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') { pendingOrderData = null; closeAuthModal(); closePaypalModal(); }
+      if (e.key === 'Escape') { pendingOrderData = null; closeAuthModal(); }
     });
 
     // ═══════════════════════════════════
