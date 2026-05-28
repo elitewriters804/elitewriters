@@ -3,370 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Get an instant quote for your essay, research paper, blog post or business content. Use our live price calculator. No personal details needed. Response within 1 hour.">
-  <meta name="keywords" content="get essay written, hire writer online, essay writing quote, academic writing quote, order research paper, content writing quote">
+  <meta name="description" content="Get an instant quote for your essay, research paper, blog post or business content.">
   <meta name="author" content="EliteWriters">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elitewriters804.github.io/elitewriters/contact.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Get a Free Quote | EliteWriters — Instant Price Calculator">
-  <meta property="og:description" content="Get an instant quote for your essay, research paper, blog post or business content. Use our live price calculator. No personal details needed. Response within 1 hour.">
+  <meta property="og:title" content="Get a Free Quote | EliteWriters">
   <meta property="og:url" content="https://elitewriters804.github.io/elitewriters/contact.html">
-  <meta property="og:site_name" content="EliteWriters">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Get a Free Quote | EliteWriters — Instant Price Calculator">
-  <meta name="twitter:description" content="Get an instant quote for your essay, research paper, blog post or business content. Use our live price calculator. No personal details needed. Response within 1 hour.">
   <title>Get a Quote | EliteWriters</title>
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <!-- Firebase v8 — most stable -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
   <style>
-    /* ══════════════════════════════════════
-       LAYOUT
-    ══════════════════════════════════════ */
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-    @media (max-width: 768px) {
-      .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
-    }
-
-    /* ══════════════════════════════════════
-       CALCULATOR
-    ══════════════════════════════════════ */
-    .calc-wrap {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-    }
-    .calc-header { background: var(--primary); padding: 2rem 2.5rem; }
-    @media (max-width: 768px) { .calc-header { padding: 1.25rem; } }
-    .calc-header h2 { color: var(--white); font-size: 1.5rem; margin-bottom: 0.4rem; }
-    .calc-header p { color: rgba(255,255,255,0.7); font-size: 0.92rem; }
-    .live-indicator {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.8rem; color: rgba(255,255,255,0.8); margin-top: 0.75rem;
-    }
-    .live-dot {
-      width: 7px; height: 7px; background: #4ade80;
-      border-radius: 50%; animation: livepulse 1.5s infinite;
-    }
-    @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .calc-body { padding: 2.5rem; }
-    @media (max-width: 768px) { .calc-body { padding: 1.25rem; } }
-    .calc-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.25rem; margin-bottom: 1.25rem;
-    }
-    @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; gap: 0.75rem; } }
-    .calc-field { display: flex; flex-direction: column; gap: 6px; }
-    .calc-field label {
-      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
-      text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .calc-field select, .calc-field input {
-      padding: 0.75rem 1rem; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); font-family: var(--font-body);
-      font-size: 0.95rem; color: var(--text-primary); background: var(--white);
-      transition: var(--transition); width: 100%; box-sizing: border-box;
-    }
-    .calc-field select:focus, .calc-field input:focus {
-      outline: none; border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
-    }
-
-    /* Add-ons */
-    .addons-section { margin: 1.5rem 0; }
-    .addons-title {
-      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
-      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
-    }
-    .addon-row {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 0.75rem; padding: 0.85rem 1rem;
-      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-      margin-bottom: 0.6rem; transition: var(--transition);
-      font-size: 0.9rem; color: var(--text-secondary);
-    }
-    .addon-row:hover { border-color: var(--primary-light); background: rgba(10,61,46,0.02); }
-    .addon-row.free-row { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.04); }
-    .addon-left { display: flex; align-items: center; gap: 0.6rem; flex: 1; }
-    .addon-left input[type=checkbox] {
-      width: 16px; height: 16px; accent-color: var(--primary);
-      cursor: pointer; flex-shrink: 0;
-    }
-    .addon-qty {
-      width: 64px; padding: 0.4rem 0.5rem; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); font-size: 0.9rem; text-align: center;
-      font-family: var(--font-body); color: var(--text-primary);
-    }
-    .addon-qty:focus { outline: none; border-color: var(--primary-light); }
-    .addon-price {
-      font-size: 0.82rem; font-weight: 600; color: var(--primary);
-      white-space: nowrap; min-width: 54px; text-align: right;
-    }
-    .free-badge {
-      font-size: 0.75rem; font-weight: 700; color: #16a34a;
-      background: rgba(34,197,94,0.12); padding: 2px 8px;
-      border-radius: 100px; white-space: nowrap;
-    }
-
-    /* Price Result */
-    .price-result {
-      background: var(--off-white); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 1.5rem; margin: 1.5rem 0;
-    }
-    .price-line {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.5rem 0; font-size: 0.92rem; color: var(--text-secondary);
-      border-bottom: 1px solid var(--border);
-    }
-    .price-line:last-child { border-bottom: none; }
-    .price-line.total {
-      padding-top: 0.75rem; margin-top: 0.25rem; font-size: 1rem;
-      font-weight: 600; color: var(--text-primary);
-      border-bottom: none; border-top: 2px solid var(--border);
-    }
-    .price-line.total .amount {
-      font-family: var(--font-display); font-size: 1.8rem;
-      color: var(--primary); font-weight: 700;
-    }
-    .rush-tag {
-      font-size: 0.75rem; background: #fef3c7; color: #92400e;
-      padding: 2px 8px; border-radius: 100px; margin-left: 8px; font-weight: 500;
-    }
-    .payment-split {
-      background: rgba(10,61,46,0.05); border: 1px solid rgba(10,61,46,0.1);
-      border-radius: var(--radius-sm); padding: 0.85rem 1rem;
-      font-size: 0.88rem; color: var(--primary); margin-top: 1rem;
-    }
-
-    /* ══════════════════════════════════════
-       ORDER FORM
-    ══════════════════════════════════════ */
-    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
-    .form-field label {
-      font-size: 0.82rem; font-weight: 600; color: var(--text-secondary);
-      text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .form-field select, .form-field input, .form-field textarea {
-      padding: 0.85rem 1rem; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); font-family: var(--font-body);
-      font-size: 0.95rem; color: var(--text-primary); background: var(--white);
-      transition: var(--transition); width: 100%; box-sizing: border-box;
-    }
-    .form-field select:focus, .form-field input:focus, .form-field textarea:focus {
-      outline: none; border-color: var(--primary-light);
-      box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
-    }
-    .form-field textarea { resize: vertical; min-height: 120px; }
-    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    @media (max-width: 768px) { .form-grid-2 { grid-template-columns: 1fr; gap: 0; } }
-
-    /* File Upload */
-    .instructions-file-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;
-    }
-    @media (max-width: 768px) { .instructions-file-row { grid-template-columns: 1fr; gap: 0.75rem; } }
-    .file-upload-area {
-      border: 2px dashed var(--border); border-radius: var(--radius-sm);
-      padding: 1.25rem; text-align: center; cursor: pointer;
-      transition: var(--transition); background: var(--white);
-      position: relative; min-height: 100px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .file-upload-area:hover, .file-upload-area.dragover {
-      border-color: var(--primary); background: rgba(10,61,46,0.03);
-    }
-    .file-upload-area input[type=file] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-    }
-    .file-upload-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
-    .file-upload-text { font-size: 0.88rem; color: var(--text-secondary); }
-    .file-upload-text span { color: var(--primary); font-weight: 600; }
-    .file-upload-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
-    .file-list { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; }
-    .file-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.5rem 0.75rem; background: rgba(10,61,46,0.05);
-      border-radius: var(--radius-sm); font-size: 0.85rem;
-    }
-    .file-item-name { display: flex; align-items: center; gap: 0.5rem; flex: 1; overflow: hidden; }
-    .file-item-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .file-remove { background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1rem; padding: 0 0.25rem; }
-
-    /* Submit Button */
-    .submit-btn {
-      width: 100%; padding: 1rem; background: var(--primary); color: var(--white);
-      border: none; border-radius: var(--radius-sm); font-family: var(--font-body);
-      font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition);
-      margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-    }
-    .submit-btn:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-    .form-note { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
-
-    /* Spinner */
-    .spinner {
-      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.35);
-      border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ══════════════════════════════════════
-       FIREBASE AUTH MODAL
-    ══════════════════════════════════════ */
-    .auth-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      z-index: 10000; display: flex; align-items: center; justify-content: center;
-      padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s;
-    }
-    .auth-overlay.active { opacity: 1; pointer-events: all; }
-    .auth-modal {
-      background: #fff; border-radius: 16px; padding: 2.5rem 2rem;
-      width: 100%; max-width: 420px; text-align: center;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-      transform: translateY(16px); transition: transform 0.3s;
-    }
-    .auth-overlay.active .auth-modal { transform: translateY(0); }
-    .auth-logo {
-      width: 56px; height: 56px; background: var(--primary);
-      border-radius: 14px; display: flex; align-items: center;
-      justify-content: center; font-size: 1.6rem; margin: 0 auto 1.25rem;
-    }
-    .auth-modal h3 { font-size: 1.3rem; color: var(--text-primary); margin-bottom: 0.5rem; }
-    .auth-modal p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.75rem; }
-    .auth-tabs {
-      display: flex; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); margin-bottom: 1.5rem; overflow: hidden;
-    }
-    .auth-tab {
-      flex: 1; padding: 0.65rem; font-size: 0.88rem; font-weight: 600;
-      cursor: pointer; border: none; background: var(--white);
-      color: var(--text-secondary); transition: all 0.2s;
-    }
-    .auth-tab.active { background: var(--primary); color: #fff; }
-    .auth-input {
-      width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); font-family: var(--font-body);
-      font-size: 0.95rem; margin-bottom: 0.85rem; box-sizing: border-box;
-      transition: border-color 0.2s;
-    }
-    .auth-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(10,61,46,0.08); }
-    .auth-btn-google {
-      width: 100%; padding: 0.85rem; border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm); background: #fff; font-family: var(--font-body);
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-bottom: 1rem;
-      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-      transition: all 0.2s; color: var(--text-primary);
-    }
-    .auth-btn-google:hover { border-color: #4285f4; background: #f8f8ff; }
-    .auth-divider {
-      display: flex; align-items: center; gap: 0.75rem;
-      font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;
-    }
-    .auth-divider::before, .auth-divider::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
-    }
-    .auth-btn-primary {
-      width: 100%; padding: 0.9rem; background: var(--primary); color: #fff;
-      border: none; border-radius: var(--radius-sm); font-family: var(--font-body);
-      font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
-    }
-    .auth-btn-primary:hover { background: var(--primary-light); }
-    .auth-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-    .auth-error {
-      background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-sm);
-      padding: 0.65rem 0.9rem; font-size: 0.85rem; color: #dc2626;
-      margin-bottom: 0.85rem; display: none; text-align: left;
-    }
-    .auth-error.show { display: block; }
-    .auth-user-bar {
-      display: flex; align-items: center; gap: 0.75rem;
-      background: rgba(10,61,46,0.05); border: 1px solid rgba(10,61,46,0.15);
-      border-radius: var(--radius-sm); padding: 0.65rem 1rem; margin-bottom: 1.25rem;
-    }
-    .auth-user-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--primary); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
-    }
-    .auth-user-email { font-size: 0.88rem; color: var(--primary); font-weight: 500; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .auth-signout { font-size: 0.78rem; color: var(--text-muted); cursor: pointer; text-decoration: underline; flex-shrink: 0; }
-
-    /* ══════════════════════════════════════
-       SUCCESS CARD
-    ══════════════════════════════════════ */
-    .success-card {
-      display: none; text-align: center; padding: 2.5rem 2rem;
-      background: var(--white); border: 1px solid rgba(10,61,46,0.15);
-      border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    }
-    .ticket-box {
-      background: var(--primary); border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem; margin: 1.25rem auto;
-      display: inline-block; min-width: 260px;
-    }
-    .ticket-box-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
-    .ticket-box-number { font-family: monospace; font-size: 1.6rem; font-weight: 700; color: #fbbf24; letter-spacing: 0.05em; }
-    .ticket-box-hint { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 0.4rem; }
-
-    /* Process Steps */
-    .process-step {
-      display: flex; gap: 1.25rem; align-items: flex-start;
-      padding: 1.5rem; background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius-md); transition: var(--transition);
-    }
-    .process-step:hover { box-shadow: var(--shadow-sm); border-color: rgba(10,61,46,0.15); }
-    .step-number {
-      width: 40px; height: 40px; background: var(--primary); color: var(--white);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-size: 1rem; font-weight: 700; flex-shrink: 0;
-    }
-
+    .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    @media(max-width:768px){.contact-layout{grid-template-columns:1fr;gap:2rem}}
+    .calc-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+    .calc-header{background:var(--primary);padding:2rem 2.5rem}
+    @media(max-width:768px){.calc-header{padding:1.25rem}}
+    .calc-header h2{color:var(--white);font-size:1.5rem;margin-bottom:.4rem}
+    .calc-header p{color:rgba(255,255,255,.7);font-size:.92rem}
+    .live-indicator{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:rgba(255,255,255,.8);margin-top:.75rem}
+    .live-dot{width:7px;height:7px;background:#4ade80;border-radius:50%;animation:livepulse 1.5s infinite}
+    @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .calc-body{padding:2.5rem}
+    @media(max-width:768px){.calc-body{padding:1.25rem}}
+    .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+    @media(max-width:768px){.calc-grid{grid-template-columns:1fr;gap:.75rem}}
+    .calc-field{display:flex;flex-direction:column;gap:6px}
+    .calc-field label{font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em}
+    .calc-field select,.calc-field input{padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;color:var(--text-primary);background:var(--white);transition:var(--transition);width:100%;box-sizing:border-box}
+    .calc-field select:focus,.calc-field input:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(10,61,46,.08)}
+    .addons-section{margin:1.5rem 0}
+    .addons-title{font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+    .addon-row{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.6rem;transition:var(--transition);font-size:.9rem;color:var(--text-secondary)}
+    .addon-row:hover{border-color:var(--primary-light);background:rgba(10,61,46,.02)}
+    .addon-row.free-row{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.04)}
+    .addon-left{display:flex;align-items:center;gap:.6rem;flex:1}
+    .addon-left input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+    .addon-qty{width:64px;padding:.4rem .5rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.9rem;text-align:center;font-family:var(--font-body);color:var(--text-primary)}
+    .addon-price{font-size:.82rem;font-weight:600;color:var(--primary);white-space:nowrap;min-width:54px;text-align:right}
+    .free-badge{font-size:.75rem;font-weight:700;color:#16a34a;background:rgba(34,197,94,.12);padding:2px 8px;border-radius:100px;white-space:nowrap}
+    .price-result{background:var(--off-white);border:1px solid var(--border);border-radius:var(--radius-md);padding:1.5rem;margin:1.5rem 0}
+    .price-line{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;font-size:.92rem;color:var(--text-secondary);border-bottom:1px solid var(--border)}
+    .price-line:last-child{border-bottom:none}
+    .price-line.total{padding-top:.75rem;margin-top:.25rem;font-size:1rem;font-weight:600;color:var(--text-primary);border-bottom:none;border-top:2px solid var(--border)}
+    .price-line.total .amount{font-family:var(--font-display);font-size:1.8rem;color:var(--primary);font-weight:700}
+    .rush-tag{font-size:.75rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:100px;margin-left:8px;font-weight:500}
+    .payment-split{background:rgba(10,61,46,.05);border:1px solid rgba(10,61,46,.1);border-radius:var(--radius-sm);padding:.85rem 1rem;font-size:.88rem;color:var(--primary);margin-top:1rem}
+    .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
+    .form-field label{font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em}
+    .form-field select,.form-field input,.form-field textarea{padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;color:var(--text-primary);background:var(--white);transition:var(--transition);width:100%;box-sizing:border-box}
+    .form-field select:focus,.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(10,61,46,.08)}
+    .form-field textarea{resize:vertical;min-height:120px}
+    .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    @media(max-width:768px){.form-grid-2{grid-template-columns:1fr;gap:0}}
+    .instructions-file-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+    @media(max-width:768px){.instructions-file-row{grid-template-columns:1fr;gap:.75rem}}
+    .file-upload-area{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:1.25rem;text-align:center;cursor:pointer;transition:var(--transition);background:var(--white);position:relative;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .file-upload-area:hover,.file-upload-area.dragover{border-color:var(--primary);background:rgba(10,61,46,.03)}
+    .file-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .file-upload-icon{font-size:1.5rem;margin-bottom:.4rem}
+    .file-upload-text{font-size:.88rem;color:var(--text-secondary)}
+    .file-upload-text span{color:var(--primary);font-weight:600}
+    .file-upload-hint{font-size:.78rem;color:var(--text-muted);margin-top:.3rem}
+    .file-list{margin-top:.75rem;display:flex;flex-direction:column;gap:.4rem}
+    .file-item{display:flex;align-items:center;justify-content:space-between;padding:.5rem .75rem;background:rgba(10,61,46,.05);border-radius:var(--radius-sm);font-size:.85rem}
+    .file-item-name{display:flex;align-items:center;gap:.5rem;flex:1;overflow:hidden}
+    .file-item-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .file-remove{background:none;border:none;cursor:pointer;color:#ef4444;font-size:1rem;padding:0 .25rem}
+    .submit-btn{width:100%;padding:1rem;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .submit-btn:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .form-note{font-size:.82rem;color:var(--text-muted);text-align:center;margin-top:.75rem}
+    .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    /* Auth Modal */
+    .auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .3s}
+    .auth-overlay.active{opacity:1;pointer-events:all}
+    .auth-modal{background:#fff;border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:420px;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3);transform:translateY(16px);transition:transform .3s}
+    .auth-overlay.active .auth-modal{transform:translateY(0)}
+    .auth-logo{width:56px;height:56px;background:var(--primary);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.25rem}
+    .auth-modal h3{font-size:1.3rem;color:var(--text-primary);margin-bottom:.5rem}
+    .auth-modal p{font-size:.9rem;color:var(--text-secondary);margin-bottom:1.75rem}
+    .auth-tabs{display:flex;border:1.5px solid var(--border);border-radius:var(--radius-sm);margin-bottom:1.5rem;overflow:hidden}
+    .auth-tab{flex:1;padding:.65rem;font-size:.88rem;font-weight:600;cursor:pointer;border:none;background:var(--white);color:var(--text-secondary);transition:all .2s}
+    .auth-tab.active{background:var(--primary);color:#fff}
+    .auth-input{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;margin-bottom:.85rem;box-sizing:border-box;transition:border-color .2s}
+    .auth-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(10,61,46,.08)}
+    .auth-btn-google{width:100%;padding:.85rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:#fff;font-family:var(--font-body);font-size:.95rem;font-weight:600;cursor:pointer;margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:.6rem;transition:all .2s;color:var(--text-primary)}
+    .auth-btn-google:hover{border-color:#4285f4;background:#f8f8ff}
+    .auth-divider{display:flex;align-items:center;gap:.75rem;font-size:.8rem;color:var(--text-muted);margin-bottom:1rem}
+    .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+    .auth-btn-primary{width:100%;padding:.9rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s}
+    .auth-btn-primary:hover{background:var(--primary-light)}
+    .auth-btn-primary:disabled{opacity:.6;cursor:not-allowed}
+    .auth-error{background:#fef2f2;border:1px solid #fecaca;border-radius:var(--radius-sm);padding:.65rem .9rem;font-size:.85rem;color:#dc2626;margin-bottom:.85rem;display:none;text-align:left}
+    .auth-error.show{display:block}
+    .auth-user-bar{display:flex;align-items:center;gap:.75rem;background:rgba(10,61,46,.05);border:1px solid rgba(10,61,46,.15);border-radius:var(--radius-sm);padding:.65rem 1rem;margin-bottom:1.25rem}
+    .auth-user-avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;flex-shrink:0}
+    .auth-user-email{font-size:.88rem;color:var(--primary);font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .auth-signout{font-size:.78rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;flex-shrink:0}
+    /* Success */
+    .success-card{display:none;text-align:center;padding:2.5rem 2rem;background:var(--white);border:1px solid rgba(10,61,46,.15);border-radius:var(--radius-lg);box-shadow:var(--shadow-md)}
+    .ticket-box{background:var(--primary);border-radius:var(--radius-md);padding:1.25rem 1.5rem;margin:1.25rem auto;display:inline-block;min-width:260px}
+    .ticket-box-label{font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem}
+    .ticket-box-number{font-family:monospace;font-size:1.6rem;font-weight:700;color:#fbbf24;letter-spacing:.05em}
+    .ticket-box-hint{font-size:.72rem;color:rgba(255,255,255,.5);margin-top:.4rem}
+    /* Process */
+    .process-step{display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);transition:var(--transition)}
+    .process-step:hover{box-shadow:var(--shadow-sm);border-color:rgba(10,61,46,.15)}
+    .step-number{width:40px;height:40px;background:var(--primary);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;font-weight:700;flex-shrink:0}
     /* FAQ */
-    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 0.75rem; }
-    .faq-question {
-      padding: 1.25rem 1.5rem; font-weight: 600; font-size: 0.95rem;
-      color: var(--text-primary); cursor: pointer; display: flex;
-      justify-content: space-between; align-items: center;
-      background: var(--white); transition: var(--transition); user-select: none;
-    }
-    .faq-question:hover { background: var(--off-white); color: var(--primary); }
-    .faq-question.open { background: var(--primary); color: var(--white); }
-    .faq-arrow { transition: var(--transition); font-size: 0.8rem; }
-    .faq-question.open .faq-arrow { transform: rotate(180deg); }
-    .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; background: var(--white); }
-    .faq-answer.open { max-height: 300px; padding: 1.25rem 1.5rem; }
-    .faq-answer p { font-size: 0.93rem; color: var(--text-secondary); }
-
-    /* Float buttons */
-    .livechat-float {
-      position: fixed; bottom: 160px; right: 1.25rem;
-      width: 52px; height: 52px; background: var(--primary);
-      border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; cursor: pointer; z-index: 999;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.2s; border: none;
-    }
-    .livechat-float:hover { transform: scale(1.08); }
-    .livechat-float svg { width: 24px; height: 24px; fill: white; }
-    @media (min-width: 769px) { .livechat-float { display: none; } }
-
-    /* Force Tawk.to to bottom-LEFT so it never overlaps our right-side float buttons */
-    #tawkchat-container, .tawk-min-container { left: 1rem !important; right: auto !important; bottom: 1rem !important; }
+    .faq-item{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:.75rem}
+    .faq-question{padding:1.25rem 1.5rem;font-weight:600;font-size:.95rem;color:var(--text-primary);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--white);transition:var(--transition);user-select:none}
+    .faq-question:hover{background:var(--off-white);color:var(--primary)}
+    .faq-question.open{background:var(--primary);color:var(--white)}
+    .faq-arrow{transition:var(--transition);font-size:.8rem}
+    .faq-question.open .faq-arrow{transform:rotate(180deg)}
+    .faq-answer{padding:0 1.5rem;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;background:var(--white)}
+    .faq-answer.open{max-height:300px;padding:1.25rem 1.5rem}
+    .faq-answer p{font-size:.93rem;color:var(--text-secondary)}
+    /* Float */
+    .livechat-float{position:fixed;bottom:160px;right:1.25rem;width:52px;height:52px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .2s;border:none}
+    .livechat-float:hover{transform:scale(1.08)}
+    .livechat-float svg{width:24px;height:24px;fill:white}
+    @media(min-width:769px){.livechat-float{display:none}}
   </style>
 </head>
 <body>
 
-  <!-- ══ Navigation ══ -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
@@ -384,7 +152,6 @@
     </div>
   </nav>
 
-  <!-- ══ Page Hero ══ -->
   <section class="page-hero">
     <div class="container">
       <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Get a Quote</span></div>
@@ -394,12 +161,11 @@
     </div>
   </section>
 
-  <!-- ══ Main Content ══ -->
   <section class="section">
     <div class="container">
       <div class="contact-layout">
 
-        <!-- ── LEFT: Price Calculator ── -->
+        <!-- LEFT: Calculator -->
         <div>
           <div class="calc-wrap">
             <div class="calc-header">
@@ -408,7 +174,6 @@
               <div class="live-indicator"><span class="live-dot"></span> Price updates live</div>
             </div>
             <div class="calc-body">
-
               <div class="calc-grid">
                 <div class="calc-field">
                   <label for="calc-service">Service Type</label>
@@ -428,7 +193,6 @@
                   </select>
                 </div>
               </div>
-
               <div class="calc-grid">
                 <div class="calc-field">
                   <label for="calc-qty">Number of Pages</label>
@@ -446,8 +210,6 @@
                   </select>
                 </div>
               </div>
-
-              <!-- Add-ons -->
               <div class="addons-section">
                 <div class="addons-title">Add-Ons</div>
                 <div class="addon-row">
@@ -472,74 +234,68 @@
                   <span class="free-badge">FREE</span>
                 </div>
               </div>
-
-              <!-- Price Breakdown -->
               <div class="price-result">
                 <div class="price-line">
                   <span id="calc-base-label">Base price (3 pages × $14)</span>
                   <span id="calc-base-price">$42.00</span>
                 </div>
-                <div class="price-line" id="calc-rush-row" style="display:none;">
+                <div class="price-line" id="calc-rush-row" style="display:none">
                   <span>Urgency surcharge <span class="rush-tag" id="rush-pct-tag"></span></span>
                   <span id="calc-rush-price">—</span>
                 </div>
-                <div class="price-line" id="calc-graphics-row" style="display:none;">
+                <div class="price-line" id="calc-graphics-row" style="display:none">
                   <span id="calc-graphics-label">Graphics & Tables</span>
                   <span id="calc-graphics-price">—</span>
                 </div>
-                <div class="price-line" id="calc-src-row" style="display:none;">
+                <div class="price-line" id="calc-src-row" style="display:none">
                   <span id="calc-src-label">Printable Sources</span>
                   <span id="calc-src-price">—</span>
                 </div>
-                <div class="price-line" id="calc-abstract-row" style="display:none;">
+                <div class="price-line" id="calc-abstract-row" style="display:none">
                   <span>Abstract</span><span>$6.00</span>
                 </div>
-                <div class="price-line" style="color:#16a34a;font-size:0.85rem;">
+                <div class="price-line" style="color:#16a34a;font-size:.85rem">
                   <span>🔍 Plagiarism & AI Report</span>
-                  <span style="font-weight:600;">FREE</span>
+                  <span style="font-weight:600">FREE</span>
                 </div>
                 <div class="price-line total">
                   <span>Total Estimate</span>
                   <span class="amount" id="calc-total">$42.00</span>
                 </div>
               </div>
-
               <div class="payment-split" id="calc-payment-note">
                 💡 Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.
               </div>
-
             </div>
           </div>
 
-          <!-- Payment Methods -->
-          <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md);">
-            <p style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1rem;">Payment Methods</p>
-            <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;">
-              <div style="text-align:center;">
-                <img src="images/paypal-qr.png" alt="PayPal QR" style="width:120px;height:120px;border-radius:var(--radius-sm);border:1px solid var(--border);">
-                <p style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Scan to pay via PayPal</p>
+          <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+            <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem">Payment Methods</p>
+            <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+              <div style="text-align:center">
+                <img src="images/paypal-qr.png" alt="PayPal QR" style="width:120px;height:120px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+                <p style="font-size:.78rem;color:var(--text-muted);margin-top:.4rem">Scan to pay via PayPal</p>
               </div>
-              <div style="flex:1;">
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-                  <span class="badge badge-green" style="padding:0.5rem 1rem;font-size:0.88rem;">💳 PayPal</span>
-                  <span class="badge badge-gray" style="padding:0.5rem 1rem;font-size:0.88rem;">💸 Wise — Coming Soon</span>
+              <div style="flex:1">
+                <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+                  <span class="badge badge-green" style="padding:.5rem 1rem;font-size:.88rem">💳 PayPal</span>
+                  <span class="badge badge-gray" style="padding:.5rem 1rem;font-size:.88rem">💸 Wise — Coming Soon</span>
                 </div>
-                <p style="font-size:0.82rem;color:var(--text-muted);">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
+                <p style="font-size:.82rem;color:var(--text-muted)">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- ── RIGHT: Order Form ── -->
+        <!-- RIGHT: Order Form -->
         <div>
-          <div style="margin-bottom:2rem;">
+          <div style="margin-bottom:2rem">
             <div class="eyebrow">Order Form</div>
-            <h2 style="margin:0.75rem 0 0.5rem;">Submit Your Requirements</h2>
-            <p style="font-size:0.95rem;">Fill in your details below. You'll be asked to log in or create a free account so we can send your order confirmation directly to your inbox.</p>
+            <h2 style="margin:.75rem 0 .5rem">Submit Your Requirements</h2>
+            <p style="font-size:.95rem">Fill in your details. You'll log in or create a free account so we can send your confirmation email automatically.</p>
           </div>
 
-          <!-- Auth Status Bar (shown when logged in) -->
-          <div id="auth-user-bar" style="display:none;" class="auth-user-bar">
+          <div id="auth-user-bar" style="display:none" class="auth-user-bar">
             <div class="auth-user-avatar" id="auth-avatar">?</div>
             <span class="auth-user-email" id="auth-email-display">—</span>
             <span class="auth-signout" onclick="signOutUser()">Sign out</span>
@@ -566,27 +322,18 @@
                 <label for="f-type">Type of Paper</label>
                 <select id="f-type">
                   <option value="">Select type...</option>
-                  <option>Essay</option>
-                  <option>Research Paper</option>
-                  <option>Case Study</option>
-                  <option>PowerPoint</option>
-                  <option>Report</option>
-                  <option>Literature Review</option>
-                  <option>Thesis / Dissertation</option>
-                  <option>Blog Post</option>
-                  <option>Business Report</option>
-                  <option>Other</option>
+                  <option>Essay</option><option>Research Paper</option><option>Case Study</option>
+                  <option>PowerPoint</option><option>Report</option><option>Literature Review</option>
+                  <option>Thesis / Dissertation</option><option>Blog Post</option>
+                  <option>Business Report</option><option>Other</option>
                 </select>
               </div>
               <div class="form-field">
                 <label for="f-level">Education Level</label>
                 <select id="f-level">
                   <option value="">Select level...</option>
-                  <option>High School</option>
-                  <option>Undergraduate</option>
-                  <option>Master's</option>
-                  <option>PhD / Doctoral</option>
-                  <option>Not Applicable</option>
+                  <option>High School</option><option>Undergraduate</option>
+                  <option>Master's</option><option>PhD / Doctoral</option><option>Not Applicable</option>
                 </select>
               </div>
             </div>
@@ -609,12 +356,8 @@
                 <label for="f-citation">Citation Style</label>
                 <select id="f-citation">
                   <option value="">Select style...</option>
-                  <option>APA 7th Edition</option>
-                  <option>MLA</option>
-                  <option>Chicago</option>
-                  <option>Harvard</option>
-                  <option>Turabian</option>
-                  <option>Not Applicable</option>
+                  <option>APA 7th Edition</option><option>MLA</option><option>Chicago</option>
+                  <option>Harvard</option><option>Turabian</option><option>Not Applicable</option>
                 </select>
               </div>
             </div>
@@ -622,8 +365,7 @@
               <div class="form-field">
                 <label for="f-language">Language</label>
                 <select id="f-language">
-                  <option>English (US)</option>
-                  <option>English (UK)</option>
+                  <option>English (US)</option><option>English (UK)</option>
                 </select>
               </div>
               <div class="form-field">
@@ -631,15 +373,13 @@
                 <input type="datetime-local" id="f-deadline" required>
               </div>
             </div>
-
-            <!-- Instructions + File Upload -->
             <div class="instructions-file-row">
-              <div class="form-field" style="margin-bottom:0;">
+              <div class="form-field" style="margin-bottom:0">
                 <label for="f-instructions">Additional Instructions</label>
-                <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources..." style="min-height:140px;height:100%;"></textarea>
+                <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources..." style="min-height:140px;height:100%"></textarea>
               </div>
-              <div class="form-field" style="margin-bottom:0;">
-                <label>Attach Files <span style="font-weight:400;text-transform:none;font-size:0.78rem;">(optional)</span></label>
+              <div class="form-field" style="margin-bottom:0">
+                <label>Attach Files <span style="font-weight:400;text-transform:none;font-size:.78rem">(optional)</span></label>
                 <div class="file-upload-area" id="file-drop-zone">
                   <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.zip">
                   <div class="file-upload-icon">📎</div>
@@ -649,94 +389,82 @@
                 <div class="file-list" id="file-list"></div>
               </div>
             </div>
-
-            <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:1.25rem;">
+            <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:1.25rem">
               🎫 Create My Ticket →
             </button>
-            <p class="form-note">You'll be asked to log in or sign up — then your order receipt lands in your inbox automatically.</p>
+            <p class="form-note">You'll be asked to log in — then your receipt lands in your inbox automatically.</p>
           </form>
 
-          <!-- Success Card -->
           <div class="success-card" id="form-success">
-            <div style="font-size:3rem;margin-bottom:0.75rem;">🎉</div>
-            <h3 style="margin-bottom:0.5rem;color:var(--primary);">Order Placed Successfully!</h3>
-            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-secondary);">Your ticket has been created and a confirmation email is on its way to your inbox. We'll respond within 1 hour.</p>
+            <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+            <h3 style="margin-bottom:.5rem;color:var(--primary)">Order Placed Successfully!</h3>
+            <p style="font-size:.9rem;margin-bottom:1rem;color:var(--text-secondary)">Your ticket is created and a confirmation email is on its way. We'll respond within 1 hour.</p>
             <div class="ticket-box">
               <div class="ticket-box-label">Your Order Ticket</div>
               <div class="ticket-box-number" id="success-ticket-id">EW-001</div>
               <div class="ticket-box-hint">Screenshot or note this number</div>
             </div>
-            <div style="background:var(--off-white);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left;">
-              <p style="font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:0.6rem;text-transform:uppercase;letter-spacing:0.05em;">What happens next:</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.4rem;">✅ Confirmation email sent to your inbox</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.4rem;">📋 Your order is logged in our system</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:0.4rem;">💬 We'll review and reply within 1 hour</p>
-              <p style="font-size:0.88rem;color:var(--text-secondary);">🔖 Quote your ticket number when following up</p>
+            <div style="background:var(--off-white);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left">
+              <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em">What happens next:</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">✅ Confirmation email sent to your inbox</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">📋 Your order is logged in our system</p>
+              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">💬 We'll review and reply within 1 hour</p>
+              <p style="font-size:.88rem;color:var(--text-secondary)">🔖 Quote your ticket number when following up</p>
             </div>
-            <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+            <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
               <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 WhatsApp Us →</a>
               <a href="index.html" class="btn btn-outline">Back to Home</a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ══ How It Works ══ -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-header">
-        <div class="eyebrow">The Process</div>
-        <h2>What Happens After You Submit?</h2>
-      </div>
-      <div style="max-width:750px;margin:0 auto;display:flex;flex-direction:column;gap:1rem;">
-        <div class="process-step"><div class="step-number">1</div><div><h4 style="margin-bottom:0.3rem;">Ticket Created Instantly</h4><p style="font-size:0.92rem;">The moment you submit, your order is logged in our system and a confirmation email lands in your inbox with your unique ticket number.</p></div></div>
-        <div class="process-step"><div class="step-number">2</div><div><h4 style="margin-bottom:0.3rem;">We Review Your Request</h4><p style="font-size:0.92rem;">Within 1 hour we carefully review your requirements and prepare your personalized quote.</p></div></div>
-        <div class="process-step"><div class="step-number">3</div><div><h4 style="margin-bottom:0.3rem;">Payment & Confirmation</h4><p style="font-size:0.92rem;">Once you're happy with the quote, we confirm your order and process payment via PayPal or Wise. Orders above $30 only require 50% upfront.</p></div></div>
-        <div class="process-step"><div class="step-number">4</div><div><h4 style="margin-bottom:0.3rem;">We Write. You Review.</h4><p style="font-size:0.92rem;">Writing begins immediately. You receive your completed work before the deadline with 2 free revisions included on every order.</p></div></div>
+      <div class="section-header"><div class="eyebrow">The Process</div><h2>What Happens After You Submit?</h2></div>
+      <div style="max-width:750px;margin:0 auto;display:flex;flex-direction:column;gap:1rem">
+        <div class="process-step"><div class="step-number">1</div><div><h4 style="margin-bottom:.3rem">Ticket Created Instantly</h4><p style="font-size:.92rem">Your order is logged and a confirmation email lands in your inbox immediately.</p></div></div>
+        <div class="process-step"><div class="step-number">2</div><div><h4 style="margin-bottom:.3rem">We Review Your Request</h4><p style="font-size:.92rem">Within 1 hour we review your requirements and prepare your personalized quote.</p></div></div>
+        <div class="process-step"><div class="step-number">3</div><div><h4 style="margin-bottom:.3rem">Payment & Confirmation</h4><p style="font-size:.92rem">Once happy with the quote, we confirm and process payment. Orders above $30: 50% upfront.</p></div></div>
+        <div class="process-step"><div class="step-number">4</div><div><h4 style="margin-bottom:.3rem">We Write. You Review.</h4><p style="font-size:.92rem">Writing begins immediately. Completed work delivered before deadline with 2 free revisions.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ FAQ ══ -->
   <section class="section">
     <div class="container">
       <div class="section-header"><div class="eyebrow">FAQ</div><h2>Frequently Asked Questions</h2></div>
-      <div style="max-width:800px;margin:0 auto;">
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How quickly can you complete my order? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We accept orders with deadlines as short as 3 hours. Urgency surcharges apply: +30% for 13–24 hrs, +40% for 7–12 hrs, +50% for 3–6 hrs.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Is my order kept confidential? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Absolutely. Your identity, your instructions, and your completed work are 100% private. We never share, publish, or reuse any client work — ever.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What if I'm not satisfied with the work? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We offer 2 free revisions on every order. If you're still not satisfied after revisions, we will work with you until you are.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How do I pay? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We accept PayPal and Wise. Orders under $30: full payment upfront. Orders above $30: 50% upfront, 50% on delivery.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you handle all academic subjects? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes — Nursing & Healthcare, Business & Management, Psychology, Social Work, Political Science, English, and many more.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Will my paper be plagiarism-free? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes. Every paper is written from scratch. A full Plagiarism & AI report is included FREE on every order.</p></div></div>
-        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Can I communicate directly during my order? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes. Reach us via WhatsApp, live chat, or email at any point. We keep you updated throughout the process.</p></div></div>
+      <div style="max-width:800px;margin:0 auto">
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How quickly can you complete my order? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>We accept orders as short as 3 hours. Surcharges: +30% for 13–24 hrs, +40% for 7–12 hrs, +50% for 3–6 hrs.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Is my order kept confidential? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Absolutely. 100% private. We never share, publish, or reuse any client work — ever.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What if I'm not satisfied? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>2 free revisions on every order. We work with you until you're satisfied.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How do I pay? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>PayPal and Wise. Under $30: full upfront. Above $30: 50% upfront, 50% on delivery.</p></div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Will my paper be plagiarism-free? <span class="faq-arrow">▼</span></div><div class="faq-answer"><p>Yes. Written from scratch. Plagiarism & AI report included FREE on every order.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ══ CTA ══ -->
   <section class="cta-section">
-    <div class="container" style="position:relative;z-index:2;">
-      <div class="eyebrow" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.3);color:var(--accent);">Still Have Questions?</div>
-      <h2 style="margin:1rem 0;">We're Here to Help</h2>
-      <p>No pressure. No commitment. Just reach out and let's talk about what you need.</p>
-      <div class="btn-group" style="justify-content:center;">
+    <div class="container" style="position:relative;z-index:2">
+      <div class="eyebrow" style="background:rgba(201,168,76,.15);border-color:rgba(201,168,76,.3);color:var(--accent)">Still Have Questions?</div>
+      <h2 style="margin:1rem 0">We're Here to Help</h2>
+      <p>No pressure. No commitment. Just reach out and let's talk.</p>
+      <div class="btn-group" style="justify-content:center">
         <a href="https://wa.me/16624002088" class="btn btn-accent btn-lg" target="_blank">💬 WhatsApp Us →</a>
         <a href="mailto:elitewriters804@gmail.com" class="btn btn-outline-white btn-lg">✉ Email Us</a>
       </div>
     </div>
   </section>
 
-  <!-- ══ Footer ══ -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
-          <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed on every order.</p>
-          <div class="footer-contact" style="margin-top:1.25rem;">
+          <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed.</p>
+          <div class="footer-contact" style="margin-top:1.25rem">
             <a href="mailto:elitewriters804@gmail.com">✉ elitewriters804@gmail.com</a>
             <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
           </div>
@@ -752,7 +480,6 @@
     </div>
   </footer>
 
-  <!-- Float Buttons -->
   <a href="mailto:elitewriters804@gmail.com" class="float-btn email-float" aria-label="Email us">
     <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
   </a>
@@ -763,296 +490,270 @@
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg>
   </button>
 
-  <!-- ══════════════════════════════════════
-       FIREBASE AUTH MODAL
-  ══════════════════════════════════════ -->
+  <!-- AUTH MODAL -->
   <div class="auth-overlay" id="auth-overlay">
     <div class="auth-modal">
       <div class="auth-logo">✍️</div>
-      <h3>Create Your Free Account</h3>
-      <p>Log in or sign up so we can send your order confirmation and receipt directly to your inbox.</p>
-
-      <!-- Google Sign-In -->
+      <h3>Quick Account Setup</h3>
+      <p>Log in or sign up so we can send your order confirmation directly to your inbox.</p>
       <button class="auth-btn-google" onclick="signInWithGoogle()">
         <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.48A4.8 4.8 0 014.5 9v-2.1H1.83a8 8 0 000 5.6L4.5 10.48z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 6.9L4.5 8.98a4.77 4.77 0 014.48-4.8z"/></svg>
         Continue with Google
       </button>
-
       <div class="auth-divider">or use email</div>
-
-      <!-- Email/Password Tabs -->
       <div class="auth-tabs">
         <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Sign In</button>
         <button class="auth-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
       </div>
-
       <div id="auth-error" class="auth-error"></div>
-
       <input type="email" class="auth-input" id="auth-email" placeholder="Email address">
       <input type="password" class="auth-input" id="auth-password" placeholder="Password">
-      <input type="password" class="auth-input" id="auth-password2" placeholder="Confirm password" style="display:none;">
-
+      <input type="password" class="auth-input" id="auth-password2" placeholder="Confirm password" style="display:none">
       <button class="auth-btn-primary" id="auth-submit-btn" onclick="submitAuth()">Sign In & Place Order</button>
-
-      <p style="font-size:0.78rem;color:var(--text-muted);margin-top:1rem;">
-        By continuing you agree to our <a href="#" style="color:var(--primary);">Terms of Service</a>.
-      </p>
+      <p style="font-size:.78rem;color:var(--text-muted);margin-top:1rem">By continuing you agree to our Terms of Service.</p>
     </div>
   </div>
 
   <script src="js/main.js"></script>
   <script>
-    /* ══════════════════════════════════════
-       CONFIG
-    ══════════════════════════════════════ */
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyb1aYPdVleVtNQmGvfBEOrQwhdRMHdM7sM4d-itdNmB9-UQbRb3GoUsS3H4BUSCV_1/exec";
-    const TAWKTO_EMAIL   = "tickets@elitewriters-oefbaw.p.tawk.email";
-    const WHATSAPP_NUM   = "16624002088";
+    // ═══════════════════════════════════
+    // CONFIG
+    // ═══════════════════════════════════
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb1aYPdVleVtNQmGvfBEOrQwhdRMHdM7sM4d-itdNmB9-UQbRb3GoUsS3H4BUSCV_1/exec';
+    var TAWKTO_EMAIL = 'tickets@elitewriters-oefbaw.p.tawk.email';
 
-    /* ══════════════════════════════════════
-       FIREBASE INIT
-    ══════════════════════════════════════ */
-    const firebaseConfig = {
-      apiKey: "AIzaSyB3qjthV6NAZb-uYTPgcPnL2IEXh2KCIV4",
-      authDomain: "elitewriters-804.firebaseapp.com",
-      projectId: "elitewriters-804",
-      storageBucket: "elitewriters-804.firebasestorage.app",
-      messagingSenderId: "838430482937",
-      appId: "1:838430482937:web:62bec00ff7c78acb039d28",
-      measurementId: "G-NYLLLDGDJL"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    let currentUser = null;
-    let pendingOrderData = null;
+    // ═══════════════════════════════════
+    // FIREBASE INIT
+    // ═══════════════════════════════════
+    var firebaseAvailable = false;
+    var auth = null;
+    var currentUser = null;
+    var pendingOrderData = null;
+    var authMode = 'login';
 
-    auth.onAuthStateChanged(user => {
-      currentUser = user;
-      if (user) {
-        document.getElementById('auth-user-bar').style.display = 'flex';
-        document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
-        document.getElementById('auth-email-display').textContent = user.email || user.displayName || 'Logged in';
-        // If there's a pending order, process it now
-        if (pendingOrderData) {
-          const data = pendingOrderData;
-          pendingOrderData = null;
-          closeAuthModal();
-          submitOrderToBackend(data);
+    try {
+      var firebaseConfig = {
+        apiKey: "AIzaSyB3qjthV6NAZb-uYTPgcPnL2IEXh2KCIV4",
+        authDomain: "elitewriters-804.firebaseapp.com",
+        projectId: "elitewriters-804",
+        storageBucket: "elitewriters-804.firebasestorage.app",
+        messagingSenderId: "838430482937",
+        appId: "1:838430482937:web:62bec00ff7c78acb039d28"
+      };
+      firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      firebaseAvailable = true;
+
+      auth.onAuthStateChanged(function(user) {
+        currentUser = user;
+        if (user) {
+          document.getElementById('auth-user-bar').style.display = 'flex';
+          document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
+          document.getElementById('auth-email-display').textContent = user.email || 'Logged in';
+          if (pendingOrderData) {
+            var data = pendingOrderData;
+            pendingOrderData = null;
+            closeAuthModal();
+            submitOrderToBackend(data);
+          }
+        } else {
+          document.getElementById('auth-user-bar').style.display = 'none';
         }
-      } else {
-        document.getElementById('auth-user-bar').style.display = 'none';
-      }
-    });
-
-    /* ══════════════════════════════════════
-       PRICE CALCULATOR — Exact Math Rules
-       Formula: ((Pages × LevelRate) × UrgencyMultiplier)
-                + (Graphics × 5) + (Sources × 3) + (Abstract ? 6 : 0)
-    ══════════════════════════════════════ */
-    function calcPrice() {
-      const cpp      = parseFloat(document.getElementById('calc-level').value) || 14;
-      const pages    = Math.max(1, parseInt(document.getElementById('calc-qty').value) || 1);
-      const urgencyRaw = document.getElementById('calc-deadline').value;
-      const urgency  = parseInt(urgencyRaw) || 0; // 0b / 0c parse as 0 — correct
-      const graphics = Math.max(0, parseInt(document.getElementById('qty-graphics').value) || 0);
-      const sources  = Math.max(0, parseInt(document.getElementById('qty-sources').value) || 0);
-      const abstract = document.getElementById('calc-abstract').checked;
-
-      // Core formula
-      const base        = pages * cpp;
-      const rushAmt     = base * (urgency / 100);
-      const subtotal    = base + rushAmt;          // after urgency multiplier
-      const graphicsAmt = graphics * 5;
-      const sourcesAmt  = sources * 3;
-      const abstractAmt = abstract ? 6 : 0;
-      const total       = subtotal + graphicsAmt + sourcesAmt + abstractAmt;
-
-      // Update display
-      document.getElementById('calc-base-label').textContent = `Base price (${pages} pg × $${cpp})`;
-      document.getElementById('calc-base-price').textContent = `$${base.toFixed(2)}`;
-
-      const rushRow = document.getElementById('calc-rush-row');
-      if (urgency > 0) {
-        rushRow.style.display = 'flex';
-        document.getElementById('rush-pct-tag').textContent = `+${urgency}%`;
-        document.getElementById('calc-rush-price').textContent = `$${rushAmt.toFixed(2)}`;
-      } else { rushRow.style.display = 'none'; }
-
-      const gRow = document.getElementById('calc-graphics-row');
-      if (graphics > 0) {
-        gRow.style.display = 'flex';
-        document.getElementById('calc-graphics-label').textContent = `Graphics & Tables (×${graphics})`;
-        document.getElementById('calc-graphics-price').textContent = `$${graphicsAmt.toFixed(2)}`;
-      } else { gRow.style.display = 'none'; }
-      document.getElementById('price-graphics').textContent = graphics > 0 ? `$${graphicsAmt.toFixed(2)}` : '$0.00';
-
-      const sRow = document.getElementById('calc-src-row');
-      if (sources > 0) {
-        sRow.style.display = 'flex';
-        document.getElementById('calc-src-label').textContent = `Printable Sources (×${sources})`;
-        document.getElementById('calc-src-price').textContent = `$${sourcesAmt.toFixed(2)}`;
-      } else { sRow.style.display = 'none'; }
-      document.getElementById('price-sources').textContent = sources > 0 ? `$${sourcesAmt.toFixed(2)}` : '$0.00';
-
-      document.getElementById('calc-abstract-row').style.display = abstract ? 'flex' : 'none';
-      document.getElementById('calc-total').textContent = `$${total.toFixed(2)}`;
-
-      const half = total / 2;
-      document.getElementById('calc-payment-note').innerHTML = total >= 30
-        ? `💡 Pay <strong>$${half.toFixed(2)}</strong> upfront to confirm, then <strong>$${half.toFixed(2)}</strong> on delivery.`
-        : `💡 Full payment of <strong>$${total.toFixed(2)}</strong> required upfront (orders under $30).`;
+      });
+    } catch(e) {
+      console.warn('Firebase init failed:', e);
+      firebaseAvailable = false;
     }
 
-    ['calc-level','calc-qty','calc-deadline','calc-abstract','qty-graphics','qty-sources'].forEach(id => {
-      const el = document.getElementById(id);
+    // ═══════════════════════════════════
+    // PRICE CALCULATOR
+    // Formula: ((Pages × Rate) × UrgencyMultiplier) + addons
+    // ═══════════════════════════════════
+    function calcPrice() {
+      var cpp = parseFloat(document.getElementById('calc-level').value) || 14;
+      var pages = Math.max(1, parseInt(document.getElementById('calc-qty').value) || 1);
+      var urgency = parseInt(document.getElementById('calc-deadline').value) || 0;
+      var graphics = Math.max(0, parseInt(document.getElementById('qty-graphics').value) || 0);
+      var sources = Math.max(0, parseInt(document.getElementById('qty-sources').value) || 0);
+      var abstract = document.getElementById('calc-abstract').checked;
+
+      var base = pages * cpp;
+      var rushAmt = base * (urgency / 100);
+      var graphicsAmt = graphics * 5;
+      var sourcesAmt = sources * 3;
+      var abstractAmt = abstract ? 6 : 0;
+      var total = base + rushAmt + graphicsAmt + sourcesAmt + abstractAmt;
+
+      document.getElementById('calc-base-label').textContent = 'Base price (' + pages + ' pg × $' + cpp + ')';
+      document.getElementById('calc-base-price').textContent = '$' + base.toFixed(2);
+
+      var rushRow = document.getElementById('calc-rush-row');
+      if (urgency > 0) {
+        rushRow.style.display = 'flex';
+        document.getElementById('rush-pct-tag').textContent = '+' + urgency + '%';
+        document.getElementById('calc-rush-price').textContent = '$' + rushAmt.toFixed(2);
+      } else { rushRow.style.display = 'none'; }
+
+      var gRow = document.getElementById('calc-graphics-row');
+      if (graphics > 0) {
+        gRow.style.display = 'flex';
+        document.getElementById('calc-graphics-label').textContent = 'Graphics & Tables (×' + graphics + ')';
+        document.getElementById('calc-graphics-price').textContent = '$' + graphicsAmt.toFixed(2);
+      } else { gRow.style.display = 'none'; }
+      document.getElementById('price-graphics').textContent = graphics > 0 ? '$' + graphicsAmt.toFixed(2) : '$0.00';
+
+      var sRow = document.getElementById('calc-src-row');
+      if (sources > 0) {
+        sRow.style.display = 'flex';
+        document.getElementById('calc-src-label').textContent = 'Printable Sources (×' + sources + ')';
+        document.getElementById('calc-src-price').textContent = '$' + sourcesAmt.toFixed(2);
+      } else { sRow.style.display = 'none'; }
+      document.getElementById('price-sources').textContent = sources > 0 ? '$' + sourcesAmt.toFixed(2) : '$0.00';
+
+      document.getElementById('calc-abstract-row').style.display = abstract ? 'flex' : 'none';
+      document.getElementById('calc-total').textContent = '$' + total.toFixed(2);
+
+      var half = total / 2;
+      document.getElementById('calc-payment-note').innerHTML = total >= 30
+        ? '💡 Pay <strong>$' + half.toFixed(2) + '</strong> upfront, then <strong>$' + half.toFixed(2) + '</strong> on delivery.'
+        : '💡 Full payment of <strong>$' + total.toFixed(2) + '</strong> required upfront (orders under $30).';
+    }
+
+    ['calc-level','calc-qty','calc-deadline','calc-abstract','qty-graphics','qty-sources'].forEach(function(id) {
+      var el = document.getElementById(id);
       el.addEventListener('change', calcPrice);
       if (el.type === 'number') el.addEventListener('input', calcPrice);
     });
     calcPrice();
 
-    /* ══════════════════════════════════════
-       FILE UPLOAD
-    ══════════════════════════════════════ */
-    let selectedFiles = [];
+    // ═══════════════════════════════════
+    // FILE UPLOAD
+    // ═══════════════════════════════════
+    var selectedFiles = [];
 
     document.getElementById('f-files').addEventListener('change', function() {
-      Array.from(this.files).forEach(f => {
-        if (!selectedFiles.find(x => x.name === f.name && x.size === f.size)) selectedFiles.push(f);
+      Array.from(this.files).forEach(function(f) {
+        if (!selectedFiles.find(function(x){ return x.name===f.name && x.size===f.size; })) selectedFiles.push(f);
       });
       renderFileList(); this.value = '';
     });
 
-    const dropZone = document.getElementById('file-drop-zone');
-    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', e => {
+    var dropZone = document.getElementById('file-drop-zone');
+    dropZone.addEventListener('dragover', function(e){ e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', function(){ dropZone.classList.remove('dragover'); });
+    dropZone.addEventListener('drop', function(e){
       e.preventDefault(); dropZone.classList.remove('dragover');
-      Array.from(e.dataTransfer.files).forEach(f => { if (!selectedFiles.find(x => x.name===f.name)) selectedFiles.push(f); });
+      Array.from(e.dataTransfer.files).forEach(function(f){ if(!selectedFiles.find(function(x){return x.name===f.name;})) selectedFiles.push(f); });
       renderFileList();
     });
 
     function renderFileList() {
-      document.getElementById('file-list').innerHTML = selectedFiles.map((f,i) => `
-        <div class="file-item">
-          <div class="file-item-name"><span>${fileIcon(f.name)}</span><span title="${f.name}">${f.name}</span></div>
-          <span style="font-size:0.75rem;color:#888;margin-right:0.5rem;">${formatBytes(f.size)}</span>
-          <button class="file-remove" onclick="removeFile(${i})">✕</button>
-        </div>`).join('');
+      document.getElementById('file-list').innerHTML = selectedFiles.map(function(f,i){
+        return '<div class="file-item"><div class="file-item-name"><span>'+fileIcon(f.name)+'</span><span title="'+f.name+'">'+f.name+'</span></div><span style="font-size:.75rem;color:#888;margin-right:.5rem">'+formatBytes(f.size)+'</span><button class="file-remove" onclick="removeFile('+i+')">✕</button></div>';
+      }).join('');
     }
-    function removeFile(i) { selectedFiles.splice(i,1); renderFileList(); }
-    function fileIcon(n) {
-      const e = n.split('.').pop().toLowerCase();
-      return {pdf:'📄',doc:'📝',docx:'📝',ppt:'📊',pptx:'📊',xls:'📈',xlsx:'📈',txt:'📃',jpg:'🖼️',jpeg:'🖼️',png:'🖼️',zip:'🗜️'}[e] || '📎';
-    }
-    function formatBytes(b) {
-      if(b<1024) return b+' B'; if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB';
-    }
+    function removeFile(i){ selectedFiles.splice(i,1); renderFileList(); }
+    function fileIcon(n){ var e=n.split('.').pop().toLowerCase(); return {pdf:'📄',doc:'📝',docx:'📝',ppt:'📊',pptx:'📊',xls:'📈',xlsx:'📈',txt:'📃',jpg:'🖼️',jpeg:'🖼️',png:'🖼️',zip:'🗜️'}[e]||'📎'; }
+    function formatBytes(b){ if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(1)+' MB'; }
 
-    /* ══════════════════════════════════════
-       TICKET NUMBER GENERATOR (localStorage)
-    ══════════════════════════════════════ */
+    // ═══════════════════════════════════
+    // TICKET NUMBER
+    // ═══════════════════════════════════
     function generateTicketId() {
-      let n = parseInt(localStorage.getItem('ew_ticket_counter') || '0') + 1;
+      var n = parseInt(localStorage.getItem('ew_ticket_counter') || '0') + 1;
       localStorage.setItem('ew_ticket_counter', n);
-      return 'EW-' + String(n).padStart(3, '0');
+      return 'EW-' + String(n).padStart(3,'0');
     }
 
-    /* ══════════════════════════════════════
-       FORM SUBMIT — intercepts for Auth
-    ══════════════════════════════════════ */
+    // ═══════════════════════════════════
+    // FORM SUBMIT
+    // ═══════════════════════════════════
     function handleSubmit(e) {
       e.preventDefault();
+      var service = document.getElementById('f-service').value;
+      var topic = document.getElementById('f-topic').value;
+      var type = document.getElementById('f-type').value;
+      var level = document.getElementById('f-level').value;
+      var pages = document.getElementById('f-pages').value;
+      var words = document.getElementById('f-words').value;
+      var sources = document.getElementById('f-sources').value;
+      var citation = document.getElementById('f-citation').value;
+      var language = document.getElementById('f-language').value;
+      var deadline = document.getElementById('f-deadline').value;
+      var instructions = document.getElementById('f-instructions').value;
+      var totalPrice = document.getElementById('calc-total').textContent;
+      var filesAttached = selectedFiles.length > 0 ? selectedFiles.map(function(f){return f.name;}).join(', ') : 'None';
 
-      // Collect form data
-      const service      = document.getElementById('f-service').value;
-      const topic        = document.getElementById('f-topic').value;
-      const type         = document.getElementById('f-type').value;
-      const level        = document.getElementById('f-level').value;
-      const pages        = document.getElementById('f-pages').value;
-      const words        = document.getElementById('f-words').value;
-      const sources      = document.getElementById('f-sources').value;
-      const citation     = document.getElementById('f-citation').value;
-      const language     = document.getElementById('f-language').value;
-      const deadline     = document.getElementById('f-deadline').value;
-      const instructions = document.getElementById('f-instructions').value;
-      const totalPrice   = document.getElementById('calc-total').textContent;
-      const filesAttached = selectedFiles.length > 0 ? selectedFiles.map(f=>f.name).join(', ') : 'None';
-
-      const addons = [];
-      const g = parseInt(document.getElementById('qty-graphics').value)||0;
-      const s = parseInt(document.getElementById('qty-sources').value)||0;
-      const a = document.getElementById('calc-abstract').checked;
-      if(g>0) addons.push(`Graphics & Tables ×${g}`);
-      if(s>0) addons.push(`Printable Sources ×${s}`);
-      if(a)   addons.push('Abstract');
+      var addons = [];
+      var g = parseInt(document.getElementById('qty-graphics').value)||0;
+      var s = parseInt(document.getElementById('qty-sources').value)||0;
+      var a = document.getElementById('calc-abstract').checked;
+      if(g>0) addons.push('Graphics & Tables x'+g);
+      if(s>0) addons.push('Printable Sources x'+s);
+      if(a) addons.push('Abstract');
       addons.push('Plagiarism & AI Report (FREE)');
 
-      const orderData = {
-        service, topic, paperType:type, educationLevel:level,
-        pages, wordCount:words, sources, citationStyle:citation,
-        language, deadline, instructions,
-        addons: addons.join(', '), filesAttached,
-        estimatedPrice: totalPrice,
-        submittedAt: new Date().toLocaleString()
+      var orderData = {
+        service:service, topic:topic, paperType:type, educationLevel:level,
+        pages:pages, wordCount:words, sources:sources, citationStyle:citation,
+        language:language, deadline:deadline, instructions:instructions,
+        addons:addons.join(', '), filesAttached:filesAttached,
+        estimatedPrice:totalPrice, submittedAt:new Date().toLocaleString()
       };
 
-      // Check if user is already logged in
-      if (currentUser) {
+      if (firebaseAvailable && currentUser) {
         orderData.clientEmail = currentUser.email || '';
-        orderData.clientName  = currentUser.displayName || currentUser.email || 'Client';
+        orderData.clientName = currentUser.displayName || currentUser.email || 'Client';
         submitOrderToBackend(orderData);
-      } else {
-        // Store pending order and show auth modal
+      } else if (firebaseAvailable) {
         pendingOrderData = orderData;
         openAuthModal();
+      } else {
+        // Firebase unavailable — submit without auth
+        orderData.clientEmail = '';
+        submitOrderToBackend(orderData);
       }
     }
 
-    /* ══════════════════════════════════════
-       SUBMIT ORDER TO GOOGLE APPS SCRIPT
-    ══════════════════════════════════════ */
-    async function submitOrderToBackend(data) {
-      const btn = document.getElementById('submit-btn');
+    // ═══════════════════════════════════
+    // SUBMIT TO APPS SCRIPT
+    // ═══════════════════════════════════
+    function submitOrderToBackend(data) {
+      var btn = document.getElementById('submit-btn');
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> Creating Ticket...';
 
-      const ticketId = generateTicketId();
+      var ticketId = generateTicketId();
       data.ticketId = ticketId;
-      data.tawkToEmail = TAWKTO_EMAIL;
 
-      try {
-        // Use XMLHttpRequest — more reliable with Google Apps Script than fetch+no-cors
-        await new Promise((resolve) => {
-          const xhr = new XMLHttpRequest();
-          xhr.open('POST', APPS_SCRIPT_URL, true);
-          xhr.setRequestHeader('Content-Type', 'text/plain'); // text/plain avoids CORS preflight
-          xhr.onload = () => resolve(xhr.responseText);
-          xhr.onerror = () => resolve('error');
-          xhr.ontimeout = () => resolve('timeout');
-          xhr.timeout = 10000;
-          xhr.send(JSON.stringify(data));
-        });
-      } catch(err) { console.warn('Sheet error:', err); }
-
-      btn.disabled = false;
-      btn.innerHTML = '🎫 Create My Ticket →';
-
-      // Show success
-      document.getElementById('success-ticket-id').textContent = ticketId;
-      document.getElementById('order-form').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', APPS_SCRIPT_URL, true);
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+      xhr.timeout = 15000;
+      xhr.onloadend = function() {
+        btn.disabled = false;
+        btn.innerHTML = '🎫 Create My Ticket →';
+        document.getElementById('success-ticket-id').textContent = ticketId;
+        document.getElementById('order-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      };
+      xhr.onerror = function() {
+        btn.disabled = false;
+        btn.innerHTML = '🎫 Create My Ticket →';
+        document.getElementById('success-ticket-id').textContent = ticketId;
+        document.getElementById('order-form').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      };
+      xhr.send(JSON.stringify(data));
     }
 
-    /* ══════════════════════════════════════
-       AUTH MODAL
-    ══════════════════════════════════════ */
-    let authMode = 'login';
-
+    // ═══════════════════════════════════
+    // AUTH MODAL
+    // ═══════════════════════════════════
     function openAuthModal() {
       document.getElementById('auth-overlay').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
-
     function closeAuthModal() {
       document.getElementById('auth-overlay').classList.remove('active');
       document.body.style.overflow = '';
@@ -1061,7 +762,6 @@
       document.getElementById('auth-password').value = '';
       document.getElementById('auth-password2').value = '';
     }
-
     function switchAuthTab(mode) {
       authMode = mode;
       document.getElementById('tab-login').classList.toggle('active', mode==='login');
@@ -1070,76 +770,65 @@
       document.getElementById('auth-submit-btn').textContent = mode==='login' ? 'Sign In & Place Order' : 'Create Account & Place Order';
       document.getElementById('auth-error').classList.remove('show');
     }
-
     function showAuthError(msg) {
-      const el = document.getElementById('auth-error');
+      var el = document.getElementById('auth-error');
       el.textContent = msg; el.classList.add('show');
     }
-
-    async function signInWithGoogle() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      try {
-        await auth.signInWithPopup(provider);
-        // onAuthStateChanged will fire and process pendingOrderData
-      } catch(err) {
-        showAuthError(err.message);
-      }
+    function signInWithGoogle() {
+      if (!firebaseAvailable || !auth) { showAuthError('Please use email/password below.'); return; }
+      var provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(function(err) {
+        showAuthError('Google sign-in failed. Please use email/password.');
+      });
     }
-
-    async function submitAuth() {
-      const email = document.getElementById('auth-email').value.trim();
-      const pass  = document.getElementById('auth-password').value;
-      const pass2 = document.getElementById('auth-password2').value;
-      const btn   = document.getElementById('auth-submit-btn');
-
+    function submitAuth() {
+      var email = document.getElementById('auth-email').value.trim();
+      var pass = document.getElementById('auth-password').value;
+      var pass2 = document.getElementById('auth-password2').value;
+      var btn = document.getElementById('auth-submit-btn');
       if (!email || !pass) { showAuthError('Please enter your email and password.'); return; }
       if (authMode === 'signup' && pass !== pass2) { showAuthError('Passwords do not match.'); return; }
       if (pass.length < 6) { showAuthError('Password must be at least 6 characters.'); return; }
-
-      btn.disabled = true;
-      btn.textContent = 'Please wait...';
-
-      try {
-        if (authMode === 'login') {
-          await auth.signInWithEmailAndPassword(email, pass);
-        } else {
-          await auth.createUserWithEmailAndPassword(email, pass);
-        }
-        // onAuthStateChanged fires → processes pendingOrderData
-      } catch(err) {
-        const msgs = {
-          'auth/user-not-found': 'No account found. Switch to Sign Up to create one.',
-          'auth/wrong-password': 'Incorrect password. Please try again.',
-          'auth/email-already-in-use': 'Email already registered. Switch to Sign In.',
-          'auth/invalid-email': 'Please enter a valid email address.',
-          'auth/too-many-requests': 'Too many attempts. Please try again later.'
+      btn.disabled = true; btn.textContent = 'Please wait...';
+      var promise = authMode === 'login'
+        ? auth.signInWithEmailAndPassword(email, pass)
+        : auth.createUserWithEmailAndPassword(email, pass);
+      promise.catch(function(err) {
+        var msgs = {
+          'auth/user-not-found':'No account found. Switch to Sign Up.',
+          'auth/wrong-password':'Incorrect password.',
+          'auth/email-already-in-use':'Email already registered. Switch to Sign In.',
+          'auth/invalid-email':'Please enter a valid email.',
+          'auth/too-many-requests':'Too many attempts. Try again later.'
         };
         showAuthError(msgs[err.code] || err.message);
         btn.disabled = false;
         btn.textContent = authMode === 'login' ? 'Sign In & Place Order' : 'Create Account & Place Order';
-      }
+      });
     }
-
     function signOutUser() {
-      auth.signOut();
+      if (auth) auth.signOut();
+      currentUser = null;
+      document.getElementById('auth-user-bar').style.display = 'none';
     }
-
-    // Close modal on overlay click
     document.getElementById('auth-overlay').addEventListener('click', function(e) {
       if (e.target === this) { pendingOrderData = null; closeAuthModal(); }
     });
-    document.addEventListener('keydown', e => { if(e.key==='Escape') { pendingOrderData=null; closeAuthModal(); } });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { pendingOrderData = null; closeAuthModal(); }
+    });
 
-    /* ══════════════════════════════════════
-       FAQ
-    ══════════════════════════════════════ */
+    // ═══════════════════════════════════
+    // FAQ
+    // ═══════════════════════════════════
     function toggleFaq(el) {
-      const answer = el.nextElementSibling;
-      const isOpen = el.classList.contains('open');
-      document.querySelectorAll('.faq-question').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+      var answer = el.nextElementSibling;
+      var isOpen = el.classList.contains('open');
+      document.querySelectorAll('.faq-question').forEach(function(q){
+        q.classList.remove('open'); q.nextElementSibling.classList.remove('open');
+      });
       if (!isOpen) { el.classList.add('open'); answer.classList.add('open'); }
     }
-
     function openLiveChat() {
       if (window.Tawk_API && typeof Tawk_API.maximize === 'function') Tawk_API.maximize();
     }
@@ -1148,12 +837,17 @@
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  Tawk_API.customStyle = {
+    visibility: {
+      desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
+      mobile:  { position: 'bl', xOffset: 10, yOffset: 10 }
+    }
+  };
   (function(){
   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
   s1.async=true;
   s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
   s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
