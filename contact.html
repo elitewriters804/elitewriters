@@ -359,6 +359,9 @@
     .livechat-float:hover { transform: scale(1.08); }
     .livechat-float svg { width: 24px; height: 24px; fill: white; }
     @media (min-width: 769px) { .livechat-float { display: none; } }
+
+    /* Force Tawk.to to bottom-LEFT so it never overlaps our right-side float buttons */
+    #tawkchat-container, .tawk-min-container { left: 1rem !important; right: auto !important; bottom: 1rem !important; }
   </style>
 </head>
 <body>
@@ -1018,11 +1021,16 @@
       data.tawkToEmail = TAWKTO_EMAIL;
 
       try {
-        await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+        // Use XMLHttpRequest — more reliable with Google Apps Script than fetch+no-cors
+        await new Promise((resolve) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', APPS_SCRIPT_URL, true);
+          xhr.setRequestHeader('Content-Type', 'text/plain'); // text/plain avoids CORS preflight
+          xhr.onload = () => resolve(xhr.responseText);
+          xhr.onerror = () => resolve('error');
+          xhr.ontimeout = () => resolve('timeout');
+          xhr.timeout = 10000;
+          xhr.send(JSON.stringify(data));
         });
       } catch(err) { console.warn('Sheet error:', err); }
 
