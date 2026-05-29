@@ -288,17 +288,28 @@
 
           <div style="margin-top:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
             <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem">Payment Methods</p>
-            <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
-              <div style="text-align:center">
-                <img src="images/paypal-qr.png" alt="PayPal QR" style="width:120px;height:120px;border-radius:var(--radius-sm);border:1px solid var(--border)">
-                <p style="font-size:.78rem;color:var(--text-muted);margin-top:.4rem">Scan to pay via PayPal</p>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin-bottom:.75rem">
+              <button onclick="openPaypalModal()" style="display:flex;align-items:center;gap:.5rem;padding:.6rem 1.25rem;background:#0070ba;color:#fff;border:none;border-radius:var(--radius-sm);font-size:.92rem;font-weight:600;cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                💳 Pay via PayPal
+              </button>
+              <span class="badge badge-gray" style="padding:.5rem 1rem;font-size:.88rem">💸 Wise — Coming Soon</span>
+            </div>
+            <p style="font-size:.82rem;color:var(--text-muted)">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
+          </div>
+
+          <!-- PayPal QR Modal -->
+          <div id="paypal-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:99999;align-items:center;justify-content:center;padding:1rem" onclick="if(event.target===this)closePaypalModal()">
+            <div style="background:#fff;border-radius:16px;padding:2rem;max-width:320px;width:100%;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.3);position:relative">
+              <button onclick="closePaypalModal()" style="position:absolute;top:.75rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#888;line-height:1">×</button>
+              <div style="font-size:2rem;margin-bottom:.5rem">💳</div>
+              <h3 style="font-size:1.1rem;margin-bottom:.25rem;color:#003087">Pay via PayPal</h3>
+              <p style="font-size:.83rem;color:#666;margin-bottom:1.25rem">Scan the QR code with your phone camera or PayPal app</p>
+              <div style="background:#f5f5f5;border-radius:12px;padding:1rem;display:inline-block;margin-bottom:1rem">
+                <img src="images/paypal-qr.png" alt="PayPal QR Code" style="width:180px;height:180px;display:block;border-radius:8px">
               </div>
-              <div style="flex:1">
-                <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
-                  <span class="badge badge-green" style="padding:.5rem 1rem;font-size:.88rem">💳 PayPal</span>
-                  <span class="badge badge-gray" style="padding:.5rem 1rem;font-size:.88rem">💸 Wise — Coming Soon</span>
-                </div>
-                <p style="font-size:.82rem;color:var(--text-muted)">Orders under $30: full payment upfront.<br>Orders above $30: 50% upfront, 50% on delivery.</p>
+              <p style="font-size:.78rem;color:#888;margin-bottom:1.25rem">Point your camera at the code to open PayPal payment</p>
+              <div style="background:#e8f4fd;border-radius:8px;padding:.75rem;font-size:.82rem;color:#0070ba">
+                💡 Orders under $30: full upfront<br>Orders above $30: 50% now, 50% on delivery
               </div>
             </div>
           </div>
@@ -896,6 +907,18 @@
       });
       if (!isOpen) { el.classList.add('open'); answer.classList.add('open'); }
     }
+    function openPaypalModal() {
+      var m = document.getElementById('paypal-modal');
+      m.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closePaypalModal() {
+      document.getElementById('paypal-modal').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { closePaypalModal(); pendingOrderData = null; closeAuthModal(); }
+    });
     function openLiveChat() {
       if (window.Tawk_API && typeof Tawk_API.maximize === 'function') Tawk_API.maximize();
     }
