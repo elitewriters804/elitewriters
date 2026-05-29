@@ -65,7 +65,7 @@ function doPost(e) {
           '📚 Subject: '   + data.subject + '\n' +
           '⏰ Deadline: '  + data.deadline + '\n' +
           '💰 Price: '     + data.estimatedPrice + '\n\n' +
-          'We will contact you within 1 hour.\n\n' +
+          'We will contact you shortly.\n\n' +
           'WhatsApp: https://wa.me/16624002088\n\n' +
           'Thank you for choosing EliteWriters!'
       });
@@ -73,19 +73,19 @@ function doPost(e) {
 
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'ok', ticketId: ticketId }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.TEXT);
 
   } catch(err) {
     return ContentService
       .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.TEXT);
   }
 }
 
 function doGet(e) {
   return ContentService
     .createTextOutput(JSON.stringify({ status: 'EliteWriters API is live ✅', timestamp: new Date().toISOString() }))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
 function testEmail() {
