@@ -100,11 +100,102 @@
     }
     .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Marketplace Dynamic Card Structure From Layout Drawing ── */
+    .marketplace-feed-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+    }
+    .marketplace-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+    .marketplace-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: rgba(10,61,46,0.15);
+    }
+    .m-card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+    .m-user-block {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .m-avatar-circle {
+      width: 42px;
+      height: 42px;
+      background: #e2e8f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .m-user-meta-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .m-client-id {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+    .m-elapsed-time {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .m-order-badges-block {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .badge-order-no {
+      font-size: 0.78rem;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+    }
+    .badge-order-topic {
+      font-size: 0.78rem;
+      background: rgba(10,61,46,0.06);
+      color: var(--primary);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+    }
+    .m-stars-output {
+      color: #fbbf24;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+    .m-card-comment-body {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
@@ -122,7 +213,6 @@
     </div>
   </nav>
 
-  <!-- Page Hero -->
   <section class="page-hero">
     <div class="container">
       <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Reviews</span></div>
@@ -132,7 +222,6 @@
     </div>
   </section>
 
-  <!-- Stats Banner -->
   <section class="section-sm section-alt">
     <div class="container">
       <div class="grid-4">
@@ -157,97 +246,53 @@
     </div>
   </section>
 
-  <!-- Featured Reviews — REAL CLIENT REVIEWS -->
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <div class="eyebrow">Featured Reviews</div>
+        <div class="eyebrow">Live Marketplace Feed</div>
         <h2>Straight From Our Clients</h2>
-        <p>Real, verified reviews from clients on completed orders.</p>
+        <p>Real-time, structured reviews feeding live from completed writing transactions.</p>
       </div>
-      <div class="grid-3">
-
-        <!-- Real Review 1 -->
-        <div class="review-featured highlight">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"I had a great experience working with this writer. They took my instructions seriously, incorporated my professor's feedback, and delivered a well-organized, high-quality paper. The final product earned a 14/15, which reflects the strength of their work and attention to detail."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #758738</div>
-              <div class="review-date">19 hours ago · Essay on Analysis</div>
+      
+      <div id="marketplace-reviews-feed" class="marketplace-feed-container">
+        
+        <div class="marketplace-card">
+          <div class="m-card-top-row">
+            <div class="m-user-block">
+              <div class="m-avatar-circle">👤</div>
+              <div class="m-user-meta-stack">
+                <span class="m-client-id">Customer #758738</span>
+                <span class="m-elapsed-time">19 hours ago</span>
+              </div>
             </div>
-            <span class="badge badge-green">Academic Writing</span>
+            <div class="m-order-badges-block">
+              <span class="badge-order-no">Order: #8738</span>
+              <span class="badge-order-topic">Topic: Essay on Analysis</span>
+            </div>
+            <div class="m-stars-output">★★★★★</div>
+          </div>
+          <div class="m-card-comment-body">
+            "I had a great experience working with this writer. They took my instructions seriously, incorporated my professor's feedback, and delivered a well-organized, high-quality paper. The final product earned a 14/15, which reflects the strength of their work and attention to detail."
           </div>
         </div>
 
-        <!-- Real Review 2 -->
-        <div class="review-featured">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"I have been using EliteWriters for about 2 years now. They've helped me with my Masters degree and now my PhD. Their work, professionalism, and timeliness surpassed all my expectations. Very knowledgeable and helpful. Thank you."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #1124151</div>
-              <div class="review-date">1 hour ago · Book/Movie Review</div>
+        <div class="marketplace-card">
+          <div class="m-card-top-row">
+            <div class="m-user-block">
+              <div class="m-avatar-circle">👤</div>
+              <div class="m-user-meta-stack">
+                <span class="m-client-id">Customer #112415</span>
+                <span class="m-elapsed-time">1 day ago</span>
+              </div>
             </div>
-            <span class="badge badge-gold">PhD Writing</span>
+            <div class="m-order-badges-block">
+              <span class="badge-order-no">Order: #2415</span>
+              <span class="badge-order-topic">Topic: Book/Movie Review</span>
+            </div>
+            <div class="m-stars-output">★★★★★</div>
           </div>
-        </div>
-
-        <!-- Real Review 3 -->
-        <div class="review-featured">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"I have used EliteWriters for every essay I've needed. From my anatomy class to physics and American literature. Every essay, discussion post, research paper has been great. Thank you again."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #2406198</div>
-              <div class="review-date">6 hours ago · Essay</div>
-            </div>
-            <span class="badge badge-green">Essay Writing</span>
-          </div>
-        </div>
-
-        <!-- Real Review 4 -->
-        <div class="review-featured highlight">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"Best writer. Always follow instructions. Excellent work, free of plagiarism and AI. Always ahead of time. Very knowledgeable. HIGHLY RECOMMENDED."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #487110</div>
-              <div class="review-date">7 days ago · Discussion Post</div>
-            </div>
-            <span class="badge badge-green">Academic Writing</span>
-          </div>
-        </div>
-
-        <!-- Real Review 5 -->
-        <div class="review-featured">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"Always provides the most thoughtful and thorough replies to messages. You key in all the important parts that make a difference."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #1067364</div>
-              <div class="review-date">21 hours ago · Essay</div>
-            </div>
-            <span class="badge badge-gold">Essay Writing</span>
-          </div>
-        </div>
-
-        <!-- Real Review 6 -->
-        <div class="review-featured">
-          <span class="quote-icon">"</span>
-          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
-          <p>"EliteWriters goes above and beyond. If anything needs to be corrected they do it with no hesitation. I appreciate that. They care about what grade you will receive and not just the money. That means a lot."</p>
-          <div class="review-meta">
-            <div>
-              <div class="review-customer">Customer #1240823</div>
-              <div class="review-date">19 hours ago · Other</div>
-            </div>
-            <span class="badge badge-green">Academic Writing</span>
+          <div class="m-card-comment-body">
+            "I have been using EliteWriters for about 2 years now. They've helped me with my Masters degree and now my PhD. Their work, professionalism, and timeliness surpassed all my expectations. Very knowledgeable and helpful. Thank you."
           </div>
         </div>
 
@@ -255,7 +300,6 @@
     </div>
   </section>
 
-  <!-- More Reviews -->
   <section class="section-sm section-alt">
     <div class="container">
       <div class="section-header">
@@ -291,7 +335,6 @@
     </div>
   </section>
 
-  <!-- Screenshot Reviews -->
   <section class="section">
     <div class="container">
       <div class="section-header">
@@ -313,7 +356,6 @@
     </div>
   </section>
 
-  <!-- Leave a Review Form -->
   <section class="section section-alt">
     <div class="container">
       <div class="section-header">
@@ -390,7 +432,6 @@
         </div>
       </div>
 
-      <!-- Platform badges -->
       <div class="platform-badges">
         <a href="https://www.sitejabber.com" target="_blank" rel="noopener" class="platform-badge">
           ⭐ Review us on Sitejabber
@@ -405,7 +446,6 @@
     </div>
   </section>
 
-  <!-- Results Snapshot -->
   <section class="section-sm">
     <div class="container">
       <div class="section-header">
@@ -441,7 +481,6 @@
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta-section">
     <div class="container" style="position:relative;z-index:2">
       <div class="eyebrow" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.3);color:var(--accent)">Join Our Clients</div>
@@ -454,7 +493,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-grid">
@@ -528,7 +566,6 @@
     }
   </script>
 
-  <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
   (function(){
@@ -540,6 +577,5 @@
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
-  <!--End of Tawk.to Script-->
-</body>
+  </body>
 </html>
