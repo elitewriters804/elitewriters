@@ -53,13 +53,30 @@
     .price-line.total .amount{font-family:var(--font-display);font-size:1.8rem;color:var(--primary);font-weight:700}
     .rush-tag{font-size:.75rem;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:100px;margin-left:8px;font-weight:500}
     .payment-split{background:rgba(10,61,46,.05);border:1px solid rgba(10,61,46,.1);border-radius:var(--radius-sm);padding:.85rem 1rem;font-size:.88rem;color:var(--primary);margin-top:1rem}
-    .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:1.25rem}
-    .form-field label{font-size:.82rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em}
-    .form-field select,.form-field input,.form-field textarea{padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;color:var(--text-primary);background:var(--white);transition:var(--transition);width:100%;box-sizing:border-box}
+    .form-field{display:flex;flex-direction:column;gap:6px;margin-bottom:1.1rem}
+    .form-field label{font-size:.78rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;font-family:'Times New Roman',serif}
+    .form-field select,.form-field input,.form-field textarea{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Times New Roman',serif;font-size:.95rem;color:var(--text-primary);background:var(--white);transition:var(--transition);width:100%;box-sizing:border-box}
     .form-field select:focus,.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(10,61,46,.08)}
     .form-field textarea{resize:vertical;min-height:120px}
-    .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-    @media(max-width:768px){.form-grid-2{grid-template-columns:1fr;gap:0}}
+    /* New 2-col form grid */
+    .of-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1rem}
+    @media(max-width:768px){.of-grid{grid-template-columns:1fr}}
+    .of-col{display:flex;flex-direction:column}
+    /* Deadline pills */
+    .deadline-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem}
+    .dl-pill{padding:.35rem .75rem;border:1.5px solid var(--border);border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;background:var(--white);color:var(--text-secondary);transition:all .2s;font-family:'Times New Roman',serif}
+    .dl-pill:hover{border-color:var(--primary);color:var(--primary)}
+    .dl-pill.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+    .dl-pill.rush{border-color:#ef4444;color:#ef4444}
+    .dl-pill.rush.active{background:#ef4444;color:#fff;border-color:#ef4444}
+    /* Form card */
+    .order-form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden}
+    .of-card-header{background:var(--primary);padding:1.75rem 2rem}
+    .of-card-header .eyebrow{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.9);font-family:'Times New Roman',serif}
+    .of-card-header h2{color:#fff;margin:.5rem 0 .25rem;font-family:'Times New Roman',serif}
+    .of-card-header p{color:rgba(255,255,255,.7);font-size:.88rem;font-family:'Times New Roman',serif}
+    .of-card-body{padding:2rem}
+    @media(max-width:768px){.of-card-body{padding:1.25rem}}
     .instructions-file-row{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
     @media(max-width:768px){.instructions-file-row{grid-template-columns:1fr;gap:.75rem}}
     .file-upload-area{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:1.25rem;text-align:center;cursor:pointer;transition:var(--transition);background:var(--white);position:relative;min-height:100px;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -74,10 +91,10 @@
     .file-item-name{display:flex;align-items:center;gap:.5rem;flex:1;overflow:hidden}
     .file-item-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .file-remove{background:none;border:none;cursor:pointer;color:#ef4444;font-size:1rem;padding:0 .25rem}
-    .submit-btn{width:100%;padding:1rem;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:1rem;font-weight:600;cursor:pointer;transition:var(--transition);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+    .submit-btn{width:100%;padding:1rem;background:var(--primary);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:'Times New Roman',serif;font-size:1rem;font-weight:700;cursor:pointer;transition:var(--transition);margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.5rem;letter-spacing:.03em}
     .submit-btn:hover{background:var(--primary-light);transform:translateY(-2px);box-shadow:var(--shadow-md)}
     .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-    .form-note{font-size:.82rem;color:var(--text-muted);text-align:center;margin-top:.75rem}
+    .form-note{font-size:.82rem;color:var(--text-muted);text-align:center;margin-top:.75rem;font-family:'Times New Roman',serif}
     .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     /* Auth Modal */
@@ -287,137 +304,178 @@
           </div>
         </div>
 
-        <!-- RIGHT: Order Form -->
+        <!-- RIGHT: Order Form — New Layout -->
         <div>
-          <div style="margin-bottom:2rem">
-            <div class="eyebrow">Order Form</div>
-            <h2 style="margin:.75rem 0 .5rem">Submit Your Requirements</h2>
-            <p style="font-size:.95rem">Fill in your details. You'll log in or create a free account so we can send your confirmation email automatically.</p>
-          </div>
+          <div class="order-form-card">
+            <div class="of-card-header">
+              <div class="eyebrow">Order Form</div>
+              <h2>Submit Your Requirements</h2>
+              <p>Fill in your details and place your order in seconds.</p>
+            </div>
+            <div class="of-card-body">
 
-          <div id="auth-user-bar" style="display:none" class="auth-user-bar">
-            <div class="auth-user-avatar" id="auth-avatar">?</div>
-            <span class="auth-user-email" id="auth-email-display">—</span>
-            <span class="auth-signout" onclick="signOutUser()">Sign out</span>
-          </div>
+              <div id="auth-user-bar" style="display:none" class="auth-user-bar">
+                <div class="auth-user-avatar" id="auth-avatar">?</div>
+                <span class="auth-user-email" id="auth-email-display">—</span>
+                <span class="auth-signout" onclick="signOutUser()">Sign out</span>
+              </div>
 
-          <form id="order-form" onsubmit="handleSubmit(event)">
-            <div class="form-field">
-              <label for="f-email">Your Email Address</label>
-              <input type="email" id="f-email" placeholder="e.g. yourname@gmail.com" required>
-            </div>
-            <div class="form-field">
-              <label for="f-service">Service Needed</label>
-              <select id="f-service" required>
-                <option value="">Select a service...</option>
-                <option>Academic Writing</option>
-                <option>Blog & Article Writing</option>
-                <option>Business Content</option>
-                <option>Editing & Proofreading</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label for="f-topic">Subject / Topic</label>
-              <input type="text" id="f-topic" placeholder="e.g. Impact of CSR on Brand Reputation" required>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="f-type">Type of Paper</label>
-                <select id="f-type">
-                  <option value="">Select type...</option>
-                  <option>Essay</option><option>Research Paper</option><option>Case Study</option>
-                  <option>PowerPoint</option><option>Report</option><option>Literature Review</option>
-                  <option>Thesis / Dissertation</option><option>Blog Post</option>
-                  <option>Business Report</option><option>Other</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="f-level">Education Level</label>
-                <select id="f-level">
-                  <option value="">Select level...</option>
-                  <option>High School</option><option>Undergraduate</option>
-                  <option>Master's</option><option>PhD / Doctoral</option><option>Not Applicable</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="f-pages">Number of Pages</label>
-                <input type="number" id="f-pages" min="1" placeholder="e.g. 5">
-              </div>
-              <div class="form-field">
-                <label for="f-words">Word Count (optional)</label>
-                <input type="number" id="f-words" min="1" placeholder="e.g. 1500">
-              </div>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="f-sources">Sources Required</label>
-                <input type="number" id="f-sources" min="0" placeholder="e.g. 5">
-              </div>
-              <div class="form-field">
-                <label for="f-citation">Citation Style</label>
-                <select id="f-citation">
-                  <option value="">Select style...</option>
-                  <option>APA 7th Edition</option><option>MLA</option><option>Chicago</option>
-                  <option>Harvard</option><option>Turabian</option><option>Not Applicable</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="f-language">Language</label>
-                <select id="f-language">
-                  <option>English (US)</option><option>English (UK)</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label for="f-deadline">Deadline</label>
-                <input type="datetime-local" id="f-deadline" required>
-              </div>
-            </div>
-            <div class="instructions-file-row">
-              <div class="form-field" style="margin-bottom:0">
-                <label for="f-instructions">Additional Instructions</label>
-                <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources..." style="min-height:140px;height:100%"></textarea>
-              </div>
-              <div class="form-field" style="margin-bottom:0">
-                <label>Attach Files <span style="font-weight:400;text-transform:none;font-size:.78rem">(optional)</span></label>
-                <div class="file-upload-area" id="file-drop-zone">
-                  <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.zip">
-                  <div class="file-upload-icon">📎</div>
-                  <div class="file-upload-text"><span>Click to upload</span> or drag & drop</div>
-                  <div class="file-upload-hint">PDF, Word, PPT, Excel, Images</div>
+              <form id="order-form" onsubmit="handleSubmit(event)">
+
+                <!-- Client ID / Email -->
+                <div class="form-field">
+                  <label for="f-email">Client ID (Email Address)</label>
+                  <input type="email" id="f-email" placeholder="e.g. yourname@gmail.com" required>
                 </div>
-                <div class="file-list" id="file-list"></div>
-              </div>
-            </div>
-            <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:1.25rem">
-              🎫 Create My Ticket →
-            </button>
-            <p class="form-note">You'll be asked to log in — then your receipt lands in your inbox automatically.</p>
-          </form>
 
-          <div class="success-card" id="form-success">
-            <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
-            <h3 style="margin-bottom:.5rem;color:var(--primary)">Order Placed Successfully!</h3>
-            <p style="font-size:.9rem;margin-bottom:1rem;color:var(--text-secondary)">Your ticket is created and a confirmation email is on its way. We'll respond within 1 hour.</p>
-            <div class="ticket-box">
-              <div class="ticket-box-label">Your Order Ticket</div>
-              <div class="ticket-box-number" id="success-ticket-id">EW-001</div>
-              <div class="ticket-box-hint">Screenshot or note this number</div>
-            </div>
-            <div style="background:var(--off-white);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left">
-              <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em">What happens next:</p>
-              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">✅ Confirmation email sent to your inbox</p>
-              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">📋 Your order is logged in our system</p>
-              <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">💬 We'll review and reply within 1 hour</p>
-              <p style="font-size:.88rem;color:var(--text-secondary)">🔖 Quote your ticket number when following up</p>
-            </div>
-            <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-              <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 WhatsApp Us →</a>
-              <a href="index.html" class="btn btn-outline">Back to Home</a>
+                <!-- 2-column grid -->
+                <div class="of-grid">
+
+                  <!-- LEFT COLUMN -->
+                  <div class="of-col">
+                    <div class="form-field">
+                      <label for="f-topic">Topic</label>
+                      <input type="text" id="f-topic" placeholder="e.g. Impact of CSR on Brand Reputation" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-type">Type</label>
+                      <select id="f-type">
+                        <option value="">Select type...</option>
+                        <option>Essay</option>
+                        <option>Research Paper</option>
+                        <option>Discussion Post</option>
+                        <option>Case Study</option>
+                        <option>Report</option>
+                        <option>Literature Review</option>
+                        <option>Thesis / Dissertation</option>
+                        <option>PowerPoint</option>
+                        <option>Coursework</option>
+                        <option>Lecture Notes</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-level">Education Level</label>
+                      <select id="f-level">
+                        <option value="">Select level...</option>
+                        <option>High School</option>
+                        <option>Undergraduate / College</option>
+                        <option>Master's</option>
+                        <option>PhD / Doctoral</option>
+                        <option>Not Applicable</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-service">Service</label>
+                      <select id="f-service" required>
+                        <option value="">Select a service...</option>
+                        <option>Writing</option>
+                        <option>Rewriting</option>
+                        <option>Editing</option>
+                        <option>Proofreading</option>
+                        <option>Problem Solving</option>
+                        <option>Calculations</option>
+                        <option>Review My Work</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-pages">Size (Number of Pages)</label>
+                      <input type="number" id="f-pages" min="1" placeholder="e.g. 5">
+                    </div>
+                  </div>
+
+                  <!-- RIGHT COLUMN -->
+                  <div class="of-col">
+                    <div class="form-field">
+                      <label for="f-subject">Subject</label>
+                      <input type="text" id="f-subject" placeholder="e.g. Nursing, Business, English...">
+                    </div>
+                    <div class="form-field">
+                      <label for="f-language">Language</label>
+                      <select id="f-language">
+                        <option>English (US)</option>
+                        <option>English (UK)</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label>Deadline</label>
+                      <div class="deadline-pills">
+                        <button type="button" class="dl-pill rush" onclick="setDeadline(3,'h',this)">3hrs</button>
+                        <button type="button" class="dl-pill rush" onclick="setDeadline(6,'h',this)">6hrs</button>
+                        <button type="button" class="dl-pill rush" onclick="setDeadline(9,'h',this)">9hrs</button>
+                        <button type="button" class="dl-pill rush" onclick="setDeadline(12,'h',this)">12hrs</button>
+                        <button type="button" class="dl-pill" onclick="setDeadline(1,'d',this)">1 day</button>
+                        <button type="button" class="dl-pill" onclick="setDeadline(2,'d',this)">2 days</button>
+                        <button type="button" class="dl-pill" onclick="setDeadline(5,'d',this)">5 days</button>
+                      </div>
+                      <input type="datetime-local" id="f-deadline" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-citation">Citation Style</label>
+                      <select id="f-citation">
+                        <option value="">Select style...</option>
+                        <option>APA 7th Edition</option>
+                        <option>MLA</option>
+                        <option>Chicago</option>
+                        <option>Harvard</option>
+                        <option>Turabian</option>
+                        <option>Not Applicable</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="f-sources">Sources Required</label>
+                      <input type="number" id="f-sources" min="0" placeholder="e.g. 5">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Full width: Instructions + Files -->
+                <div class="instructions-file-row">
+                  <div class="form-field" style="margin-bottom:0">
+                    <label for="f-instructions">Instructions / Description</label>
+                    <textarea id="f-instructions" placeholder="Any specific requirements, formatting notes, preferred sources..." style="min-height:140px;height:100%"></textarea>
+                  </div>
+                  <div class="form-field" style="margin-bottom:0">
+                    <label>Attach Files <span style="font-weight:400;text-transform:none;font-size:.78rem">(optional)</span></label>
+                    <div class="file-upload-area" id="file-drop-zone">
+                      <input type="file" id="f-files" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png,.zip">
+                      <div class="file-upload-icon">📎</div>
+                      <div class="file-upload-text"><span>Click to upload</span> or drag & drop</div>
+                      <div class="file-upload-hint">PDF, Word, PPT, Excel, Images</div>
+                    </div>
+                    <div class="file-list" id="file-list"></div>
+                  </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn" style="margin-top:1.25rem">
+                  🎫 Place Order →
+                </button>
+                <p class="form-note">Your confirmation email will be sent automatically after placing your order.</p>
+              </form>
+
+              <div class="success-card" id="form-success">
+                <div style="font-size:3rem;margin-bottom:.75rem">🎉</div>
+                <h3 style="margin-bottom:.5rem;color:var(--primary)">Order Placed Successfully!</h3>
+                <p style="font-size:.9rem;margin-bottom:1rem;color:var(--text-secondary)">Your ticket is created and a confirmation email is on its way. We'll respond within 1 hour.</p>
+                <div class="ticket-box">
+                  <div class="ticket-box-label">Your Order Ticket</div>
+                  <div class="ticket-box-number" id="success-ticket-id">EW-001</div>
+                  <div class="ticket-box-hint">Screenshot or note this number</div>
+                </div>
+                <div style="background:var(--off-white);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:1.5rem;text-align:left">
+                  <p style="font-size:.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.05em">What happens next:</p>
+                  <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">✅ Confirmation email sent to your inbox</p>
+                  <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">📋 Your order is logged in our system</p>
+                  <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:.4rem">💬 We'll review and reply within 1 hour</p>
+                  <p style="font-size:.88rem;color:var(--text-secondary)">🔖 Quote your ticket number when following up</p>
+                </div>
+                <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+                  <a href="https://wa.me/16624002088" class="btn btn-primary" target="_blank">💬 WhatsApp Us →</a>
+                  <a href="index.html" class="btn btn-outline">Back to Home</a>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -523,7 +581,7 @@
     // ═══════════════════════════════════
     // CONFIG
     // ═══════════════════════════════════
-    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ-7o1h303uKT9stjb6FxmbbOE2c017JIU9mMu6ZRE-hPad9H5qQza7aLVB92_FVlL/exec';
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb1aYPdVleVtNQmGvfBEOrQwhdRMHdM7sM4d-itdNmB9-UQbRb3GoUsS3H4BUSCV_1/exec';
     var TAWKTO_EMAIL = 'tickets@elitewriters-oefbaw.p.tawk.email';
 
     // ═══════════════════════════════════
@@ -554,11 +612,6 @@
           document.getElementById('auth-user-bar').style.display = 'flex';
           document.getElementById('auth-avatar').textContent = (user.displayName || user.email || '?')[0].toUpperCase();
           document.getElementById('auth-email-display').textContent = user.email || 'Logged in';
-          // Auto-fill email field so client doesn't need to type it again
-          if (user.email) {
-            var emailField = document.getElementById('f-email');
-            if (emailField && !emailField.value) emailField.value = user.email;
-          }
           if (pendingOrderData) {
             var data = pendingOrderData;
             pendingOrderData = null;
@@ -675,18 +728,32 @@
     }
 
     // ═══════════════════════════════════
+    // DEADLINE PILLS
+    // ═══════════════════════════════════
+    function setDeadline(amount, unit, btn) {
+      var now = new Date();
+      if (unit === 'h') now.setHours(now.getHours() + amount);
+      else now.setDate(now.getDate() + amount);
+      var pad = function(n){ return String(n).padStart(2,'0'); };
+      var val = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+'T'+pad(now.getHours())+':'+pad(now.getMinutes());
+      document.getElementById('f-deadline').value = val;
+      document.querySelectorAll('.dl-pill').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+    }
+
+    // ═══════════════════════════════════
     // FORM SUBMIT
     // ═══════════════════════════════════
     function handleSubmit(e) {
       e.preventDefault();
       var clientEmail = document.getElementById('f-email').value.trim();
-      var service = document.getElementById('f-service').value;
-      var topic = document.getElementById('f-topic').value;
-      var type = document.getElementById('f-type').value;
-      var level = document.getElementById('f-level').value;
-      var pages = document.getElementById('f-pages').value;
-      var words = document.getElementById('f-words').value;
-      var sources = document.getElementById('f-sources').value;
+      var service  = document.getElementById('f-service').value;
+      var topic    = document.getElementById('f-topic').value;
+      var subject  = document.getElementById('f-subject').value;
+      var type     = document.getElementById('f-type').value;
+      var level    = document.getElementById('f-level').value;
+      var pages    = document.getElementById('f-pages').value;
+      var sources  = document.getElementById('f-sources').value;
       var citation = document.getElementById('f-citation').value;
       var language = document.getElementById('f-language').value;
       var deadline = document.getElementById('f-deadline').value;
@@ -704,12 +771,12 @@
       addons.push('Plagiarism & AI Report (FREE)');
 
       var orderData = {
-        service:service, topic:topic, paperType:type, educationLevel:level,
-        pages:pages, wordCount:words, sources:sources, citationStyle:citation,
+        service:service, topic:topic, subject:subject, paperType:type, educationLevel:level,
+        pages:pages, sources:sources, citationStyle:citation,
         language:language, deadline:deadline, instructions:instructions,
         addons:addons.join(', '), filesAttached:filesAttached,
         estimatedPrice:totalPrice, submittedAt:new Date().toLocaleString(),
-        clientEmail: clientEmail
+        clientEmail:clientEmail
       };
 
       submitOrderToBackend(orderData);
@@ -837,17 +904,12 @@
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  Tawk_API.customStyle = {
-    visibility: {
-      desktop: { position: 'bl', xOffset: 20, yOffset: 20 },
-      mobile:  { position: 'bl', xOffset: 10, yOffset: 10 }
-    }
-  };
   (function(){
   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
   s1.async=true;
   s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
   s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
   s0.parentNode.insertBefore(s1,s0);
   })();
   </script>
