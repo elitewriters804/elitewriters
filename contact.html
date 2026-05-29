@@ -592,7 +592,7 @@
     // ═══════════════════════════════════
     // CONFIG
     // ═══════════════════════════════════
-    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb1aYPdVleVtNQmGvfBEOrQwhdRMHdM7sM4d-itdNmB9-UQbRb3GoUsS3H4BUSCV_1/exec';
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ-7o1h303uKT9stjb6FxmbbOE2c017JIU9mMu6ZRE-hPad9H5qQza7aLVB92_FVlL/exec';
     var TAWKTO_EMAIL = 'tickets@elitewriters-oefbaw.p.tawk.email';
 
     // ═══════════════════════════════════
@@ -801,27 +801,34 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> Creating Ticket...';
 
-      var ticketId = generateTicketId();
-      data.ticketId = ticketId;
-
       var xhr = new XMLHttpRequest();
       xhr.open('POST', APPS_SCRIPT_URL, true);
       xhr.setRequestHeader('Content-Type', 'text/plain');
       xhr.timeout = 15000;
+
       xhr.onloadend = function() {
+        var ticketId = 'EW-???';
+        try {
+          var resp = JSON.parse(xhr.responseText);
+          if (resp && resp.ticketId) ticketId = resp.ticketId;
+        } catch(e) {}
         btn.disabled = false;
-        btn.innerHTML = '🎫 Create My Ticket →';
+        btn.innerHTML = '🎫 Place Order →';
         document.getElementById('success-ticket-id').textContent = ticketId;
         document.getElementById('order-form').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
       };
+
       xhr.onerror = function() {
+        // Fallback: use timestamp-based unique ID
+        var fallbackId = 'EW-' + Date.now().toString().slice(-6);
         btn.disabled = false;
-        btn.innerHTML = '🎫 Create My Ticket →';
-        document.getElementById('success-ticket-id').textContent = ticketId;
+        btn.innerHTML = '🎫 Place Order →';
+        document.getElementById('success-ticket-id').textContent = fallbackId;
         document.getElementById('order-form').style.display = 'none';
         document.getElementById('form-success').style.display = 'block';
       };
+
       xhr.send(JSON.stringify(data));
     }
 
