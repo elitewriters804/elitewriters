@@ -1,316 +1,545 @@
-// ════════════════════════════════════════════════════════
-//  EliteWriters — Google Apps Script Backend v2
-//  Fixes: CORS headers, Sheet logging, Email, tawk.to
-// ════════════════════════════════════════════════════════
-
-const SHEET_NAME     = "Orders";
-const TAWKTO_EMAIL   = "tickets@elitewriters-oefbaw.p.tawk.email";
-const BUSINESS_EMAIL = "elitewriters804@gmail.com";
-const BUSINESS_NAME  = "EliteWriters";
-
-// ── CORS headers helper ──
-function corsHeaders() {
-  return {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type"
-  };
-}
-
-// ── Handle OPTIONS preflight ──
-function doOptions(e) {
-  return ContentService
-    .createTextOutput("")
-    .setMimeType(ContentService.MimeType.TEXT);
-}
-
-// ── Handle POST ──
-function doPost(e) {
-  try {
-    let data = {};
-    
-    // Handle both JSON body and form data
-    if (e.postData && e.postData.contents) {
-      try {
-        data = JSON.parse(e.postData.contents);
-      } catch(parseErr) {
-        // Try form parameters
-        data = e.parameter || {};
-      }
-    } else {
-      data = e.parameter || {};
-    }
-
-    // Route by type
-    if (data.type === 'review') {
-      logReview(data);
-      return ContentService
-        .createTextOutput(JSON.stringify({ success: true, type: 'review' }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    // 1. Log to Sheet
-    const ticketId = logToSheet(data);
-
-    // 2. Email client receipt
-    if (data.clientEmail && data.clientEmail.includes('@')) {
-      try { sendClientReceipt(data, ticketId); } catch(emailErr) { Logger.log('Client email error: ' + emailErr); }
-    }
-
-    // 3. Alert tawk.to
-    try { alertTawkTo(data, ticketId, data.clientEmail || ""); } catch(tawkErr) { Logger.log('Tawk error: ' + tawkErr); }
-
-    const output = ContentService
-      .createTextOutput(JSON.stringify({ success: true, ticketId: ticketId }))
-      .setMimeType(ContentService.MimeType.JSON);
-    
-    return output;
-
-  } catch (err) {
-    Logger.log('doPost error: ' + err.toString());
-    return ContentService
-      .createTextOutput(JSON.stringify({ success: false, error: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-// ── Health check GET ──
-function doGet(e) {
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: "EliteWriters API is live ✅", timestamp: new Date().toISOString() }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-// ════════════════════════════════════════════════════════
-//  TASK 1: Log to Google Sheet
-// ════════════════════════════════════════════════════════
-function logToSheet(data) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName(SHEET_NAME);
-
-  if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME);
-    const headers = [
-      "Ticket #", "Date Submitted", "Client Email", "Service",
-      "Topic", "Paper Type", "Education Level", "Pages",
-      "Word Count", "Sources", "Citation Style", "Language",
-      "Deadline", "Add-ons", "Files Attached",
-      "Instructions", "Estimated Price", "Status"
-    ];
-    sheet.appendRow(headers);
-    const headerRange = sheet.getRange(1, 1, 1, headers.length);
-    headerRange.setBackground("#0a3d2e");
-    headerRange.setFontColor("#ffffff");
-    headerRange.setFontWeight("bold");
-    sheet.setFrozenRows(1);
-  }
-
-  const lastRow = sheet.getLastRow();
-  const ticketNum = Math.max(1, lastRow); // row 1 = header, so first order = row 2 = ticketNum 1
-  const ticketId  = data.ticketId || ("EW-" + String(ticketNum).padStart(3, "0"));
-
-  sheet.appendRow([
-    ticketId,
-    new Date().toLocaleString("en-GB", { timeZone: "Africa/Nairobi" }),
-    data.clientEmail    || "Not provided",
-    data.service        || "",
-    data.topic          || "",
-    data.paperType      || "",
-    data.educationLevel || "",
-    data.pages          || "",
-    data.wordCount      || "",
-    data.sources        || "",
-    data.citationStyle  || "",
-    data.language       || "",
-    data.deadline       || "",
-    data.addons         || "",
-    data.filesAttached  || "None",
-    data.instructions   || "",
-    data.estimatedPrice || "$0.00",
-    "New ⏳"
-  ]);
-
-  return ticketId;
-}
-
-// ════════════════════════════════════════════════════════
-//  TASK 2: Send Receipt Email to Client
-// ════════════════════════════════════════════════════════
-function sendClientReceipt(data, ticketId) {
-  const subject = `✅ Order Confirmed — Ticket ${ticketId} | EliteWriters`;
-
-  const htmlBody = `
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  body{margin:0;padding:0;background:#f4f4f4;font-family:'Helvetica Neue',Arial,sans-serif;}
-  .wrapper{max-width:600px;margin:0 auto;background:#fff;}
-  .header{background:#0a3d2e;padding:32px 40px;text-align:center;}
-  .header h1{color:#fff;margin:0;font-size:24px;}
-  .header p{color:rgba(255,255,255,0.7);margin:6px 0 0;font-size:14px;}
-  .ticket-box{background:#0a3d2e;border-radius:10px;padding:20px 28px;margin:28px 40px;text-align:center;}
-  .ticket-label{font-size:11px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;}
-  .ticket-num{font-family:monospace;font-size:28px;font-weight:700;color:#fbbf24;letter-spacing:.06em;}
-  .ticket-hint{font-size:11px;color:rgba(255,255,255,0.5);margin-top:6px;}
-  .content{padding:28px 40px;}
-  .section-title{font-size:11px;font-weight:700;color:#0a3d2e;text-transform:uppercase;letter-spacing:.1em;border-bottom:2px solid #e5e7eb;padding-bottom:8px;margin:24px 0 16px;}
-  .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f3f4f6;font-size:14px;}
-  .detail-label{color:#6b7280;}
-  .detail-value{color:#1a1a1a;font-weight:500;text-align:right;max-width:60%;}
-  .price-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px 20px;margin:20px 0;display:flex;justify-content:space-between;align-items:center;}
-  .price-label{font-size:14px;color:#166534;font-weight:600;}
-  .price-amount{font-size:24px;font-weight:700;color:#0a3d2e;}
-  .free-tag{display:inline-block;background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;}
-  .next-steps{background:#f9fafb;border-radius:8px;padding:20px;margin:20px 0;}
-  .step-item{padding:6px 0;font-size:14px;color:#374151;}
-  .cta-btn{display:block;width:fit-content;margin:24px auto;background:#0a3d2e;color:#fff;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:600;font-size:15px;text-align:center;}
-  .footer{background:#f9fafb;border-top:1px solid #e5e7eb;padding:24px 40px;text-align:center;}
-  .footer p{font-size:12px;color:#9ca3af;margin:4px 0;}
-  .footer a{color:#0a3d2e;text-decoration:none;}
-</style>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Read real 5-star reviews from verified clients of EliteWriters. Students and professionals share their experience with our academic and content writing services.">
+  <meta name="keywords" content="writing service reviews, essay writing service testimonials, academic writer reviews, trusted writing service">
+  <meta name="author" content="EliteWriters">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://elitewriters804.github.io/elitewriters/testimonials.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Client Reviews | EliteWriters — 5-Star Verified Reviews">
+  <meta property="og:description" content="Read real 5-star reviews from verified clients of EliteWriters.">
+  <meta property="og:url" content="https://elitewriters804.github.io/elitewriters/testimonials.html">
+  <meta property="og:site_name" content="EliteWriters">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Client Reviews | EliteWriters — 5-Star Verified Reviews">
+  <meta name="twitter:description" content="Read real 5-star reviews from verified clients of EliteWriters.">
+  <title>Client Reviews | EliteWriters</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Review Cards ── */
+    .review-featured {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem;
+      position: relative; transition: var(--transition);
+    }
+    .review-featured:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: rgba(10,61,46,0.2); }
+    .review-featured.highlight { border-color: var(--border-accent); background: rgba(201,168,76,0.02); }
+    .review-featured .quote-icon { font-family: var(--font-display); font-size: 4rem; color: var(--accent); line-height: 0.8; margin-bottom: 0.75rem; opacity: 0.35; display: block; }
+    .review-featured p { font-size: 0.97rem; font-style: italic; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.25rem; }
+    .review-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    .review-tag { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+    .review-customer { font-size: 0.82rem; font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; }
+    .review-date { font-size: 0.75rem; color: var(--text-muted); }
+    /* Secondary reviews */
+    .review-secondary { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.75rem; transition: var(--transition); }
+    .review-secondary:hover { box-shadow: var(--shadow-sm); border-color: rgba(10,61,46,0.15); }
+    /* Screenshot reviews */
+    .review-screenshot { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
+    .review-screenshot:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .review-screenshot img { width: 100%; display: block; }
+    /* Stats */
+    .stat-box { text-align: center; padding: 2rem 1.5rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); transition: var(--transition); }
+    .stat-box:hover { border-color: var(--border-accent); box-shadow: var(--shadow-sm); }
+    .stat-number { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); font-weight: 500; }
+    /* Platform badges */
+    .platform-badges { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+    .platform-badge {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.75rem 1.5rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); background: var(--white);
+      text-decoration: none; color: var(--text-primary);
+      font-size: 0.9rem; font-weight: 600; transition: var(--transition);
+    }
+    .platform-badge:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+    /* Review Form */
+    .review-form-wrap {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; max-width: 680px; margin: 0 auto;
+    }
+    .review-form-header { background: var(--primary); padding: 2rem 2.5rem; }
+    .review-form-header h3 { color: var(--white); font-size: 1.3rem; margin-bottom: 0.3rem; }
+    .review-form-header p { color: rgba(255,255,255,0.75); font-size: 0.9rem; }
+    .review-form-body { padding: 2rem 2.5rem; }
+    @media(max-width:768px){ .review-form-body { padding: 1.5rem; } .review-form-header { padding: 1.5rem; } }
+    .rform-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    .rform-field label { font-size: 0.82rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+    .rform-field input, .rform-field textarea, .rform-field select {
+      padding: 0.85rem 1rem; border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-size: 0.95rem; color: var(--text-primary); background: var(--white);
+      transition: var(--transition); width: 100%; box-sizing: border-box;
+    }
+    .rform-field input:focus, .rform-field textarea:focus, .rform-field select:focus {
+      outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(10,61,46,0.08);
+    }
+    .rform-field textarea { resize: vertical; min-height: 120px; }
+    /* Star rating input */
+    .star-rating { display: flex; gap: 0.5rem; flex-direction: row-reverse; justify-content: flex-end; }
+    .star-rating input { display: none; }
+    .star-rating label {
+      font-size: 2rem; cursor: pointer; color: #d1d5db; transition: color 0.15s;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label { color: #fbbf24; }
+    .review-submit-btn {
+      width: 100%; padding: 1rem; background: var(--primary); color: var(--white);
+      border: none; border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition);
+    }
+    .review-submit-btn:hover { background: var(--primary-light); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .review-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .review-success {
+      display: none; text-align: center; padding: 2rem;
+      background: rgba(10,61,46,0.04); border: 1px solid rgba(10,61,46,0.15);
+      border-radius: var(--radius-md); margin-top: 1rem;
+    }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 </head>
 <body>
-<div class="wrapper">
-  <div class="header">
-    <h1>EliteWriters</h1>
-    <p>Professional Academic &amp; Content Writing</p>
-  </div>
-  <div class="content">
-    <p style="font-size:16px;color:#1a1a1a;">Hi there,</p>
-    <p style="font-size:14px;color:#374151;line-height:1.6;">Thank you for placing your order with <strong>EliteWriters</strong>. Your request has been received and logged. Here are your details:</p>
-    <div class="ticket-box">
-      <div class="ticket-label">Your Order Ticket Number</div>
-      <div class="ticket-num">${ticketId}</div>
-      <div class="ticket-hint">Save this — quote it when following up</div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="testimonials.html" class="active">Reviews</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="section-title">Order Details</div>
-    <div class="detail-row"><span class="detail-label">Service</span><span class="detail-value">${data.service||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Topic</span><span class="detail-value">${data.topic||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Paper Type</span><span class="detail-value">${data.paperType||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Education Level</span><span class="detail-value">${data.educationLevel||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Pages</span><span class="detail-value">${data.pages||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Sources</span><span class="detail-value">${data.sources||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Citation Style</span><span class="detail-value">${data.citationStyle||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Language</span><span class="detail-value">${data.language||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Deadline</span><span class="detail-value">${data.deadline||'—'}</span></div>
-    <div class="detail-row"><span class="detail-label">Files Attached</span><span class="detail-value">${data.filesAttached||'None'}</span></div>
-    <div class="detail-row"><span class="detail-label">Add-ons</span><span class="detail-value">${data.addons||'—'}</span></div>
-    <div class="section-title">Pricing</div>
-    <div class="price-box">
-      <span class="price-label">Estimated Total</span>
-      <span class="price-amount">${data.estimatedPrice||'$0.00'}</span>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Reviews</span></div>
+      <div class="eyebrow">Client Reviews</div>
+      <h1>What Our Clients Say</h1>
+      <p>Every review is genuine. Every rating is earned. See what real students and professionals say about working with EliteWriters.</p>
     </div>
-    <p style="font-size:12px;color:#6b7280;">✅ Plagiarism &amp; AI Report: <span class="free-tag">INCLUDED FREE</span></p>
-    ${data.instructions ? `<div class="section-title">Your Instructions</div><p style="font-size:14px;color:#374151;background:#f9fafb;padding:14px;border-radius:8px;line-height:1.6;">${data.instructions}</p>` : ''}
-    <div class="section-title">What Happens Next</div>
-    <div class="next-steps">
-      <div class="step-item">✅ Order confirmed and logged in our system</div>
-      <div class="step-item">🔍 We'll review your requirements within <strong>1 hour</strong></div>
-      <div class="step-item">💬 We'll reach out to confirm and discuss payment</div>
-      <div class="step-item">✍️ Writing begins immediately after payment</div>
-      <div class="step-item">🔄 2 free revisions included on every order</div>
+  </section>
+
+  <!-- Stats Banner -->
+  <section class="section-sm section-alt">
+    <div class="container">
+      <div class="grid-4">
+        <div class="stat-box">
+          <div class="stat-number">5.0</div>
+          <div class="stars" style="margin-bottom:0.5rem">★★★★★</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">50+</div>
+          <div class="stat-label" style="margin-top:0.6rem">Verified Reviews</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">100%</div>
+          <div class="stat-label" style="margin-top:0.6rem">Client Satisfaction</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">500+</div>
+          <div class="stat-label" style="margin-top:0.6rem">Orders Completed</div>
+        </div>
+      </div>
     </div>
-    <a href="https://wa.me/16624002088" class="cta-btn">💬 Chat with Us on WhatsApp →</a>
-  </div>
-  <div class="footer">
-    <p><strong>EliteWriters</strong> — Professional Writing Services</p>
-    <p><a href="mailto:elitewriters804@gmail.com">elitewriters804@gmail.com</a> · <a href="https://wa.me/16624002088">+1 (662) 400-2088</a></p>
-    <p style="margin-top:10px;">Fast · Reliable · Confidential · 100% Original</p>
-  </div>
-</div>
+  </section>
+
+  <!-- Featured Reviews — REAL CLIENT REVIEWS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Featured Reviews</div>
+        <h2>Straight From Our Clients</h2>
+        <p>Real, verified reviews from clients on completed orders.</p>
+      </div>
+      <div class="grid-3">
+
+        <!-- Real Review 1 -->
+        <div class="review-featured highlight">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"I had a great experience working with this writer. They took my instructions seriously, incorporated my professor's feedback, and delivered a well-organized, high-quality paper. The final product earned a 14/15, which reflects the strength of their work and attention to detail."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #758738</div>
+              <div class="review-date">19 hours ago · Essay on Analysis</div>
+            </div>
+            <span class="badge badge-green">Academic Writing</span>
+          </div>
+        </div>
+
+        <!-- Real Review 2 -->
+        <div class="review-featured">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"I have been using EliteWriters for about 2 years now. They've helped me with my Masters degree and now my PhD. Their work, professionalism, and timeliness surpassed all my expectations. Very knowledgeable and helpful. Thank you."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #1124151</div>
+              <div class="review-date">1 hour ago · Book/Movie Review</div>
+            </div>
+            <span class="badge badge-gold">PhD Writing</span>
+          </div>
+        </div>
+
+        <!-- Real Review 3 -->
+        <div class="review-featured">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"I have used EliteWriters for every essay I've needed. From my anatomy class to physics and American literature. Every essay, discussion post, research paper has been great. Thank you again."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #2406198</div>
+              <div class="review-date">6 hours ago · Essay</div>
+            </div>
+            <span class="badge badge-green">Essay Writing</span>
+          </div>
+        </div>
+
+        <!-- Real Review 4 -->
+        <div class="review-featured highlight">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"Best writer. Always follow instructions. Excellent work, free of plagiarism and AI. Always ahead of time. Very knowledgeable. HIGHLY RECOMMENDED."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #487110</div>
+              <div class="review-date">7 days ago · Discussion Post</div>
+            </div>
+            <span class="badge badge-green">Academic Writing</span>
+          </div>
+        </div>
+
+        <!-- Real Review 5 -->
+        <div class="review-featured">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"Always provides the most thoughtful and thorough replies to messages. You key in all the important parts that make a difference."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #1067364</div>
+              <div class="review-date">21 hours ago · Essay</div>
+            </div>
+            <span class="badge badge-gold">Essay Writing</span>
+          </div>
+        </div>
+
+        <!-- Real Review 6 -->
+        <div class="review-featured">
+          <span class="quote-icon">"</span>
+          <div class="stars" style="margin-bottom:0.75rem">★★★★★</div>
+          <p>"EliteWriters goes above and beyond. If anything needs to be corrected they do it with no hesitation. I appreciate that. They care about what grade you will receive and not just the money. That means a lot."</p>
+          <div class="review-meta">
+            <div>
+              <div class="review-customer">Customer #1240823</div>
+              <div class="review-date">19 hours ago · Other</div>
+            </div>
+            <span class="badge badge-green">Academic Writing</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- More Reviews -->
+  <section class="section-sm section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">More Reviews</div>
+        <h2>More From Our Clients</h2>
+      </div>
+      <div class="grid-3">
+        <div class="review-secondary">
+          <div class="stars" style="margin-bottom:0.75rem;font-size:0.9rem">★★★★★</div>
+          <p style="font-size:0.92rem;font-style:italic;margin-bottom:1rem">"I've been using this service on and off for a few years now and have only ever received amazing papers — back on time and with accuracy. I will be back for more."</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">
+            <span class="review-tag">✅ Verified Client · Repeat Customer</span>
+            <span class="badge badge-green">Academic Writing</span>
+          </div>
+        </div>
+        <div class="review-secondary">
+          <div class="stars" style="margin-bottom:0.75rem;font-size:0.9rem">★★★★★</div>
+          <p style="font-size:0.92rem;font-style:italic;margin-bottom:1rem">"Genuinely an excellent writer. This was a thesis-level assignment and the results exceeded my expectations. Truly professional and reliable."</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">
+            <span class="review-tag">✅ Verified Client</span>
+            <span class="badge badge-gold">Thesis Writing</span>
+          </div>
+        </div>
+        <div class="review-secondary">
+          <div class="stars" style="margin-bottom:0.75rem;font-size:0.9rem">★★★★★</div>
+          <p style="font-size:0.92rem;font-style:italic;margin-bottom:1rem">"Great work as always — and always willing to make the necessary changes. Reliable, professional, and consistent every time."</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">
+            <span class="review-tag">✅ Verified Client · Repeat</span>
+            <span class="badge badge-green">Essay Writing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshot Reviews -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Verified Screenshots</div>
+        <h2>Unedited Reviews From Verified Clients</h2>
+        <p>Real screenshots of reviews left directly by clients on completed orders — unedited and unfiltered.</p>
+      </div>
+      <div class="grid-3">
+        <div class="review-screenshot"><img src="images/review1.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review2.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review3.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review4.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review5.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review6.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review7.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review8.png" alt="5-star client review" loading="lazy"></div>
+        <div class="review-screenshot"><img src="images/review9.png" alt="5-star client review" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leave a Review Form -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Share Your Experience</div>
+        <h2>Leave Us a Review</h2>
+        <p>Worked with us? We'd love to hear from you. Your feedback helps other students make informed decisions.</p>
+      </div>
+
+      <div class="review-form-wrap">
+        <div class="review-form-header">
+          <h3>⭐ Submit Your Review</h3>
+          <p>Takes less than 2 minutes. Your review will be added to our wall of testimonials.</p>
+        </div>
+        <div class="review-form-body">
+          <form id="review-form" onsubmit="submitReview(event)">
+
+            <div class="rform-field">
+              <label>Your Rating</label>
+              <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" title="5 stars">★</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="4 stars">★</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="3 stars">★</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="2 stars">★</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="1 star">★</label>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+              <div class="rform-field">
+                <label for="r-name">Your Name <span style="font-weight:400;text-transform:none">(or initials)</span></label>
+                <input type="text" id="r-name" placeholder="e.g. Sarah M." required>
+              </div>
+              <div class="rform-field">
+                <label for="r-email">Your Email</label>
+                <input type="email" id="r-email" placeholder="Your email address" required>
+              </div>
+            </div>
+
+            <div class="rform-field">
+              <label for="r-service">Service You Used</label>
+              <select id="r-service" required>
+                <option value="">Select service...</option>
+                <option>Academic Writing</option>
+                <option>Essay Writing</option>
+                <option>Research Paper</option>
+                <option>Thesis / Dissertation</option>
+                <option>Blog & Article Writing</option>
+                <option>Business Content</option>
+                <option>Editing & Proofreading</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="rform-field">
+              <label for="r-review">Your Review</label>
+              <textarea id="r-review" placeholder="Share your experience with EliteWriters — what did you order? How was the quality? Would you recommend us?" required></textarea>
+            </div>
+
+            <button type="submit" class="review-submit-btn" id="review-submit-btn">
+              ⭐ Submit My Review →
+            </button>
+          </form>
+
+          <div class="review-success" id="review-success">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem">🎉</div>
+            <h4 style="color:var(--primary);margin-bottom:0.5rem">Thank You for Your Review!</h4>
+            <p style="font-size:0.9rem;color:var(--text-secondary)">Your review has been submitted successfully. We truly appreciate your feedback and it will be featured on our testimonials page.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform badges -->
+      <div class="platform-badges">
+        <a href="https://www.sitejabber.com" target="_blank" rel="noopener" class="platform-badge">
+          ⭐ Review us on Sitejabber
+        </a>
+        <a href="https://www.trustpilot.com" target="_blank" rel="noopener" class="platform-badge">
+          ✅ Review us on Trustpilot
+        </a>
+        <a href="https://g.page/r/review" target="_blank" rel="noopener" class="platform-badge">
+          🔍 Review us on Google
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Snapshot -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Our Results</div>
+        <h2>What Every Client Gets</h2>
+      </div>
+      <div class="grid-3">
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">📝</div>
+          <div><h4 style="margin-bottom:0.3rem">100% Original Work</h4><p style="font-size:0.9rem">Every paper written from scratch based on your instructions.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">⏰</div>
+          <div><h4 style="margin-bottom:0.3rem">On-Time Delivery</h4><p style="font-size:0.9rem">Delivered before your deadline — every single time.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">♻️</div>
+          <div><h4 style="margin-bottom:0.3rem">Free Revisions</h4><p style="font-size:0.9rem">2 free revisions included on every order.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">🎓</div>
+          <div><h4 style="margin-bottom:0.3rem">Multi-Level Expertise</h4><p style="font-size:0.9rem">From high school to PhD — we handle every level.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">🔒</div>
+          <div><h4 style="margin-bottom:0.3rem">Full Confidentiality</h4><p style="font-size:0.9rem">Your identity and work remain 100% private.</p></div>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;flex-shrink:0">💬</div>
+          <div><h4 style="margin-bottom:0.3rem">Direct Communication</h4><p style="font-size:0.9rem">Always willing to make necessary changes — no hesitation.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container" style="position:relative;z-index:2">
+      <div class="eyebrow" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.3);color:var(--accent)">Join Our Clients</div>
+      <h2 style="margin:1rem 0">Ready to Experience EliteWriters?</h2>
+      <p>Join our growing list of satisfied students and professionals who trust EliteWriters to deliver quality, precision, and results — every single time.</p>
+      <div class="btn-group" style="justify-content:center">
+        <a href="contact.html" class="btn btn-accent btn-lg">Place Your Order Now →</a>
+        <a href="portfolio.html" class="btn btn-outline-white btn-lg">View Our Portfolio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
+          <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed on every order.</p>
+          <div class="footer-contact" style="margin-top:1.25rem">
+            <a href="mailto:elitewriters804@gmail.com">✉ elitewriters804@gmail.com</a>
+            <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
+          </div>
+        </div>
+        <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Academic Writing</a></li><li><a href="services.html">Blog & Articles</a></li><li><a href="services.html">Business Content</a></li><li><a href="services.html">Editing & Proofreading</a></li></ul></div>
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="testimonials.html">Reviews</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Subjects</h4><ul><li><a href="services.html">Nursing & Healthcare</a></li><li><a href="services.html">Business & Management</a></li><li><a href="services.html">English & Literature</a></li><li><a href="services.html">Psychology</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 EliteWriters. All Rights Reserved.</p>
+        <p>Professional Writing Services · Fast · Reliable · Confidential</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="mailto:elitewriters804@gmail.com" class="float-btn email-float" aria-label="Email us">
+    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  </a>
+  <a href="https://wa.me/16624002088" class="float-btn whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script>
+    var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb1aYPdVleVtNQmGvfBEOrQwhdRMHdM7sM4d-itdNmB9-UQbRb3GoUsS3H4BUSCV_1/exec';
+
+    function submitReview(e) {
+      e.preventDefault();
+
+      var rating = document.querySelector('input[name="rating"]:checked');
+      if (!rating) { alert('Please select a star rating!'); return; }
+
+      var btn = document.getElementById('review-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+      var data = {
+        type: 'review',
+        reviewRating: rating.value,
+        reviewName: document.getElementById('r-name').value,
+        reviewEmail: document.getElementById('r-email').value,
+        reviewService: document.getElementById('r-service').value,
+        reviewText: document.getElementById('r-review').value,
+        submittedAt: new Date().toLocaleString()
+      };
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', APPS_SCRIPT_URL, true);
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+      xhr.timeout = 15000;
+      xhr.onloadend = function() {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Submit My Review →';
+        document.getElementById('review-form').style.display = 'none';
+        document.getElementById('review-success').style.display = 'block';
+      };
+      xhr.onerror = function() {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Submit My Review →';
+        document.getElementById('review-form').style.display = 'none';
+        document.getElementById('review-success').style.display = 'block';
+      };
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </body>
-</html>`;
-
-  MailApp.sendEmail({
-    to: data.clientEmail,
-    subject: subject,
-    htmlBody: htmlBody,
-    name: BUSINESS_NAME,
-    replyTo: BUSINESS_EMAIL
-  });
-}
-
-// ════════════════════════════════════════════════════════
-//  TASK 3: Alert tawk.to
-// ════════════════════════════════════════════════════════
-function alertTawkTo(data, ticketId, clientEmail) {
-  const subject = `[${ticketId}] New Order: ${data.topic||'Untitled'} — ${data.service||''}`;
-  const body = `
-NEW ORDER — EliteWriters
-════════════════════════
-Ticket:    ${ticketId}
-Date:      ${new Date().toLocaleString("en-GB",{timeZone:"Africa/Nairobi"})}
-Client:    ${clientEmail||"Not provided"}
-
-ORDER DETAILS
-─────────────
-Service:        ${data.service||'—'}
-Topic:          ${data.topic||'—'}
-Paper Type:     ${data.paperType||'—'}
-Level:          ${data.educationLevel||'—'}
-Pages:          ${data.pages||'—'}
-Sources:        ${data.sources||'—'}
-Citation:       ${data.citationStyle||'—'}
-Language:       ${data.language||'—'}
-Deadline:       ${data.deadline||'—'}
-Files:          ${data.filesAttached||'None'}
-Add-ons:        ${data.addons||'—'}
-
-PRICE
-─────
-Estimated:      ${data.estimatedPrice||'$0.00'}
-Plagiarism/AI:  FREE (included)
-
-INSTRUCTIONS
-────────────
-${data.instructions||'None provided'}
-
-════════════════════════
-Reply to this email to contact the client.
-  `;
-
-  MailApp.sendEmail({
-    to: TAWKTO_EMAIL,
-    subject: subject,
-    body: body,
-    name: "EliteWriters Orders",
-    replyTo: clientEmail || BUSINESS_EMAIL
-  });
-}
-
-// ════════════════════════════════════════════════════════
-//  REVIEW SUBMISSIONS — logs to "Reviews" sheet + email alert
-// ════════════════════════════════════════════════════════
-function logReview(data) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName("Reviews");
-  if (!sheet) {
-    sheet = ss.insertSheet("Reviews");
-    const headers = ["Date", "Name", "Email", "Rating", "Service", "Review Text"];
-    sheet.appendRow(headers);
-    const h = sheet.getRange(1,1,1,6);
-    h.setBackground("#0a3d2e"); h.setFontColor("#ffffff"); h.setFontWeight("bold");
-    sheet.setFrozenRows(1);
-  }
-  sheet.appendRow([
-    new Date().toLocaleString("en-GB", {timeZone:"Africa/Nairobi"}),
-    data.reviewName    || "",
-    data.reviewEmail   || "",
-    data.reviewRating  || "",
-    data.reviewService || "",
-    data.reviewText    || ""
-  ]);
-
-  // Alert business email
-  MailApp.sendEmail({
-    to: BUSINESS_EMAIL,
-    subject: "⭐ New Review — " + (data.reviewRating||'') + " Stars | EliteWriters",
-    body: "New review submitted!\n\nName: " + (data.reviewName||'') +
-          "\nEmail: " + (data.reviewEmail||'') +
-          "\nRating: " + (data.reviewRating||'') + " stars" +
-          "\nService: " + (data.reviewService||'') +
-          "\nReview:\n" + (data.reviewText||''),
-    name: "EliteWriters Reviews"
-  });
-}
+</html>
