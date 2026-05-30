@@ -1,28 +1,29 @@
 /* ============================================
-   ELITEWRITERS — MAIN STYLESHEET
+   ELITEWRITERS — MAIN STYLESHEET (Navy Redesign)
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
 /* ── CSS Variables ── */
 :root {
-  --primary: #0a3d2e;
-  --primary-light: #0f6e56;
+  --primary: #1e2a4a;
+  --primary-light: #2d3f6e;
+  --primary-dark: #141d33;
   --accent: #c9a84c;
   --accent-light: #e8c96a;
   --white: #ffffff;
-  --off-white: #f8f6f1;
-  --light-gray: #f0ede6;
+  --off-white: #f8f7f4;
+  --light-gray: #f0eee8;
   --mid-gray: #888780;
-  --dark-gray: #2c2c2a;
+  --dark-gray: #0f1625;
   --text-primary: #1a1a18;
   --text-secondary: #555550;
   --text-muted: #888780;
-  --border: rgba(10, 61, 46, 0.12);
+  --border: rgba(30, 42, 74, 0.12);
   --border-accent: rgba(201, 168, 76, 0.3);
-  --shadow-sm: 0 2px 12px rgba(10, 61, 46, 0.08);
-  --shadow-md: 0 8px 32px rgba(10, 61, 46, 0.12);
-  --shadow-lg: 0 20px 60px rgba(10, 61, 46, 0.15);
+  --shadow-sm: 0 2px 12px rgba(30, 42, 74, 0.08);
+  --shadow-md: 0 8px 32px rgba(30, 42, 74, 0.12);
+  --shadow-lg: 0 20px 60px rgba(30, 42, 74, 0.15);
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
@@ -205,7 +206,7 @@ p { color: var(--text-secondary); line-height: 1.8; }
 
 /* ── Section Headers ── */
 .section-header { text-align: center; margin-bottom: 4rem; }
-.section-header .eyebrow {
+.eyebrow {
   display: inline-block;
   font-size: 0.8rem;
   font-weight: 600;
@@ -230,13 +231,13 @@ p { color: var(--text-secondary); line-height: 1.8; }
   transition: var(--transition);
 }
 .card:hover {
-  border-color: rgba(10, 61, 46, 0.2);
+  border-color: rgba(30, 42, 74, 0.2);
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
 .card-icon {
   width: 52px; height: 52px;
-  background: rgba(10, 61, 46, 0.06);
+  background: rgba(30, 42, 74, 0.06);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -262,7 +263,7 @@ p { color: var(--text-secondary); line-height: 1.8; }
   font-size: 0.78rem;
   font-weight: 500;
 }
-.badge-green { background: rgba(10, 61, 46, 0.08); color: var(--primary); border: 1px solid rgba(10,61,46,0.15); }
+.badge-green { background: rgba(30, 42, 74, 0.08); color: var(--primary); border: 1px solid rgba(30,42,74,0.15); }
 .badge-gold { background: rgba(201,168,76,0.12); color: #7a5c00; border: 1px solid var(--border-accent); }
 .badge-gray { background: var(--light-gray); color: var(--text-secondary); }
 
@@ -411,17 +412,13 @@ footer {
   text-decoration: none;
 }
 .float-btn:hover { transform: scale(1.1); }
-
-/* Email button — top */
 .email-float {
   bottom: 13rem;
   background: var(--primary);
-  box-shadow: 0 4px 20px rgba(10,61,46,0.35);
+  box-shadow: 0 4px 20px rgba(30,42,74,0.35);
 }
-.email-float:hover { box-shadow: 0 6px 28px rgba(10,61,46,0.45); }
+.email-float:hover { box-shadow: 0 6px 28px rgba(30,42,74,0.45); }
 .email-float svg { width: 24px; height: 24px; fill: white; }
-
-/* WhatsApp button — middle */
 .whatsapp-float {
   bottom: 9rem;
   background: #25D366;
@@ -439,6 +436,14 @@ footer {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
 .animate-fade-up { animation: fadeUp 0.7s cubic-bezier(0.4,0,0.2,1) forwards; }
 .animate-fade-in { animation: fadeIn 0.6s ease forwards; }
 .delay-1 { animation-delay: 0.1s; opacity: 0; }
@@ -446,6 +451,10 @@ footer {
 .delay-3 { animation-delay: 0.3s; opacity: 0; }
 .delay-4 { animation-delay: 0.4s; opacity: 0; }
 .delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+/* ── Illustration floating animation ── */
+.illus-float { animation: float 4s ease-in-out infinite; }
+.illus-float-slow { animation: floatSlow 6s ease-in-out infinite; }
 
 /* ── Highlight Text ── */
 .text-accent { color: var(--accent); }
@@ -464,12 +473,36 @@ footer {
 .mb-3 { margin-bottom: 1.5rem; }
 .mb-4 { margin-bottom: 2rem; }
 
+/* ── Common Assignments Tabs ── */
+.assign-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+.assign-tab {
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--border);
+  background: var(--white);
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+.assign-tab.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+.assign-tab:hover:not(.active) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.assign-panel { display: none; }
+.assign-panel.active { display: block; }
+
 /* ── Responsive ── */
 @media (max-width: 1024px) {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 768px) {
   .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--white); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1.25rem; box-shadow: var(--shadow-md); }
   .nav-links.open { display: flex; }
@@ -480,8 +513,8 @@ footer {
   .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .page-hero { padding: 7rem 0 4rem; }
+  .hero-illus { display: none; }
 }
-
 @media (max-width: 480px) {
   .container { padding: 0 1.25rem; }
   h1 { font-size: 2rem; }
