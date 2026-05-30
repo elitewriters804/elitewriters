@@ -3,26 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="EliteWriters delivers expert academic writing, essays, research papers, blog posts and business content. PhD-level expertise. On-time delivery. 100% confidential. Starting at $15/page.">
-  <meta name="keywords" content="academic writing service, essay writing, research paper writing, hire essay writer, professional content writer, blog writing service, business writing">
+  <meta name="description" content="EliteWriters delivers expert academic writing, essays, research papers, blog posts and business content. PhD-level expertise. On-time delivery. 100% confidential. Starting at $12/page.">
+  <meta name="keywords" content="academic writing service, essay writing, research paper writing, hire essay writer, professional content writer, blog writing service, business writing, nursing essay, APA essay, MLA essay">
   <meta name="author" content="EliteWriters">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://elitewriters804.github.io/elitewriters/">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="EliteWriters | Professional Academic & Content Writing Services">
-  <meta property="og:description" content="EliteWriters delivers expert academic writing, essays, research papers, blog posts and business content. PhD-level expertise. On-time delivery. 100% confidential. Starting at $15/page.">
+  <meta property="og:description" content="Expert academic writing, essays, research papers, blog posts and business content. PhD-level expertise. Starting at $12/page.">
   <meta property="og:url" content="https://elitewriters804.github.io/elitewriters/">
   <meta property="og:site_name" content="EliteWriters">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="EliteWriters | Professional Academic & Content Writing Services">
-  <meta name="twitter:description" content="EliteWriters delivers expert academic writing, essays, research papers, blog posts and business content. PhD-level expertise. On-time delivery. 100% confidential. Starting at $15/page.">
+  <meta name="twitter:description" content="Expert essays, research papers, blog posts. PhD-level. On-time. Confidential. From $12/page.">
   <title>EliteWriters | Professional Academic & Content Writing Services</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    /* ── Hero split layout ── */
+    .hero-section {
+      min-height: 100vh;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .hero-bg-circle-1 {
+      position: absolute; top: -20%; right: -8%;
+      width: 550px; height: 550px;
+      background: rgba(201,168,76,0.07);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-bg-circle-2 {
+      position: absolute; bottom: -25%; left: -5%;
+      width: 420px; height: 420px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-line {
+      position: absolute; top: 20%; left: 5%;
+      width: 1px; height: 60%;
+      background: rgba(201,168,76,0.15); pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      padding: 5rem 2rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      width: 100%;
+    }
+    @media(max-width:768px){
+      .hero-inner { grid-template-columns: 1fr; padding: 3rem 1.25rem; }
+      .hero-illus-wrap { display: none; }
+    }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap;
+    }
+    .hero-stat-divider { width: 1px; background: rgba(255,255,255,0.1); }
+
+    /* ── Pain point split ── */
+    .pain-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media(max-width:768px){ .pain-inner { grid-template-columns:1fr; gap:2.5rem; } }
+
+    /* ── What We Do split ── */
+    .whatwedo-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media(max-width:768px){ .whatwedo-inner { grid-template-columns:1fr; gap:2.5rem; } }
+
+    /* ── Common Assignments ── */
+    .assign-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media(max-width:768px){ .assign-inner { grid-template-columns:1fr; gap:2.5rem; } }
+    .assign-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .assign-list li {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.95rem; color: var(--text-secondary);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .assign-list li:last-child { border-bottom: none; }
+    .assign-list li::before {
+      content: '›';
+      color: var(--accent);
+      font-size: 1.1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .assign-preview {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .assign-preview-header {
+      background: var(--primary);
+      padding: 1rem 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .assign-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .assign-preview-body { padding: 1.5rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.9; }
+    .assign-preview-body strong { color: var(--text-primary); }
+    .assign-format-badge {
+      display: inline-block;
+      background: rgba(201,168,76,0.1);
+      color: #7a5c00;
+      border: 1px solid var(--border-accent);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Trust strip ── */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(6,1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+    @media(max-width:1024px){ .trust-strip { grid-template-columns: repeat(3,1fr); } }
+    @media(max-width:480px){ .trust-strip { grid-template-columns: repeat(2,1fr); } }
+    .trust-item {
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+    }
+    .trust-item:hover { border-color: rgba(30,42,74,0.25); box-shadow: var(--shadow-sm); }
+
+    /* ── Pain point feature cards ── */
+    .pain-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    @media(max-width:480px){ .pain-cards { grid-template-columns:1fr; } }
+  </style>
 </head>
 <body>
 
@@ -36,7 +174,7 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="portfolio.html">Portfolio</a></li>
         <li><a href="testimonials.html">Reviews</a></li>
-        <li><a href="order.html" class="nav-cta" style="background:var(--accent);color:var(--primary);">🎫 Place Order</a></li>
+        <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -44,134 +182,519 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section style="min-height: 100vh; background: var(--primary); display: flex; align-items: center; position: relative; overflow: hidden; padding-top: 72px;">
-    <div style="position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; background: rgba(201,168,76,0.06); border-radius: 50%; pointer-events: none;"></div>
-    <div style="position: absolute; bottom: -30%; left: -5%; width: 500px; height: 500px; background: rgba(255,255,255,0.02); border-radius: 50%; pointer-events: none;"></div>
-    <div style="position: absolute; top: 20%; left: 5%; width: 1px; height: 60%; background: rgba(201,168,76,0.15); pointer-events: none;"></div>
-
-    <div class="container" style="position: relative; z-index: 2; padding: 5rem 2rem;">
-      <div style="max-width: 780px;">
-        <div class="eyebrow animate-fade-up delay-1" style="background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.3); color: var(--accent); display: inline-block;">
+  <!-- ══════════════════════════════════
+       HERO — Split: Text + Illustration
+  ══════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-bg-circle-1"></div>
+    <div class="hero-bg-circle-2"></div>
+    <div class="hero-line"></div>
+    <div class="hero-inner">
+      <!-- Left: Text -->
+      <div>
+        <div class="eyebrow animate-fade-up delay-1" style="background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.3);color:var(--accent);display:inline-block;">
           ✦ Trusted by Students & Businesses Worldwide
         </div>
-        <h1 class="animate-fade-up delay-2" style="color: var(--white); margin: 1.5rem 0 1rem; line-height: 1.15;">
+        <h1 class="animate-fade-up delay-2" style="color:var(--white);margin:1.5rem 0 1rem;line-height:1.15;">
           Your Words.<br>Your Standards.<br><span class="text-accent">Our Expertise.</span>
         </h1>
-        <p class="animate-fade-up delay-3" style="color: rgba(255,255,255,0.75); font-size: 1.15rem; max-width: 580px; margin-bottom: 2.5rem;">
-          Essays. Research Papers. Case Studies. PowerPoints. Blog Posts. Business Content. Whatever your writing needs, we handle it with professionalism and precision. At EliteWriters, quality isn't a promise — it's our standard.
+        <p class="animate-fade-up delay-3" style="color:rgba(255,255,255,0.75);font-size:1.1rem;max-width:520px;margin-bottom:2.5rem;">
+          Essays. Research Papers. Case Studies. PowerPoints. Blog Posts. Business Content. Whatever your writing needs — EliteWriters delivers quality that speaks for itself.
         </p>
         <div class="btn-group animate-fade-up delay-4">
           <a href="contact.html" class="btn btn-accent btn-lg">Get a Free Quote →</a>
           <a href="services.html" class="btn btn-outline-white btn-lg">View Services</a>
         </div>
-        <div class="animate-fade-up delay-5" style="display: flex; gap: 2.5rem; margin-top: 3.5rem; flex-wrap: wrap;">
+        <div class="hero-stats animate-fade-up delay-5">
           <div>
-            <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent);">500+</div>
-            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 0.2rem;">Orders Completed</div>
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent);">500+</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;">Orders Completed</div>
           </div>
-          <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div class="hero-stat-divider"></div>
           <div>
-            <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent);">5★</div>
-            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 0.2rem;">Average Rating</div>
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent);">5★</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;">Average Rating</div>
           </div>
-          <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div class="hero-stat-divider"></div>
           <div>
-            <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent);">5+</div>
-            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 0.2rem;">Years Experience</div>
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent);">5+</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;">Years Experience</div>
           </div>
-          <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div class="hero-stat-divider"></div>
           <div>
-            <div style="font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--accent);">24h</div>
-            <div style="font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 0.2rem;">Rush Available</div>
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--accent);">3hr</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-top:0.2rem;">Rush Available</div>
           </div>
         </div>
+      </div>
+
+      <!-- Right: Hero SVG Illustration — Student at laptop -->
+      <div class="hero-illus-wrap" style="display:flex;justify-content:center;align-items:center;">
+        <svg class="illus-float" width="480" height="420" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Student studying at laptop with books and documents">
+          <!-- Desk surface -->
+          <rect x="60" y="300" width="360" height="18" rx="4" fill="#c9a84c" opacity="0.25"/>
+          <rect x="40" y="316" width="400" height="8" rx="3" fill="#c9a84c" opacity="0.15"/>
+          <!-- Desk legs -->
+          <rect x="90" y="322" width="10" height="60" rx="3" fill="#c9a84c" opacity="0.18"/>
+          <rect x="380" y="322" width="10" height="60" rx="3" fill="#c9a84c" opacity="0.18"/>
+
+          <!-- Laptop base -->
+          <rect x="140" y="250" width="200" height="52" rx="6" fill="#2d3f6e"/>
+          <rect x="145" y="255" width="190" height="42" rx="4" fill="#1e2a4a"/>
+          <!-- Laptop keyboard dots -->
+          <rect x="158" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="170" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="182" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="194" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="206" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="218" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="230" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="242" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="254" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="266" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="278" y="270" width="6" height="4" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="163" y="280" width="50" height="4" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <rect x="219" y="280" width="50" height="4" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <!-- Trackpad -->
+          <rect x="210" y="288" width="60" height="8" rx="2" fill="rgba(255,255,255,0.08)"/>
+
+          <!-- Laptop screen -->
+          <rect x="140" y="140" width="200" height="112" rx="8" fill="#2d3f6e"/>
+          <rect x="146" y="146" width="188" height="100" rx="5" fill="#0f1625"/>
+          <!-- Screen content: text lines -->
+          <rect x="158" y="158" width="80" height="5" rx="2" fill="rgba(201,168,76,0.7)"/>
+          <rect x="158" y="170" width="160" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+          <rect x="158" y="179" width="140" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="158" y="188" width="155" height="3" rx="1" fill="rgba(255,255,255,0.15)"/>
+          <rect x="158" y="197" width="120" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
+          <rect x="158" y="206" width="145" height="3" rx="1" fill="rgba(255,255,255,0.12)"/>
+          <rect x="158" y="215" width="100" height="3" rx="1" fill="rgba(255,255,255,0.1)"/>
+          <!-- Screen cursor blink -->
+          <rect x="262" y="215" width="2" height="10" rx="1" fill="rgba(201,168,76,0.8)"/>
+          <!-- Laptop hinge -->
+          <rect x="150" y="249" width="180" height="4" rx="2" fill="#141d33"/>
+
+          <!-- Student figure -->
+          <!-- Head -->
+          <ellipse cx="240" cy="108" rx="28" ry="30" fill="#f5c89a"/>
+          <!-- Hair -->
+          <path d="M212 100 Q215 72 240 68 Q265 72 268 100 Q258 88 240 86 Q222 88 212 100Z" fill="#3d2b1f"/>
+          <path d="M212 100 Q208 115 215 125" stroke="#3d2b1f" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M268 100 Q272 115 265 125" stroke="#3d2b1f" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- Face details -->
+          <ellipse cx="231" cy="108" rx="4" ry="4.5" fill="#fff" opacity="0.9"/>
+          <ellipse cx="249" cy="108" rx="4" ry="4.5" fill="#fff" opacity="0.9"/>
+          <circle cx="232" cy="109" r="2.5" fill="#3d2b1f"/>
+          <circle cx="250" cy="109" r="2.5" fill="#3d2b1f"/>
+          <!-- Glasses -->
+          <rect x="224" y="104" width="14" height="10" rx="5" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+          <rect x="242" y="104" width="14" height="10" rx="5" stroke="#c9a84c" stroke-width="1.5" fill="none"/>
+          <line x1="238" y1="109" x2="242" y2="109" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="224" y1="109" x2="220" y2="109" stroke="#c9a84c" stroke-width="1.5"/>
+          <line x1="256" y1="109" x2="260" y2="109" stroke="#c9a84c" stroke-width="1.5"/>
+          <!-- Smile -->
+          <path d="M233 118 Q240 123 247 118" stroke="#c17b5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Neck -->
+          <rect x="232" y="136" width="16" height="18" rx="4" fill="#f5c89a"/>
+          <!-- Body/shirt -->
+          <path d="M195 238 Q200 155 215 150 L225 145 Q230 168 240 170 Q250 168 255 145 L265 150 Q280 155 285 238Z" fill="#2d3f6e"/>
+          <!-- Shirt collar details -->
+          <path d="M225 145 L240 160 L255 145" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+          <!-- Left arm reaching toward laptop -->
+          <path d="M205 175 Q185 195 165 248" stroke="#f5c89a" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <!-- Right arm reaching toward laptop -->
+          <path d="M275 175 Q295 195 315 248" stroke="#f5c89a" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <!-- Hands -->
+          <ellipse cx="163" cy="251" rx="10" ry="8" fill="#f5c89a"/>
+          <ellipse cx="317" cy="251" rx="10" ry="8" fill="#f5c89a"/>
+
+          <!-- Floating book 1 (left) -->
+          <g class="illus-float-slow" style="animation-delay:0.5s">
+            <rect x="52" y="170" width="55" height="72" rx="4" fill="#c9a84c"/>
+            <rect x="57" y="175" width="45" height="62" rx="2" fill="#fff" opacity="0.9"/>
+            <rect x="62" y="183" width="35" height="3" rx="1" fill="#1e2a4a" opacity="0.5"/>
+            <rect x="62" y="191" width="30" height="2" rx="1" fill="#1e2a4a" opacity="0.3"/>
+            <rect x="62" y="197" width="33" height="2" rx="1" fill="#1e2a4a" opacity="0.3"/>
+            <rect x="62" y="203" width="28" height="2" rx="1" fill="#1e2a4a" opacity="0.3"/>
+            <rect x="62" y="209" width="32" height="2" rx="1" fill="#1e2a4a" opacity="0.25"/>
+            <rect x="62" y="215" width="25" height="2" rx="1" fill="#1e2a4a" opacity="0.25"/>
+            <rect x="52" y="170" width="6" height="72" rx="2" fill="#a88030"/>
+          </g>
+
+          <!-- Floating book 2 (right, different color) -->
+          <g class="illus-float-slow" style="animation-delay:1.2s">
+            <rect x="375" y="155" width="50" height="65" rx="4" fill="#3d6e4a" opacity="0.85"/>
+            <rect x="380" y="160" width="40" height="55" rx="2" fill="#fff" opacity="0.9"/>
+            <rect x="385" y="168" width="30" height="3" rx="1" fill="#1e2a4a" opacity="0.5"/>
+            <rect x="385" y="175" width="25" height="2" rx="1" fill="#1e2a4a" opacity="0.3"/>
+            <rect x="385" y="181" width="28" height="2" rx="1" fill="#1e2a4a" opacity="0.3"/>
+            <rect x="385" y="187" width="22" height="2" rx="1" fill="#1e2a4a" opacity="0.25"/>
+            <rect x="375" y="155" width="6" height="65" rx="2" fill="#2a5035" opacity="0.85"/>
+          </g>
+
+          <!-- Floating document/paper (top right) -->
+          <g class="illus-float" style="animation-delay:0.8s">
+            <rect x="360" y="68" width="70" height="88" rx="4" fill="#fff" opacity="0.92"/>
+            <rect x="360" y="68" width="70" height="88" rx="4" stroke="rgba(30,42,74,0.15)" stroke-width="1" fill="none"/>
+            <rect x="368" y="80" width="38" height="4" rx="2" fill="#c9a84c" opacity="0.7"/>
+            <rect x="368" y="90" width="52" height="2" rx="1" fill="#1e2a4a" opacity="0.2"/>
+            <rect x="368" y="96" width="46" height="2" rx="1" fill="#1e2a4a" opacity="0.15"/>
+            <rect x="368" y="102" width="50" height="2" rx="1" fill="#1e2a4a" opacity="0.15"/>
+            <rect x="368" y="108" width="42" height="2" rx="1" fill="#1e2a4a" opacity="0.12"/>
+            <rect x="368" y="114" width="48" height="2" rx="1" fill="#1e2a4a" opacity="0.12"/>
+            <rect x="368" y="120" width="38" height="2" rx="1" fill="#1e2a4a" opacity="0.1"/>
+            <rect x="368" y="130" width="44" height="2" rx="1" fill="#1e2a4a" opacity="0.1"/>
+            <!-- Paper fold corner -->
+            <path d="M414 68 L430 68 L430 84 Z" fill="rgba(201,168,76,0.2)"/>
+            <path d="M414 68 L414 84 L430 84" stroke="rgba(30,42,74,0.1)" stroke-width="1" fill="none"/>
+          </g>
+
+          <!-- Small star accents -->
+          <g opacity="0.5">
+            <path d="M110 60 L112 66 L118 66 L113 70 L115 76 L110 72 L105 76 L107 70 L102 66 L108 66 Z" fill="#c9a84c" opacity="0.6"/>
+            <path d="M368 36 L369.5 41 L375 41 L370.5 44 L372 49 L368 46 L364 49 L365.5 44 L361 41 L366.5 41 Z" fill="#c9a84c" opacity="0.4"/>
+            <circle cx="80" cy="130" r="3" fill="rgba(201,168,76,0.4)"/>
+            <circle cx="415" cy="120" r="2.5" fill="rgba(201,168,76,0.35)"/>
+            <circle cx="430" cy="200" r="2" fill="rgba(255,255,255,0.2)"/>
+            <circle cx="68" cy="260" r="3" fill="rgba(255,255,255,0.15)"/>
+          </g>
+        </svg>
       </div>
     </div>
   </section>
 
-  <!-- Pain Point Section -->
+  <!-- ══════════════════════════════════
+       PAIN POINT — Text + Illustration
+  ══════════════════════════════════ -->
   <section class="section section-alt">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
+      <div class="pain-inner">
+        <!-- Left: Illustration — overwhelmed student -->
+        <div style="display:flex;justify-content:center;">
+          <svg class="illus-float-slow" width="400" height="360" viewBox="0 0 400 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Student overwhelmed by papers and deadlines">
+            <!-- Desk -->
+            <rect x="30" y="260" width="340" height="14" rx="4" fill="#1e2a4a" opacity="0.2"/>
+            <!-- Stacked papers/books on desk -->
+            <rect x="40" y="200" width="70" height="62" rx="3" fill="#e8c96a" opacity="0.7"/>
+            <rect x="44" y="196" width="70" height="62" rx="3" fill="#c9a84c" opacity="0.6"/>
+            <rect x="48" y="192" width="70" height="62" rx="3" fill="#fff" opacity="0.9" stroke="rgba(30,42,74,0.1)" stroke-width="1"/>
+            <rect x="56" y="204" width="50" height="3" rx="1" fill="#1e2a4a" opacity="0.4"/>
+            <rect x="56" y="212" width="44" height="2" rx="1" fill="#1e2a4a" opacity="0.25"/>
+            <rect x="56" y="218" width="46" height="2" rx="1" fill="#1e2a4a" opacity="0.2"/>
+            <rect x="56" y="224" width="38" height="2" rx="1" fill="#1e2a4a" opacity="0.2"/>
+            <rect x="56" y="230" width="42" height="2" rx="1" fill="#1e2a4a" opacity="0.15"/>
+            <!-- More papers scattered -->
+            <rect x="290" y="210" width="65" height="52" rx="3" fill="#fff" opacity="0.9" stroke="rgba(30,42,74,0.12)" stroke-width="1" transform="rotate(-8 290 210)"/>
+            <rect x="294" y="222" width="45" height="2" rx="1" fill="#1e2a4a" opacity="0.3" transform="rotate(-8 290 210)"/>
+            <rect x="294" y="228" width="38" height="2" rx="1" fill="#1e2a4a" opacity="0.2" transform="rotate(-8 290 210)"/>
+            <!-- Clock on wall -->
+            <circle cx="350" cy="80" r="32" fill="#fff" stroke="rgba(30,42,74,0.15)" stroke-width="2"/>
+            <circle cx="350" cy="80" r="28" fill="#f8f7f4"/>
+            <circle cx="350" cy="80" r="3" fill="#1e2a4a"/>
+            <!-- Clock hands — showing almost deadline -->
+            <line x1="350" y1="80" x2="350" y2="56" stroke="#1e2a4a" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="350" y1="80" x2="368" y2="74" stroke="#c9a84c" stroke-width="2" stroke-linecap="round"/>
+            <!-- Clock numbers dots -->
+            <circle cx="350" cy="54" r="2" fill="#1e2a4a" opacity="0.4"/>
+            <circle cx="376" cy="80" r="2" fill="#1e2a4a" opacity="0.4"/>
+            <circle cx="350" cy="106" r="2" fill="#1e2a4a" opacity="0.4"/>
+            <circle cx="324" cy="80" r="2" fill="#1e2a4a" opacity="0.4"/>
+            <!-- Student figure sitting -->
+            <!-- Head -->
+            <ellipse cx="200" cy="138" rx="26" ry="28" fill="#f5c89a"/>
+            <!-- Hair -->
+            <path d="M174 128 Q178 102 200 98 Q222 102 226 128 Q217 116 200 114 Q183 116 174 128Z" fill="#5c3d1e"/>
+            <!-- Worried face -->
+            <ellipse cx="191" cy="138" rx="3.5" ry="4" fill="#fff" opacity="0.9"/>
+            <ellipse cx="209" cy="138" rx="3.5" ry="4" fill="#fff" opacity="0.9"/>
+            <circle cx="192" cy="139" r="2" fill="#3d2b1f"/>
+            <circle cx="210" cy="139" r="2" fill="#3d2b1f"/>
+            <!-- Worried eyebrows -->
+            <path d="M186 130 Q191 127 196 130" stroke="#5c3d1e" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M204 130 Q209 127 214 130" stroke="#5c3d1e" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- Small sweat drop -->
+            <ellipse cx="222" cy="130" rx="4" ry="6" fill="#7eb8e0" opacity="0.6"/>
+            <!-- Worried mouth -->
+            <path d="M194 150 Q200 146 206 150" stroke="#c17b5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Neck -->
+            <rect x="192" y="163" width="16" height="16" rx="4" fill="#f5c89a"/>
+            <!-- Body -->
+            <path d="M168 255 Q172 180 186 175 L194 170 Q197 190 200 192 Q203 190 206 170 L214 175 Q228 180 232 255Z" fill="#2d3f6e"/>
+            <!-- Left arm resting on head (stressed pose) -->
+            <path d="M180 188 Q170 165 178 140" stroke="#f5c89a" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <ellipse cx="178" cy="136" rx="9" ry="7" fill="#f5c89a"/>
+            <!-- Right arm on desk -->
+            <path d="M220 188 Q245 215 245 258" stroke="#f5c89a" stroke-width="11" fill="none" stroke-linecap="round"/>
+            <ellipse cx="245" cy="260" rx="10" ry="7" fill="#f5c89a"/>
+            <!-- Floating exclamation / stress marks -->
+            <text x="130" y="105" font-size="22" fill="#c9a84c" opacity="0.7" font-family="serif" font-weight="bold">?</text>
+            <text x="258" y="95" font-size="20" fill="#c9a84c" opacity="0.6" font-family="serif" font-weight="bold">!</text>
+            <text x="148" y="80" font-size="16" fill="rgba(30,42,74,0.4)" font-family="serif">✦</text>
+            <!-- Small floating paper -->
+            <rect x="110" y="145" width="44" height="56" rx="3" fill="#fff" opacity="0.85" stroke="rgba(30,42,74,0.12)" stroke-width="1" transform="rotate(15 110 145)"/>
+            <rect x="118" y="156" width="28" height="2" rx="1" fill="#1e2a4a" opacity="0.3" transform="rotate(15 110 145)"/>
+            <rect x="118" y="162" width="22" height="2" rx="1" fill="#c9a84c" opacity="0.5" transform="rotate(15 110 145)"/>
+          </svg>
+        </div>
+
+        <!-- Right: Text -->
         <div>
           <div class="eyebrow">We Know the Feeling</div>
-          <h2 style="margin: 1rem 0 1.5rem;">Deadlines Creeping Up. Blank Page Staring Back.</h2>
-          <p style="margin-bottom: 1.25rem;">Whether you're a student buried under coursework or a business owner who simply doesn't have the time — you shouldn't have to do it alone.</p>
-          <p style="margin-bottom: 2rem;">That's exactly why <strong style="color: var(--primary);">EliteWriters exists.</strong> We are a professional writing service built for people who expect more — more quality, more reliability, and more results.</p>
+          <h2 style="margin:1rem 0 1.5rem;">Deadlines Creeping Up.<br>Blank Page Staring Back.</h2>
+          <p style="margin-bottom:1.25rem;">Whether you're a student buried under coursework or a business owner who simply doesn't have the time — you shouldn't have to do it alone.</p>
+          <p style="margin-bottom:2rem;">That's exactly why <strong style="color:var(--primary);">EliteWriters exists.</strong> We are a professional writing service built for people who expect more — more quality, more reliability, and more results.</p>
+          <div class="pain-cards" style="margin-bottom:2rem;">
+            <div class="card" style="background:var(--primary);border-color:transparent;">
+              <div class="card-icon" style="background:rgba(255,255,255,0.1);font-size:1.4rem;">⏰</div>
+              <h4 style="color:white;margin-bottom:0.4rem;">Deadline Guaranteed</h4>
+              <p style="color:rgba(255,255,255,0.7);font-size:0.88rem;">On time, every time — no excuses.</p>
+            </div>
+            <div class="card" style="margin-top:1.25rem;">
+              <div class="card-icon" style="font-size:1.4rem;">📝</div>
+              <h4 style="margin-bottom:0.4rem;">100% Original</h4>
+              <p style="font-size:0.88rem;">Written from scratch. Zero plagiarism.</p>
+            </div>
+            <div class="card">
+              <div class="card-icon" style="font-size:1.4rem;">🔒</div>
+              <h4 style="margin-bottom:0.4rem;">Confidential</h4>
+              <p style="font-size:0.88rem;">Your privacy is sacred. Always.</p>
+            </div>
+            <div class="card" style="background:rgba(201,168,76,0.07);border-color:var(--border-accent);margin-top:1.25rem;">
+              <div class="card-icon" style="background:rgba(201,168,76,0.15);font-size:1.4rem;">🎯</div>
+              <h4 style="margin-bottom:0.4rem;">Personalized</h4>
+              <p style="font-size:0.88rem;">Tailored to your exact needs.</p>
+            </div>
+          </div>
           <a href="about.html" class="btn btn-primary">Our Story →</a>
         </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
-          <div class="card" style="background: var(--primary); border-color: transparent; color: white;">
-            <div class="card-icon" style="background: rgba(255,255,255,0.1); font-size: 1.5rem;">⏰</div>
-            <h4 style="color: white; margin-bottom: 0.5rem;">Deadline Guaranteed</h4>
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">On time, every time — no excuses.</p>
-          </div>
-          <div class="card" style="margin-top: 1.5rem;">
-            <div class="card-icon" style="font-size: 1.5rem;">📝</div>
-            <h4 style="margin-bottom: 0.5rem;">100% Original</h4>
-            <p style="font-size: 0.9rem;">Written from scratch. Zero plagiarism.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon" style="font-size: 1.5rem;">🔒</div>
-            <h4 style="margin-bottom: 0.5rem;">Confidential</h4>
-            <p style="font-size: 0.9rem;">Your privacy is sacred. Always.</p>
-          </div>
-          <div class="card" style="background: rgba(201,168,76,0.08); border-color: var(--border-accent); margin-top: 1.5rem;">
-            <div class="card-icon" style="background: rgba(201,168,76,0.15); font-size: 1.5rem;">🎯</div>
-            <h4 style="margin-bottom: 0.5rem;">Personalized</h4>
-            <p style="font-size: 0.9rem;">Tailored to your exact needs.</p>
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Snapshot -->
+  <!-- ══════════════════════════════════
+       WHAT WE DO — Text + Illustration
+  ══════════════════════════════════ -->
   <section class="section">
     <div class="container">
-      <div class="section-header">
-        <div class="eyebrow">What We Do Best</div>
-        <h2>From the Classroom to the Boardroom</h2>
-        <p>Expert writing across academic, blog, and business categories — delivered with PhD-level precision.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card">
-          <div class="card-icon" style="font-size: 1.6rem;">📚</div>
-          <h3>Academic Writing</h3>
-          <p style="margin-bottom: 1.25rem;">Essays, research papers, case studies, PowerPoints, dissertations, and more — at any academic level.</p>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge-green">Starting at $15/page</span>
-            <a href="services.html" style="color: var(--primary); font-size: 0.9rem; font-weight: 500;">Learn more →</a>
+      <div class="whatwedo-inner">
+        <!-- Left: Text + service cards -->
+        <div>
+          <div class="eyebrow">What We Do Best</div>
+          <h2 style="margin:1rem 0 1rem;">From the Classroom<br>to the Boardroom</h2>
+          <p style="margin-bottom:2rem;">Expert writing across academic, blog, and business categories — delivered with PhD-level precision and a personal touch.</p>
+          <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
+            <div class="card" style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;">
+              <div style="width:44px;height:44px;background:rgba(30,42,74,0.07);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📚</div>
+              <div>
+                <h4 style="margin-bottom:0.25rem;">Academic Writing</h4>
+                <p style="font-size:0.88rem;margin-bottom:0.5rem;">Essays, research papers, case studies, dissertations — any academic level.</p>
+                <span class="badge badge-green">From $12/page</span>
+              </div>
+            </div>
+            <div class="card" style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;border-color:var(--border-accent);background:rgba(201,168,76,0.02);">
+              <div style="width:44px;height:44px;background:rgba(201,168,76,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">✍️</div>
+              <div>
+                <h4 style="margin-bottom:0.25rem;">Blog & Article Writing</h4>
+                <p style="font-size:0.88rem;margin-bottom:0.5rem;">SEO-optimized content that engages your audience and drives traffic.</p>
+                <span class="badge badge-gold">From $0.08/word</span>
+              </div>
+            </div>
+            <div class="card" style="display:flex;align-items:flex-start;gap:1rem;padding:1.25rem;">
+              <div style="width:44px;height:44px;background:rgba(30,42,74,0.07);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📊</div>
+              <div>
+                <h4 style="margin-bottom:0.25rem;">Business Content</h4>
+                <p style="font-size:0.88rem;margin-bottom:0.5rem;">Reports, proposals, and professional copy that speaks with authority.</p>
+                <span class="badge badge-green">From $0.10/word</span>
+              </div>
+            </div>
           </div>
+          <a href="services.html" class="btn btn-primary">See Full Services & Pricing →</a>
         </div>
-        <div class="card" style="border-color: var(--border-accent); background: rgba(201,168,76,0.03);">
-          <div class="card-icon" style="background: rgba(201,168,76,0.12); font-size: 1.6rem;">✍️</div>
-          <h3>Blog & Article Writing</h3>
-          <p style="margin-bottom: 1.25rem;">Engaging, SEO-optimized blog posts and articles that keep your audience coming back for more.</p>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge-gold">Starting at $0.08/word</span>
-            <a href="services.html" style="color: var(--primary); font-size: 0.9rem; font-weight: 500;">Learn more →</a>
-          </div>
+
+        <!-- Right: Illustration — writer at work -->
+        <div style="display:flex;justify-content:center;">
+          <svg class="illus-float" width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Professional writer working on documents">
+            <!-- Background circle decoration -->
+            <circle cx="220" cy="200" r="155" fill="rgba(30,42,74,0.04)"/>
+            <circle cx="220" cy="200" r="120" fill="rgba(201,168,76,0.04)"/>
+            <!-- Desk -->
+            <rect x="50" y="288" width="300" height="12" rx="4" fill="#1e2a4a" opacity="0.18"/>
+            <!-- Large document on desk -->
+            <rect x="100" y="160" width="160" height="130" rx="6" fill="#fff" stroke="rgba(30,42,74,0.12)" stroke-width="1.5"/>
+            <!-- Document header -->
+            <rect x="112" y="174" width="70" height="6" rx="2" fill="#c9a84c" opacity="0.8"/>
+            <rect x="112" y="186" width="136" height="3" rx="1" fill="#1e2a4a" opacity="0.2"/>
+            <rect x="112" y="193" width="124" height="3" rx="1" fill="#1e2a4a" opacity="0.15"/>
+            <rect x="112" y="200" width="130" height="3" rx="1" fill="#1e2a4a" opacity="0.15"/>
+            <rect x="112" y="207" width="110" height="3" rx="1" fill="#1e2a4a" opacity="0.12"/>
+            <rect x="112" y="214" width="128" height="3" rx="1" fill="#1e2a4a" opacity="0.12"/>
+            <rect x="112" y="221" width="118" height="3" rx="1" fill="#1e2a4a" opacity="0.1"/>
+            <rect x="112" y="228" width="132" height="3" rx="1" fill="#1e2a4a" opacity="0.1"/>
+            <rect x="112" y="235" width="106" height="3" rx="1" fill="#1e2a4a" opacity="0.08"/>
+            <rect x="112" y="242" width="126" height="3" rx="1" fill="#1e2a4a" opacity="0.08"/>
+            <rect x="112" y="249" width="90" height="3" rx="1" fill="#1e2a4a" opacity="0.07"/>
+            <!-- Pen/pencil on document -->
+            <rect x="240" y="220" width="6" height="58" rx="3" fill="#c9a84c" transform="rotate(-25 240 220)"/>
+            <polygon points="239,278 245,278 242,290" fill="#3d2b1f" transform="rotate(-25 242 278)"/>
+            <rect x="239" y="220" width="8" height="8" rx="1" fill="#f5c89a" transform="rotate(-25 240 220)"/>
+
+            <!-- Writer figure -->
+            <!-- Head -->
+            <ellipse cx="290" cy="118" rx="24" ry="26" fill="#dfa67a"/>
+            <!-- Hair short/professional -->
+            <path d="M266 110 Q270 88 290 84 Q310 88 314 110 Q306 98 290 96 Q274 98 266 110Z" fill="#2c1a0e"/>
+            <!-- Face -->
+            <ellipse cx="282" cy="118" rx="3" ry="3.5" fill="#fff" opacity="0.9"/>
+            <ellipse cx="298" cy="118" rx="3" ry="3.5" fill="#fff" opacity="0.9"/>
+            <circle cx="283" cy="119" r="2" fill="#2c1a0e"/>
+            <circle cx="299" cy="119" r="2" fill="#2c1a0e"/>
+            <!-- Focused expression -->
+            <path d="M286 128 Q290 131 294 128" stroke="#c17b5a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Neck -->
+            <rect x="282" y="142" width="14" height="14" rx="3" fill="#dfa67a"/>
+            <!-- Body — professional top -->
+            <path d="M262 240 Q265 160 278 155 L285 150 Q287 168 290 170 Q293 168 295 150 L302 155 Q315 160 318 240Z" fill="#1e2a4a"/>
+            <!-- Collar -->
+            <path d="M285 150 L290 162 L295 150" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+            <!-- Left arm writing -->
+            <path d="M268 172 Q250 200 242 250" stroke="#dfa67a" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <ellipse cx="240" cy="252" rx="9" ry="7" fill="#dfa67a"/>
+            <!-- Right arm resting -->
+            <path d="M312 172 Q325 200 330 250" stroke="#dfa67a" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <ellipse cx="330" cy="252" rx="9" ry="7" fill="#dfa67a"/>
+
+            <!-- Floating badge: "A+" -->
+            <circle cx="75" cy="100" r="28" fill="#c9a84c" opacity="0.15" stroke="#c9a84c" stroke-width="1.5"/>
+            <text x="63" y="108" font-size="22" font-weight="700" fill="#c9a84c" font-family="Georgia,serif">A+</text>
+
+            <!-- Floating small doc -->
+            <g class="illus-float-slow" style="animation-delay:1s">
+              <rect x="50" y="180" width="44" height="56" rx="3" fill="#fff" opacity="0.85" stroke="rgba(30,42,74,0.12)" stroke-width="1" transform="rotate(-10 50 180)"/>
+              <rect x="57" y="192" width="28" height="2" rx="1" fill="#c9a84c" opacity="0.6" transform="rotate(-10 50 180)"/>
+              <rect x="57" y="198" width="22" height="2" rx="1" fill="#1e2a4a" opacity="0.2" transform="rotate(-10 50 180)"/>
+              <rect x="57" y="204" width="24" height="2" rx="1" fill="#1e2a4a" opacity="0.15" transform="rotate(-10 50 180)"/>
+            </g>
+
+            <!-- Stars/sparkles -->
+            <path d="M348 80 L350 88 L358 88 L352 93 L354 101 L348 97 L342 101 L344 93 L338 88 L346 88Z" fill="#c9a84c" opacity="0.5"/>
+            <circle cx="60" cy="150" r="3" fill="rgba(201,168,76,0.4)"/>
+            <circle cx="365" cy="160" r="2.5" fill="rgba(30,42,74,0.2)"/>
+          </svg>
         </div>
-        <div class="card">
-          <div class="card-icon" style="font-size: 1.6rem;">📊</div>
-          <h3>Business Content</h3>
-          <p style="margin-bottom: 1.25rem;">Reports, proposals, website copy, and professional content that speaks with authority and drives results.</p>
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span class="badge badge-green">Starting at $0.10/word</span>
-            <a href="services.html" style="color: var(--primary); font-size: 0.9rem; font-weight: 500;">Learn more →</a>
-          </div>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 3rem;">
-        <a href="services.html" class="btn btn-primary btn-lg">See Full Services & Pricing →</a>
       </div>
     </div>
   </section>
 
-  <!-- Testimonials -->
+  <!-- ══════════════════════════════════
+       COMMON ASSIGNMENTS — Tabs
+  ══════════════════════════════════ -->
   <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Common Assignments</div>
+        <h2>Types of Work We Handle</h2>
+        <p>From quick discussion posts to full dissertations — we cover every format with APA, MLA, Chicago, Harvard and more.</p>
+      </div>
+      <div class="assign-inner">
+        <!-- Left: Assignment list -->
+        <div>
+          <ul class="assign-list">
+            <li>Essay (any type)</li>
+            <li>Research Paper</li>
+            <li>Discussion Post</li>
+            <li>Case Study</li>
+            <li>PowerPoint Presentation</li>
+            <li>Literature Review</li>
+            <li>Thesis / Dissertation</li>
+            <li>Coursework Assignment</li>
+            <li>Report / Business Report</li>
+            <li>Annotated Bibliography</li>
+            <li>Blog Post / Article</li>
+            <li>Editing & Proofreading</li>
+          </ul>
+          <div style="margin-top:2rem;">
+            <a href="contact.html" class="btn btn-primary">Start Your Order →</a>
+          </div>
+        </div>
+        <!-- Right: Style preview tabs -->
+        <div>
+          <div class="assign-tabs">
+            <button class="assign-tab active" onclick="switchTab('apa',this)">APA Style</button>
+            <button class="assign-tab" onclick="switchTab('mla',this)">MLA Style</button>
+            <button class="assign-tab" onclick="switchTab('chicago',this)">Chicago</button>
+          </div>
+          <!-- APA Preview -->
+          <div class="assign-panel active" id="panel-apa">
+            <div class="assign-preview">
+              <div class="assign-preview-header">
+                <div class="assign-dot" style="background:#ef4444;"></div>
+                <div class="assign-dot" style="background:#f59e0b;"></div>
+                <div class="assign-dot" style="background:#22c55e;"></div>
+                <span style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-left:0.75rem;">essay_draft.docx</span>
+              </div>
+              <div class="assign-preview-body">
+                <div class="assign-format-badge">APA 7th Edition</div>
+                <p><strong>Varying Definitions of Online Communication and Their Effects on Relationship Development</strong></p>
+                <p style="margin-top:0.75rem;font-size:0.82rem;">Smith, J. A. (2023). The impact of digital communication on interpersonal relationships. <em>Journal of Communication Studies, 45</em>(2), 112–130. https://doi.org/10.xxxx</p>
+                <div style="margin-top:1rem;padding:0.75rem;background:var(--off-white);border-radius:6px;font-size:0.8rem;">
+                  <div style="color:var(--text-muted);margin-bottom:0.3rem;">Example in-text citation:</div>
+                  <div style="color:var(--text-primary);">(Smith, 2023, p. 45)</div>
+                </div>
+                <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted);">Double-spaced · Times New Roman 12pt</div>
+              </div>
+            </div>
+          </div>
+          <!-- MLA Preview -->
+          <div class="assign-panel" id="panel-mla">
+            <div class="assign-preview">
+              <div class="assign-preview-header">
+                <div class="assign-dot" style="background:#ef4444;"></div>
+                <div class="assign-dot" style="background:#f59e0b;"></div>
+                <div class="assign-dot" style="background:#22c55e;"></div>
+                <span style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-left:0.75rem;">essay_mla.docx</span>
+              </div>
+              <div class="assign-preview-body">
+                <div class="assign-format-badge">MLA 9th Edition</div>
+                <p><strong>Varying Definitions of Online Communication and Their Effects on Relationship Development</strong></p>
+                <p style="margin-top:0.75rem;font-size:0.82rem;">Smith, John A. "The Impact of Digital Communication on Interpersonal Relationships." <em>Journal of Communication Studies</em>, vol. 45, no. 2, 2023, pp. 112–130.</p>
+                <div style="margin-top:1rem;padding:0.75rem;background:var(--off-white);border-radius:6px;font-size:0.8rem;">
+                  <div style="color:var(--text-muted);margin-bottom:0.3rem;">Example in-text citation:</div>
+                  <div style="color:var(--text-primary);">(Smith 45)</div>
+                </div>
+                <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted);">Double-spaced · Times New Roman 12pt</div>
+              </div>
+            </div>
+          </div>
+          <!-- Chicago Preview -->
+          <div class="assign-panel" id="panel-chicago">
+            <div class="assign-preview">
+              <div class="assign-preview-header">
+                <div class="assign-dot" style="background:#ef4444;"></div>
+                <div class="assign-dot" style="background:#f59e0b;"></div>
+                <div class="assign-dot" style="background:#22c55e;"></div>
+                <span style="color:rgba(255,255,255,0.6);font-size:0.8rem;margin-left:0.75rem;">essay_chicago.docx</span>
+              </div>
+              <div class="assign-preview-body">
+                <div class="assign-format-badge">Chicago 17th Edition</div>
+                <p><strong>Varying Definitions of Online Communication and Their Effects on Relationship Development</strong></p>
+                <p style="margin-top:0.75rem;font-size:0.82rem;">Smith, John A. "The Impact of Digital Communication." <em>Journal of Communication Studies</em> 45, no. 2 (2023): 112–130.</p>
+                <div style="margin-top:1rem;padding:0.75rem;background:var(--off-white);border-radius:6px;font-size:0.8rem;">
+                  <div style="color:var(--text-muted);margin-bottom:0.3rem;">Footnote style:</div>
+                  <div style="color:var(--text-primary);">¹ Smith, "Digital Communication," 45.</div>
+                </div>
+                <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--text-muted);">Double-spaced · Times New Roman 12pt</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       TESTIMONIALS
+  ══════════════════════════════════ -->
+  <section class="section">
     <div class="container">
       <div class="section-header">
         <div class="eyebrow">Client Reviews</div>
@@ -182,81 +705,69 @@
         <div class="testimonial-card">
           <div class="quote-mark">"</div>
           <div class="stars">★★★★★</div>
-          <p style="margin-top: 0.75rem;">"I've been using this service on and off for a few years and have only ever received amazing papers — back on time and with accuracy. I will be back for more work."</p>
+          <p style="margin-top:0.75rem;">"I've been using this service on and off for a few years and have only ever received amazing papers — back on time and with accuracy. I will be back for more work."</p>
           <div class="reviewer">Verified Client · Repeat Customer</div>
         </div>
-        <div class="testimonial-card" style="border-color: var(--border-accent); background: rgba(201,168,76,0.02);">
+        <div class="testimonial-card" style="border-color:var(--border-accent);background:rgba(201,168,76,0.02);">
           <div class="quote-mark">"</div>
           <div class="stars">★★★★★</div>
-          <p style="margin-top: 0.75rem;">"Genuinely an excellent writer, and I truly value the quality and depth of the work delivered. This was a thesis-level assignment and results exceeded my expectations."</p>
+          <p style="margin-top:0.75rem;">"Genuinely an excellent writer, and I truly value the quality and depth of the work delivered. This was a thesis-level assignment and results exceeded my expectations."</p>
           <div class="reviewer">Verified Client · Thesis Writing</div>
         </div>
         <div class="testimonial-card">
           <div class="quote-mark">"</div>
           <div class="stars">★★★★★</div>
-          <p style="margin-top: 0.75rem;">"Gave me exactly what I wanted and finished before the due date. I would highly recommend EliteWriters to anyone looking for quality writing help."</p>
+          <p style="margin-top:0.75rem;">"Gave me exactly what I wanted and finished before the due date. I would highly recommend EliteWriters to anyone looking for quality writing help."</p>
           <div class="reviewer">Verified Client · Report Writing</div>
         </div>
       </div>
-      <div style="text-align: center; margin-top: 2.5rem;">
+      <div style="text-align:center;margin-top:2.5rem;">
         <a href="testimonials.html" class="btn btn-outline">Read All Reviews →</a>
       </div>
     </div>
   </section>
 
-  <!-- Trust Badges -->
-  <section class="section-sm">
+  <!-- ══════════════════════════════════
+       TRUST STRIP
+  ══════════════════════════════════ -->
+  <section class="section-sm section-alt">
     <div class="container">
-      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; text-align: center;">
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">✅</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Plagiarism Free</div>
-        </div>
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">⏰</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">On-Time Delivery</div>
-        </div>
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">🔒</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">100% Confidential</div>
-        </div>
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">♻️</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Free Revisions</div>
-        </div>
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">💬</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Direct Communication</div>
-        </div>
-        <div style="padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-          <div style="font-size: 1.4rem; margin-bottom: 0.4rem;">🎯</div>
-          <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500;">Tailored to You</div>
-        </div>
+      <div class="trust-strip">
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">✅</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">Plagiarism Free</div></div>
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">⏰</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">On-Time Delivery</div></div>
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">🔒</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">100% Confidential</div></div>
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">♻️</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">Free Revisions</div></div>
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">💬</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">Direct Communication</div></div>
+        <div class="trust-item"><div style="font-size:1.4rem;margin-bottom:0.4rem;">🎯</div><div style="font-size:0.8rem;color:var(--text-secondary);font-weight:500;">Tailored to You</div></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
+  <!-- ══════════════════════════════════
+       CTA
+  ══════════════════════════════════ -->
   <section class="cta-section">
-    <div class="container" style="position: relative; z-index: 2;">
-      <div class="eyebrow" style="background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.3); color: var(--accent);">Ready to Get Started?</div>
-      <h2 style="margin: 1rem 0;">Stop Stressing. Start Succeeding.</h2>
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="eyebrow" style="background:rgba(201,168,76,0.15);border-color:rgba(201,168,76,0.3);color:var(--accent);">Ready to Get Started?</div>
+      <h2 style="margin:1rem 0;">Stop Stressing. Start Succeeding.</h2>
       <p>You deserve writing that works as hard as you do. Let EliteWriters handle it — professionally, confidentially, and on time.</p>
-      <div class="btn-group" style="justify-content: center;">
+      <div class="btn-group" style="justify-content:center;">
         <a href="contact.html" class="btn btn-accent btn-lg">Get Your Free Quote →</a>
         <a href="services.html" class="btn btn-outline-white btn-lg">View Pricing</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="nav-logo">Elite<span>Writers</span></a>
           <p>Professional academic and content writing services. Quality, precision, and confidentiality — guaranteed on every order.</p>
-          <div class="footer-contact" style="margin-top: 1.25rem;">
+          <div class="footer-contact" style="margin-top:1.25rem;">
             <a href="mailto:elitewriters804@gmail.com">✉ elitewriters804@gmail.com</a>
             <a href="https://wa.me/16624002088">💬 WhatsApp: +1 (662) 400-2088</a>
           </div>
@@ -298,30 +809,35 @@
     </div>
   </footer>
 
-  <!-- Email Float -->
   <a href="mailto:elitewriters804@gmail.com" class="float-btn email-float" aria-label="Email us">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
   </a>
-  <!-- WhatsApp Float -->
   <a href="https://wa.me/16624002088" class="float-btn whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
   <script src="js/main.js"></script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+  <script>
+    // Assignment style tabs
+    function switchTab(id, btn) {
+      document.querySelectorAll('.assign-panel').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelectorAll('.assign-tab').forEach(function(b){ b.classList.remove('active'); });
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a13ae82ca67221c346be777/1jpee3c7l';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
 </body>
 </html>
